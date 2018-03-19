@@ -1,15 +1,16 @@
 # valparaison
 
 ### Dev :
-- Clément S : Front -> Vue.js
 
 - Brice L
 
 - Billy V
 
 - Thibaut M
+
+- Clément S : Front -> Vue.js
  
 ### Infra 
-- Romain 
+- Romain O
 
-- Théo
+- Théo R
