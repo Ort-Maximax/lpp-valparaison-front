@@ -1,0 +1,19 @@
+.appBarContainer {
+  flex-grow: 1;
+}
+.appBarContainer a {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: white;
+}
+.flex {
+  flex: 1;
+}
+.menuButton {
+  margin-left: -12;
+  margin-right: 20;
+}
