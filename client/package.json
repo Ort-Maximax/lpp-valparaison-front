@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@okta/okta-auth-js": "^1.14.0",
+    "@okta/okta-signin-widget": "^2.7.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
