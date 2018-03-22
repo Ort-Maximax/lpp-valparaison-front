@@ -51,7 +51,8 @@ export default withAuth(class Topbar extends Component {
             <Typography variant='title' color='inherit' className='flex'>
               Valparaison
             </Typography>
-            <Link to='/'>Home</Link>           
+            <Link to='/'>Home</Link>
+            <Link to='/signup'>SignUp</Link>             
             <Link to='/protected'>Protected</Link> 
             {authButton}
           </Toolbar>
