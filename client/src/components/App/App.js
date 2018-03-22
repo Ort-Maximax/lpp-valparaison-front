@@ -4,7 +4,7 @@ import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react';
 import Home from '../Home/Home';
 import Topbar from '../Topbar/Topbar';
 import Login from '../Login/Login';
-import SignUp from '../SignUp/SignUp';
+import Signup from '../Signup/Signup';
 import Protected from '../Protected/Protected';
 
 import './App.css';
@@ -24,7 +24,7 @@ class App extends Component {
                     onAuthRequired={onAuthRequired} >
             <Route path='/*' component={Topbar} />
             <Route path='/' exact={true} component={Home} />
-            <Route path='/signup' exact={true} component={SignUp} />
+            <Route path='/signup' exact={true} component={Signup} />
             <SecureRoute path='/protected' component={Protected} />
             <Route path='/login' render={() => <Login baseUrl='https://dev-438691.oktapreview.com' />} />
             <Route path='/implicit/callback' component={ImplicitCallback} />

@@ -6663,6 +6663,10 @@ react-event-listener@^0.5.1:
     prop-types "^15.6.0"
     warning "^3.0.0"
 
+react-form-validator-core@0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/react-form-validator-core/-/react-form-validator-core-0.4.1.tgz#fba6db1063b4816eb791794de204672e111e12ba"
+
 react-jss@^8.1.0:
   version "8.3.5"
   resolved "https://registry.yarnpkg.com/react-jss/-/react-jss-8.3.5.tgz#963ed6677e8112820d0495853cd4c3d0fb1d05fd"
@@ -6676,6 +6680,20 @@ react-jss@^8.1.0:
 react-lifecycles-compat@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-1.0.2.tgz#551d8b1d156346e5fcf30ffac9b32ce3f78b8850"
+
+react-material-ui-form-validator@^2.0.0-beta.4:
+  version "2.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/react-material-ui-form-validator/-/react-material-ui-form-validator-2.0.0-beta.4.tgz#53928c6c0118f864c69bfcc4863086ece0c9e0f0"
+  dependencies:
+    react-form-validator-core "0.4.1"
+
+react-materialize@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/react-materialize/-/react-materialize-2.1.2.tgz#ecceb2d1243c1507b2e1bfc97b215f5e262c52ec"
+  dependencies:
+    classnames "^2.2.5"
+    react "^16.2.0"
+    react-dom "^16.2.0"
 
 react-popper@^0.8.0:
   version "0.8.3"

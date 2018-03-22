@@ -43,7 +43,7 @@ export default withAuth(class Topbar extends Component {
       <div className='appBarContainer'>
         <AppBar position='static' color='primary'>
           <Toolbar>
-            <IconButton className={topbarStyles.menuButton} color='inherit' aria-label='Menu'>
+            <IconButton className='menuButton' color='inherit' aria-label='Menu'>
               <SvgIcon>
                 <Logo />
               </SvgIcon>              
