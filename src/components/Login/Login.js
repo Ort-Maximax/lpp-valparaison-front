@@ -26,9 +26,10 @@ export default withAuth(class Login extends Component {
   }
 
   onSuccess(res) {
-    return this.props.auth.redirect({
-      sessionToken: res.session.token
-    });
+    console.log(res);
+    return this.props.auth.redirect({      
+      sessionToken: res.idToken
+    });    
   }
 
   onError(err) {
