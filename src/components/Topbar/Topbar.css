@@ -1,19 +1,29 @@
-.appBarContainer {
-  flex-grow: 1;
-}
-.appBarContainer a {
+a {
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   padding-left: 10px;
   padding-right: 10px;
   text-decoration: none;
   font-size: 0.875rem;
   font-weight: 500;
+}
+a:hover {
+  cursor: pointer;
+}
+.appBarContainer {
+  flex-grow: 1;
+}
+.appBarContainer a {
+  color: white;
+}
+.appBarContainer svg {
   color: white;
 }
 .flex {
   flex: 1;
 }
-.menuButton {
-  margin-left: -12;
-  margin-right: 20;
+.list {
+  width: 250px;
+}
+.list a {
+  font-size: 1.45rem;
 }

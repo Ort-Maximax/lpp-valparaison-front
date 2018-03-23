@@ -15,7 +15,7 @@ export default withRouter(class OktaSignInWidget extends Component {
       idps: [
         {type: 'GOOGLE', id: '0oaed8nypg1lcekav0h7'},
         /*
-        A METTRE EN PROD
+        TODO : A METTRE EN PROD
         {type: 'FACEBOOK', id: '0oaefphiatHspHxEK0h7'},
         */
       ],
