@@ -18,6 +18,7 @@ Quand on souhaite telecharger / supprimer / modifier / streamer un fichier, on r
 
  Utiliser CouchDb / Pouchdb permettrait de repliquer l'index de l'utilisateur dans le WebSQL
 
+
 ```javascript
 idCLient : {
   	dossier1 : {
@@ -45,3 +46,5 @@ idCLient : {
 On genere l'arborescence depuis les metadatas stockées, et on genere l'interface graphique.
 
 Quand on interagit avec un fichier, on fait une requete sur le serveur FTP au chemin indiqué par la metadata du fichier
+
+Quand on fait une operation qui modifie l'arborescence, le backend change le document dans le couchDB. Ce dernier est repliquer dans le pouchDB du front, et l'UI est mis à jour 
