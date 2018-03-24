@@ -1,11 +1,10 @@
 /* global document */
 /* eslint react/jsx-filename-extension: 0 */
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import App from './components/App/App';
-import registerServiceWorker from './registerServiceWorker';
+// import registerServiceWorker from './registerServiceWorker';
 
 /* TODO : faire les deux themes */
 const theme = createMuiTheme({
@@ -34,4 +33,5 @@ function ThemedApp() {
 }
 
 ReactDOM.render(<ThemedApp />, document.getElementById('root'));
-registerServiceWorker();
+// BUG : race condition
+// registerServiceWorker();

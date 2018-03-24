@@ -1,5 +1,7 @@
-/* global window */
+/* global window, localStorage */
 /* eslint jsx-a11y/anchor-is-valid: 0 */
+/* eslint prefer-destructuring: 0 */
+
 import React, { Fragment, Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withAuth } from '@okta/okta-react';
@@ -15,14 +17,16 @@ import Divider from 'material-ui/Divider';
 
 import MenuIcon from 'material-ui-icons/Menu';
 
+import Identicons from '../../libs/identicons-react/index';
+
 import Logo from '../../img/svg/Logo';
 
 import './Topbar.css';
 
-export default withAuth(class Topbar extends Component {
+class Topbar extends Component {
   constructor(props) {
     super(props);
-    this.state = { authenticated: null, width: 0, height: 0 };
+    this.state = { authenticated: null, width: 0 };
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     this.checkAuthentication = this.checkAuthentication.bind(this);
     this.checkAuthentication();
@@ -49,16 +53,8 @@ export default withAuth(class Topbar extends Component {
   }
 
   updateWindowDimensions() {
-    this.setState({ width: window.innerWidth, height: window.innerHeight });
+    this.setState({ width: window.innerWidth });
   }
-
-  handleClick = (event) => {
-    this.setState({ anchorEl: event.currentTarget });
-  };
-
-  handleClose = () => {
-    this.setState({ anchorEl: null });
-  };
 
   toggleDrawer = (side, open) => () => {
     this.setState({
@@ -70,8 +66,15 @@ export default withAuth(class Topbar extends Component {
   render() {
     if (this.state.authenticated === null) return null;
 
+    let clientId;
+
+    if (localStorage.getItem('okta-token-storage') && localStorage.getItem('okta-token-storage') !== '{}') {
+      clientId = JSON.parse(localStorage.getItem('okta-token-storage')).idToken.clientId;
+      // console.log(clientId);
+    }
+
     return (
-      <div className="appBarContainer">
+      <div className="topBarContainer">
         <AppBar position="static" color="primary">
           <Toolbar>
             <IconButton color="inherit" aria-label="Logo">
@@ -83,7 +86,7 @@ export default withAuth(class Topbar extends Component {
               Valparaiso
             </Typography>
 
-            <div className="appBarLinks" style={{ display: this.state.width >= 600 ? 'block' : 'none' }}>
+            <div className="topBarLinks" style={{ display: this.state.width >= 600 ? 'block' : 'none' }}>
               <Link to="/">Home</Link>
 
               {this.state.authenticated ?
@@ -97,14 +100,19 @@ export default withAuth(class Topbar extends Component {
                   <a onClick={this.props.auth.login} role="Link">Login</a>
                 </Fragment>
               }
-
             </div>
 
-            <div className="appBarMenuButton" style={{ display: this.state.width < 600 ? 'block' : 'none' }}>
+            <div className="topBarMenuButton" style={{ display: this.state.width < 600 ? 'block' : 'none' }}>
               <IconButton onClick={this.toggleDrawer('left', true)}>
                 <MenuIcon />
               </IconButton>
             </div>
+
+            { clientId &&
+            <div className="topbarLoggedUser">
+              <Identicons id={clientId} width={30} size={5} />
+            </div>
+            }
 
             <Drawer anchor="left" open={this.state.left} onClose={this.toggleDrawer('left', false)}>
               <div
@@ -137,4 +145,6 @@ export default withAuth(class Topbar extends Component {
       </div>
     );
   }
-});
+}
+
+export default withAuth(Topbar);

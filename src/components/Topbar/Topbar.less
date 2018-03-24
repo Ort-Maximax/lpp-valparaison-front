@@ -10,13 +10,33 @@ a {
   }
 }
 
-.appBarContainer {
+.topBarContainer {
   flex-grow: 1;
   a {
     color:white;
   }
   svg {
-    color: white;
+    color:white;
+  }
+  .topbarLoggedUser {
+    background-color: aliceblue;
+    display: flex;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+
+    margin: 0 20px;
+    &:hover {
+      cursor : pointer;
+    }
+    svg {
+      display:block;
+      margin: 0 auto;
+      width: 30px;
+      height: 30px;
+    }
+
   }
 }
 
