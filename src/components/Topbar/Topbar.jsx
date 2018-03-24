@@ -93,7 +93,7 @@ export default withAuth(class Topbar extends Component {
                 </Fragment>
                 :
                 <Fragment>
-                  <Link to="/signup">Inscription</Link>
+                  {/* <Link to="/signup">Inscription</Link> */}
                   <a onClick={this.props.auth.login} role="Link">Login</a>
                 </Fragment>
               }
@@ -125,7 +125,7 @@ export default withAuth(class Topbar extends Component {
                   </Fragment>
                   :
                   <Fragment>
-                    <List><Link to="/signup">Inscription</Link></List>
+                    {/* <List><Link to="/signup">Inscription</Link></List> */}
                     <Divider />
                     <List><a onClick={this.props.auth.login} role="Link">Login</a> </List>
                   </Fragment>

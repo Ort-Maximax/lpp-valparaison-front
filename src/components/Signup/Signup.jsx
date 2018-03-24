@@ -79,7 +79,7 @@ class Signup extends Component {
               autoComplete="off"
             >
               <Grid container spacing={24}>
-                <Grid item sm={6} xs={12}>
+                <Grid item xs={6}>
                   <TextValidator
                     label="Nom"
                     name="firstName"
@@ -92,7 +92,7 @@ class Signup extends Component {
                     fullWidth
                   />
                 </Grid>
-                <Grid item sm={6} xs={12}>
+                <Grid item xs={6}>
                   <TextValidator
                     name="lastName"
                     label="Prenom"

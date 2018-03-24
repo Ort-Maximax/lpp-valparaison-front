@@ -21,6 +21,7 @@ class OktaSignInWidget extends Component {
         */
       ],
       redirectUri: 'http://localhost:3000/implicit/callback',
+      /*
       customButtons: [{
         title: 'S\'inscrire',
         className: 'btn-customAuth',
@@ -30,6 +31,7 @@ class OktaSignInWidget extends Component {
           this.props.history.push('/signup');
         },
       }],
+      */
     });
     this.widget.renderEl({ el }, this.props.onSuccess, this.props.onError);
   }
@@ -47,7 +49,6 @@ class OktaSignInWidget extends Component {
 
 OktaSignInWidget.propTypes = {
   baseUrl: PropTypes.string.isRequired,
-  history: PropTypes.object.isRequired,
   onSuccess: PropTypes.func.isRequired,
   onError: PropTypes.func.isRequired,
 

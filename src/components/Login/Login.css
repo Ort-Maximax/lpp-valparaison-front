@@ -14,3 +14,6 @@
   box-shadow: none !important;
   border-color: #ddd #ddd #d8d8d8;
 }
+.tabsHeader button {
+  width: 50%;
+}
