@@ -47,7 +47,7 @@ class OktaSignInWidget extends Component {
 
 OktaSignInWidget.propTypes = {
   baseUrl: PropTypes.string.isRequired,
-  history: PropTypes.array.isRequired,
+  history: PropTypes.object.isRequired,
   onSuccess: PropTypes.func.isRequired,
   onError: PropTypes.func.isRequired,
 

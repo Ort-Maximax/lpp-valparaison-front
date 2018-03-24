@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { withAuth } from '@okta/okta-react';
-import OktaSignInWidget from '../OktaSignInWidget/OktaSignInWidget';
 
+import AppBar from 'material-ui/AppBar';
+import Tabs, { Tab } from 'material-ui/Tabs';
+
+import OktaSignInWidget from '../OktaSignInWidget/OktaSignInWidget';
+import Signup from '../Signup/Signup';
+
+import './Login.css';
 
 export default withAuth(class Login extends Component {
   constructor(props) {
@@ -11,6 +17,7 @@ export default withAuth(class Login extends Component {
     this.onError = this.onError.bind(this);
     this.state = {
       authenticated: null,
+      value: 0,
     };
     this.checkAuthentication();
   }
@@ -38,14 +45,32 @@ export default withAuth(class Login extends Component {
     }
   }
 
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
+
+
   render() {
+    const { value } = this.state;
+
     if (this.state.authenticated === null) return null;
     return this.state.authenticated ?
       <Redirect to={{ pathname: '/' }} /> :
-      <OktaSignInWidget
-        baseUrl={this.props.baseUrl}
-        onSuccess={this.onSuccess}
-        onError={this.onError}
-      />;
+      <div>
+        <AppBar position="static" className="tabsHeader">
+          <Tabs value={value} onChange={this.handleChange}>
+            <Tab label="Connexion" />
+            <Tab label="Inscription" />
+          </Tabs>
+        </AppBar>
+        {value === 0 &&
+          <OktaSignInWidget
+            baseUrl={this.props.baseUrl}
+            onSuccess={this.onSuccess}
+            onError={this.onError}
+          />
+        }
+        {value === 1 && <Signup /> }
+      </div>;
   }
 });
