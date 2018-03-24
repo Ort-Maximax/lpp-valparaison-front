@@ -1,16 +1,18 @@
+/* global document */
+/* eslint react/jsx-filename-extension: 0 */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import App from './components/App/App';
 import registerServiceWorker from './registerServiceWorker';
-
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 
 /* TODO : faire les deux themes */
 const theme = createMuiTheme({
   palette: {
     primary: {
       light: '#757ce8',
-      main: '#3f50b5',
+      main: '#0077b8',
       dark: '#002884',
       contrastText: '#fff',
     },

@@ -22,8 +22,14 @@ a:hover {
   flex: 1;
 }
 .list {
-  width: 250px;
+  max-width: 25%;
+  min-width: 250px;
 }
 .list a {
+  padding-left: 10px;
+  color: black;
   font-size: 1.45rem;
+  display: block;
+  height: 100%;
+  width: 100%;
 }
