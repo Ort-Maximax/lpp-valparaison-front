@@ -18,8 +18,9 @@ yarn start
 # build for production with minification
 yarn build
 
-# run all tests
-yarn test
+# serve build locally
+serve --port 3000 -os build
+
 ```
 
 
