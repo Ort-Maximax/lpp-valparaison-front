@@ -7,14 +7,12 @@
     "@okta/okta-signin-widget": "^2.7.0",
     "axios": "^0.18.0",
     "classnames": "^2.2.5",
-    "eslint": "^4.19.1",
     "material-ui": "^1.0.0-beta.38",
     "material-ui-icons": "^1.0.0-beta.36",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-material-ui-form-validator": "^2.0.0-beta.4",
-    "react-materialize": "^2.1.2",
     "react-popper": "^0.8.3",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1",
@@ -24,14 +22,17 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "build:svg": "svgr -d ./src/img/svg/ ./src/img/svg/",
+    "serve-build": "serve --port 3000 -os build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.2",
+    "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.7.0"
+    "eslint-plugin-react": "^7.7.0",
+    "serve": "^6.5.3"
   }
 }

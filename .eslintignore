@@ -1,4 +1,4 @@
-/libs
-/img
-/node_modules
-/build
+libs/**
+img/**
+node_modules/**
+build/**

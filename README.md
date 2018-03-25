@@ -18,8 +18,8 @@ yarn start
 # build for production with minification
 yarn build
 
-# serve build locally
-serve --port 3000 -os build
+# serve build locally (localhost:3000)
+yarn serve-build
 
 ```
 
