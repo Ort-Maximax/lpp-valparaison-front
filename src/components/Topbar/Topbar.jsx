@@ -121,9 +121,8 @@ class Topbar extends Component {
             </Typography>
 
             <div className="topBarLinks" style={{ display: this.state.width >= 600 ? 'block' : 'none' }}>
-              <span>
-                <Link to="/">Home</Link>
-              </span>
+
+              <Link to="/">Home</Link>
 
               {this.state.authenticated ?
                 <Fragment>
