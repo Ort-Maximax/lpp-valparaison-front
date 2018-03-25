@@ -116,12 +116,14 @@ class Topbar extends Component {
             <IconButton color="inherit" className="logoContainer" aria-label="Logo">
               <Logo className="logoIcon" />
             </IconButton>
-            <Typography variant="title" color="inherit" className="flex">
+            <Typography color="inherit" className="brand">
               Valparaiso
             </Typography>
 
             <div className="topBarLinks" style={{ display: this.state.width >= 600 ? 'block' : 'none' }}>
-              <Link to="/">Home</Link>
+              <span>
+                <Link to="/">Home</Link>
+              </span>
 
               {this.state.authenticated ?
                 <Fragment>

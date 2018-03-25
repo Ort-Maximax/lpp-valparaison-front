@@ -13,8 +13,46 @@ a:hover {
 .topBarContainer {
   flex-grow: 1;
 }
-.topBarContainer a {
+.topBarContainer .topBarLinks * {
+  position: relative;
+  outline: none;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.topBarContainer .topBarLinks *:after,
+.topBarContainer .topBarLinks *:before {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.topBarContainer .topBarLinks a {
+  color: #bcd8f1;
+  font-weight: 600;
+  text-decoration: none;
+}
+.topBarContainer .topBarLinks a:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: -3px;
+  left: 0;
+  background: aliceblue;
+  visibility: hidden;
+  border-radius: 5px;
+  transform: scaleX(0);
+  transition: .15s linear;
+}
+.topBarContainer .topBarLinks a:hover {
+  transition: .5s linear;
   color: #fff;
+}
+.topBarContainer .topBarLinks a:hover:before {
+  visibility: visible;
+  transform: scaleX(1);
+}
+.topBarContainer .topBarLinks a:focus:before {
+  visibility: visible;
+  transform: scaleX(1);
 }
 .topBarContainer svg {
   color: white;
@@ -25,6 +63,12 @@ a:hover {
 .topBarContainer .logoContainer .logoIcon {
   width: 30px;
   height: 30px;
+}
+.topBarContainer .brand {
+  flex: 1;
+  font-family: 'Lobster', cursive;
+  font-size: 1.6rem;
+  line-height: 1.16667em;
 }
 .topBarContainer .topbarLoggedUser {
   background-color: aliceblue;
@@ -45,9 +89,6 @@ a:hover {
   margin: 0 auto;
   width: 20px;
   height: 20px;
-}
-.flex {
-  flex: 1;
 }
 .popper-close {
   pointer-events: none;
