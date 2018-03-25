@@ -12,10 +12,14 @@ import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import SvgIcon from 'material-ui/SvgIcon';
 import Drawer from 'material-ui/Drawer';
-import List from 'material-ui/List';
+import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 
 import MenuIcon from 'material-ui-icons/Menu';
+import HomeIcon from 'material-ui-icons/Home';
+import ProtectedIcon from 'material-ui-icons/LockOutline';
+import LoginIcon from 'material-ui-icons/ExitToApp';
+import LogoutIcon from 'material-ui-icons/Close';
 
 import Identicons from '../../libs/identicons-react/index';
 
@@ -110,7 +114,7 @@ class Topbar extends Component {
 
             { clientId &&
             <div className="topbarLoggedUser">
-              <Identicons id={clientId} width={30} size={5} />
+              <Identicons id={clientId} width={20} size={3} />
             </div>
             }
 
@@ -122,23 +126,52 @@ class Topbar extends Component {
                 onKeyDown={this.toggleDrawer('left', false)}
                 className="list"
               >
-                <List className="menuHeader"> Menu </List>
-                <List><Link to="/">Home</Link></List>
-                <Divider />
+                <List>
+                  <Link to="/">
+                    <ListItem>
+                      <ListItemIcon>
+                        <HomeIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Home" />
+                    </ListItem>
+                  </Link>
+                  <Divider />
 
-                {this.state.authenticated ?
-                  <Fragment>
-                    <List><Link to="/protected">Protected</Link></List>
-                    <Divider />
-                    <List><a onClick={this.props.auth.logout} role="Link">Logout</a></List>
-                  </Fragment>
-                  :
-                  <Fragment>
-                    {/* <List><Link to="/signup">Inscription</Link></List> */}
-                    <Divider />
-                    <List><a onClick={this.props.auth.login} role="Link">Login</a> </List>
-                  </Fragment>
-                }
+                  {this.state.authenticated ?
+                    <Fragment>
+                      <Link to="/protected">
+                        <ListItem>
+                          <ListItemIcon>
+                            <ProtectedIcon />
+                          </ListItemIcon>
+                          <ListItemText primary="Protected" />
+                        </ListItem>
+                      </Link>
+                      <Divider />
+                      <a onClick={this.props.auth.logout} role="Link">
+                        <ListItem>
+                          <ListItemIcon>
+                            <LogoutIcon />
+                          </ListItemIcon>
+                          <ListItemText primary="Logout" />
+                        </ListItem>
+                      </a>
+                    </Fragment>
+                    :
+                    <Fragment>
+                      {/* <ListItem><Link to="/signup">Inscription</Link></ListItem> */}
+                      <Divider />
+                      <a onClick={this.props.auth.login} role="Link">
+                        <ListItem>
+                          <ListItemIcon>
+                            <LoginIcon />
+                          </ListItemIcon>
+                          <ListItemText primary="Login" />
+                        </ListItem>
+                      </a>
+                    </Fragment>
+                  }
+                </List>
               </div>
             </Drawer>
           </Toolbar>
