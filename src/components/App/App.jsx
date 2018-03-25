@@ -9,7 +9,7 @@ import Login from '../Login/Login';
 /* import Signup from '../Signup/Signup'; */
 import Protected from '../Protected/Protected';
 
-import './App.css';
+import './styles/App.css';
 
 function onAuthRequired({ history }) {
   history.push('/login');

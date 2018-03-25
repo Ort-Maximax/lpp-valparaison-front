@@ -21,7 +21,7 @@ import Identicons from '../../libs/identicons-react/index';
 
 import Logo from '../../img/svg/Logo';
 
-import './Topbar.css';
+import './styles/Topbar.css';
 
 class Topbar extends Component {
   constructor(props) {
@@ -122,6 +122,7 @@ class Topbar extends Component {
                 onKeyDown={this.toggleDrawer('left', false)}
                 className="list"
               >
+                <List className="menuHeader"> Menu </List>
                 <List><Link to="/">Home</Link></List>
                 <Divider />
 

@@ -8,7 +8,7 @@ import Tabs, { Tab } from 'material-ui/Tabs';
 import OktaSignInWidget from '../OktaSignInWidget/OktaSignInWidget';
 import Signup from '../Signup/Signup';
 
-import './Login.css';
+import './styles/Login.css';
 
 export default withAuth(class Login extends Component {
   constructor(props) {

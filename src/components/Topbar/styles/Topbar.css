@@ -1,0 +1,63 @@
+/* Primary Theme */
+/* Secondary theme */
+a {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+a:hover {
+  cursor: pointer;
+}
+.topBarContainer {
+  flex-grow: 1;
+}
+.topBarContainer a {
+  color: #fff;
+}
+.topBarContainer svg {
+  color: white;
+}
+.topBarContainer .topbarLoggedUser {
+  background-color: aliceblue;
+  border: solid 1px #ddd;
+  display: flex;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  margin-top: -2px;
+  margin-left: 20px;
+}
+.topBarContainer .topbarLoggedUser:hover {
+  cursor: pointer;
+}
+.topBarContainer .topbarLoggedUser svg {
+  display: block;
+  margin: 0 auto;
+  width: 30px;
+  height: 30px;
+}
+.flex {
+  flex: 1;
+}
+.list {
+  max-width: 25%;
+  min-width: 250px;
+  font-size: 1.45rem;
+}
+.list .menuHeader {
+  text-align: center;
+  background-color: #757ce8;
+  color: #fff;
+}
+.list a {
+  padding-left: 10px;
+  color: black;
+  font-size: 1.25rem;
+  display: block;
+  height: 100%;
+  width: 100%;
+}

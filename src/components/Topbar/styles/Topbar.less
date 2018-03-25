@@ -1,0 +1,70 @@
+@import '../../../libs/lib.less';
+
+a {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  padding-left: 10px;
+  padding-right  : 10px;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.topBarContainer {
+  flex-grow: 1;
+  a {
+    color: @p-contrast;
+  }
+  svg {
+    color:white;
+  }
+  .topbarLoggedUser {
+    background-color: aliceblue;
+    border : solid 1px #ddd;
+    display: flex;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-top : -2px;
+    margin-left : 20px;
+
+    
+    &:hover {
+      cursor : pointer;
+    }
+    svg {
+      display:block;
+      margin: 0 auto;
+      width: 30px;
+      height: 30px;
+    }
+
+  }
+}
+
+.flex {
+  flex: 1;
+}
+
+.list {
+  max-width: 25%;
+  min-width : 250px;
+  font-size: 1.45rem;
+
+  .menuHeader {
+    text-align : center;
+    background-color:@p-light;
+    color: @p-contrast;
+  }
+  a {
+    padding-left : 10px;
+    color : black;
+    font-size: 1.25rem;    
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+}
