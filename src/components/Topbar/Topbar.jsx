@@ -12,7 +12,7 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
-import SvgIcon from 'material-ui/SvgIcon';
+/* import SvgIcon from 'material-ui/SvgIcon'; */
 
 /* Drawer */
 import Drawer from 'material-ui/Drawer';
@@ -110,10 +110,8 @@ class Topbar extends Component {
       <div className="topBarContainer">
         <AppBar position="static" color="primary">
           <Toolbar>
-            <IconButton color="inherit" aria-label="Logo">
-              <SvgIcon>
-                <Logo />
-              </SvgIcon>
+            <IconButton color="inherit" className="logoContainer" aria-label="Logo">
+              <Logo className="logoIcon" />
             </IconButton>
             <Typography variant="title" color="inherit" className="flex">
               Valparaiso
@@ -161,6 +159,8 @@ class Topbar extends Component {
                   }
                 </div>
               </Target>
+              {/* Bug : la position intial est incorrect.
+              Surement car le popper est crée avant que le target soit crée */}
               <Popper
                 placement="bottom-start"
                 eventsEnabled={userMenuOpen}
@@ -172,6 +172,7 @@ class Topbar extends Component {
                   <Grow in={userMenuOpen} id="menu-list-grow" style={{ transformOrigin: '0 0 0' }}>
                     <Paper className="user-menu">
                       <MenuList role="menu">
+                        {/* TODO : mettre les links */}
                         <MenuItem onClick={this.handleCloseUserMenu}>Profile</MenuItem>
                         <MenuItem onClick={this.handleCloseUserMenu}>My account</MenuItem>
                         <MenuItem onClick={this.handleCloseUserMenu}>Logout</MenuItem>

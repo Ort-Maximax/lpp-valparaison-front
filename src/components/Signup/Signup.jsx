@@ -6,6 +6,8 @@ import Grid from 'material-ui/Grid';
 
 import axios from 'axios';
 
+import Logo from '../../img/svg/Logo';
+
 import './styles/Signup.css';
 
 class Signup extends Component {
@@ -66,7 +68,7 @@ class Signup extends Component {
             className="header"
           >
             <div className="logoContainer">
-              <img src="https://image.freepik.com/free-icon/eagle-silhouette-in-flight_318-42771.jpg" alt="logo" />
+              <Logo className="logoIcon" />
             </div>
           </div>
 

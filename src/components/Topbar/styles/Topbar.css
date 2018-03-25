@@ -19,6 +19,13 @@ a:hover {
 .topBarContainer svg {
   color: white;
 }
+.topBarContainer .logoContainer {
+  padding-right: 10px;
+}
+.topBarContainer .logoContainer .logoIcon {
+  width: 30px;
+  height: 30px;
+}
 .topBarContainer .topbarLoggedUser {
   background-color: aliceblue;
   border: solid 1px #ddd;
@@ -44,6 +51,9 @@ a:hover {
 }
 .popper-close {
   pointer-events: none;
+}
+.popper {
+  margin-right: 0px;
 }
 .user-menu {
   margin-top: 16px;
