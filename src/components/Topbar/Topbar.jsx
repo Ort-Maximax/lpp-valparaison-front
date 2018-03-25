@@ -5,16 +5,29 @@
 import React, { Fragment, Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withAuth } from '@okta/okta-react';
+import classNames from 'classnames';
 
+/* Appbar */
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import SvgIcon from 'material-ui/SvgIcon';
+
+/* Drawer */
 import Drawer from 'material-ui/Drawer';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 
+/* User Menu */
+import Grow from 'material-ui/transitions/Grow';
+import { Manager, Target, Popper } from 'react-popper';
+import ClickAwayListener from 'material-ui/utils/ClickAwayListener';
+import Paper from 'material-ui/Paper';
+/* import Portal from 'material-ui/Portal'; */
+import { MenuItem, MenuList } from 'material-ui/Menu';
+
+/* Icons */
 import MenuIcon from 'material-ui-icons/Menu';
 import HomeIcon from 'material-ui-icons/Home';
 import ProtectedIcon from 'material-ui-icons/LockOutline';
@@ -60,6 +73,20 @@ class Topbar extends Component {
     this.setState({ width: window.innerWidth });
   }
 
+  toggleUserMenu = () => {
+    this.setState({
+      userMenuOpen: !this.state.userMenuOpen,
+    });
+  };
+
+  handleCloseUserMenu = (event) => {
+    if (this.target1.contains(event.target)) {
+      return;
+    }
+
+    this.setState({ userMenuOpen: false });
+  };
+
   toggleDrawer = (side, open) => () => {
     this.setState({
       [side]: open,
@@ -69,6 +96,8 @@ class Topbar extends Component {
 
   render() {
     if (this.state.authenticated === null) return null;
+
+    const { userMenuOpen } = this.state;
 
     let clientId;
 
@@ -112,11 +141,46 @@ class Topbar extends Component {
               </IconButton>
             </div>
 
-            { clientId &&
-            <div className="topbarLoggedUser">
-              <Identicons id={clientId} width={20} size={3} />
-            </div>
-            }
+            <Manager>
+              <Target>
+                <div
+                  ref={(node) => {
+                      this.target1 = node;
+                    }}
+                >
+                  { clientId &&
+                  <div
+                    className="topbarLoggedUser"
+                    onClick={this.toggleUserMenu}
+                    aria-owns={userMenuOpen ? 'menu-list-grow' : null}
+                    aria-haspopup="true"
+                    role="Button"
+                  >
+                    <Identicons id={clientId} width={20} size={3} />
+                  </div>
+                  }
+                </div>
+              </Target>
+              <Popper
+                placement="bottom-start"
+                eventsEnabled={userMenuOpen}
+                className={classNames({
+                   'popper-close': !userMenuOpen,
+                  })}
+              >
+                <ClickAwayListener onClickAway={this.handleCloseUserMenu}>
+                  <Grow in={userMenuOpen} id="menu-list-grow" style={{ transformOrigin: '0 0 0' }}>
+                    <Paper className="user-menu">
+                      <MenuList role="menu">
+                        <MenuItem onClick={this.handleCloseUserMenu}>Profile</MenuItem>
+                        <MenuItem onClick={this.handleCloseUserMenu}>My account</MenuItem>
+                        <MenuItem onClick={this.handleCloseUserMenu}>Logout</MenuItem>
+                      </MenuList>
+                    </Paper>
+                  </Grow>
+                </ClickAwayListener>
+              </Popper>
+            </Manager>
 
             <Drawer anchor="left" open={this.state.left} onClose={this.toggleDrawer('left', false)}>
               <div
