@@ -183,7 +183,9 @@ class Topbar extends Component {
                         {/* TODO : mettre les links */}
                         <MenuItem onClick={this.handleCloseUserMenu}>Profile</MenuItem>
                         <MenuItem onClick={this.handleCloseUserMenu}>My account</MenuItem>
-                        <MenuItem onClick={this.handleCloseUserMenu}>Logout</MenuItem>
+                        <a onClick={this.props.auth.logout} role="Link">
+                          <MenuItem onClick={this.handleCloseUserMenu}>Logout</MenuItem>
+                        </a>
                       </MenuList>
                     </Paper>
                   </Grow>
