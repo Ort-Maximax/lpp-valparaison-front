@@ -100,10 +100,13 @@ class Topbar extends Component {
     const { userMenuOpen } = this.state;
 
     let clientId;
+    let clientFirstName;
+    // let clientLastName;
 
     if (localStorage.getItem('okta-token-storage') && localStorage.getItem('okta-token-storage') !== '{}') {
       clientId = JSON.parse(localStorage.getItem('okta-token-storage')).idToken.clientId;
-      // console.log(clientId);
+      const clientName = JSON.parse(localStorage.getItem('okta-token-storage')).idToken.claims.name;
+      clientFirstName = clientName.substr(0, clientName.indexOf(' '));
     }
 
     return (
@@ -171,6 +174,11 @@ class Topbar extends Component {
                 <ClickAwayListener onClickAway={this.handleCloseUserMenu}>
                   <Grow in={userMenuOpen} id="menu-list-grow" style={{ transformOrigin: '0 0 0' }}>
                     <Paper className="user-menu">
+                      <div className="user-menu-header">
+                        <Typography variant="title">
+                          Bonjour {clientFirstName} !
+                        </Typography>
+                      </div>
                       <MenuList role="menu">
                         {/* TODO : mettre les links */}
                         <MenuItem onClick={this.handleCloseUserMenu}>Profile</MenuItem>

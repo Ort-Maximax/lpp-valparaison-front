@@ -52,6 +52,9 @@
   text-transform: capitalize;
   line-height: 36px;
   border-radius: 3px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #002884;
 }
 .card .cardContent .form-container .button:hover {
   background-color: #0087d0;
