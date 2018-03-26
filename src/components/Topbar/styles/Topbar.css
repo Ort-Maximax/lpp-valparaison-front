@@ -13,6 +13,19 @@ a:hover {
 .topBarContainer {
   flex-grow: 1;
 }
+.topBarContainer .logoContainer {
+  padding-right: 10px;
+}
+.topBarContainer .logoContainer .logoIcon {
+  width: 30px;
+  height: 30px;
+}
+.topBarContainer .brand {
+  flex: 1;
+  font-family: 'Lobster', cursive;
+  font-size: 1.6rem;
+  line-height: 1.16667em;
+}
 .topBarContainer .topBarLinks * {
   position: relative;
   outline: none;
@@ -58,32 +71,28 @@ a:hover {
   visibility: visible;
   transform: scaleX(1);
 }
+.topBarContainer .loginButton {
+  width: 35px;
+  height: 35px;
+  background-color: aliceblue;
+}
+.topBarContainer .loginButton svg {
+  color: black;
+}
+.topBarContainer .loginButton:hover {
+  background-color: white;
+}
 .topBarContainer svg {
   color: white;
-}
-.topBarContainer .logoContainer {
-  padding-right: 10px;
-}
-.topBarContainer .logoContainer .logoIcon {
-  width: 30px;
-  height: 30px;
-}
-.topBarContainer .brand {
-  flex: 1;
-  font-family: 'Lobster', cursive;
-  font-size: 1.6rem;
-  line-height: 1.16667em;
 }
 .topBarContainer .topbarLoggedUser {
   background-color: aliceblue;
   border: solid 1px #ddd;
   display: flex;
   align-items: center;
-  width: 31px;
-  height: 31px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
-  margin-top: -2px;
-  margin-left: 20px;
 }
 .topBarContainer .topbarLoggedUser:hover {
   cursor: pointer;

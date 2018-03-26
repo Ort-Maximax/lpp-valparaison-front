@@ -13,6 +13,22 @@ a {
 
 .topBarContainer {
   flex-grow: 1;
+
+  .logoContainer {
+    padding-right : 10px;
+    .logoIcon {
+      width : 30px;
+      height: 30px;
+    }
+  }
+
+  .brand {
+    flex: 1;
+    font-family: 'Lobster', cursive;
+    font-size : 1.6rem;
+    line-height: 1.16667em;
+  }
+
   .topBarLinks {
     * {    
       position: relative;
@@ -23,8 +39,7 @@ a {
         box-sizing: border-box;
         -moz-box-sizing: border-box;
       }  
-    }
-    
+    }    
     a {
       color: rgb(188, 216, 241);
       font-weight : 600;
@@ -62,23 +77,22 @@ a {
     }
   }
 
-  svg {
-    color:white;
-  }
-  .logoContainer {
-    padding-right : 10px;
-    .logoIcon {
-      width : 30px;
-      height: 30px;
+  .loginButton {
+    width : 35px;
+    height: 35px;
+    background-color: aliceblue;
+    svg {
+      color : black;
+    }
+    &:hover {
+      background-color: white;
     }
   }
 
-  .brand {
-    flex: 1;
-    font-family: 'Lobster', cursive;
-    font-size : 1.6rem;
-    line-height: 1.16667em;
+  svg {
+    color:white;
   }
+
 
 
   .topbarLoggedUser {
@@ -86,12 +100,9 @@ a {
     border : solid 1px #ddd;
     display: flex;
     align-items: center;
-    width: 31px;
-    height: 31px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
-    margin-top : -2px;
-    margin-left : 20px;
-
     
     &:hover {
       cursor : pointer;

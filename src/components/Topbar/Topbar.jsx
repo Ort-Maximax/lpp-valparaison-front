@@ -12,6 +12,7 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
+import Button from 'material-ui/Button';
 /* import SvgIcon from 'material-ui/SvgIcon'; */
 
 /* Drawer */
@@ -24,14 +25,13 @@ import Grow from 'material-ui/transitions/Grow';
 import { Manager, Target, Popper } from 'react-popper';
 import ClickAwayListener from 'material-ui/utils/ClickAwayListener';
 import Paper from 'material-ui/Paper';
-/* import Portal from 'material-ui/Portal'; */
 import { MenuItem, MenuList } from 'material-ui/Menu';
 
 /* Icons */
 import MenuIcon from 'material-ui-icons/Menu';
 import HomeIcon from 'material-ui-icons/Home';
 import ProtectedIcon from 'material-ui-icons/LockOutline';
-import LoginIcon from 'material-ui-icons/ExitToApp';
+import LoginIcon from 'material-ui-icons/Person';
 import LogoutIcon from 'material-ui-icons/Close';
 
 import Identicons from '../../libs/identicons-react/index';
@@ -124,16 +124,16 @@ class Topbar extends Component {
 
               <Link to="/">Home</Link>
 
-              {this.state.authenticated ?
+              {this.state.authenticated &&
                 <Fragment>
                   <Link to="/protected">Protected</Link>
                   <a onClick={this.props.auth.logout} role="Link">Logout</a>
                 </Fragment>
-                :
+                /*
                 <Fragment>
-                  {/* <Link to="/signup">Inscription</Link> */}
                   <a onClick={this.props.auth.login} role="Link">Login</a>
                 </Fragment>
+                */
               }
             </div>
 
@@ -151,22 +151,22 @@ class Topbar extends Component {
                     }}
                 >
                   { clientId &&
-                  <div
+                  <Button
+                    variant="fab"
                     className="topbarLoggedUser"
                     onClick={this.toggleUserMenu}
                     aria-owns={userMenuOpen ? 'menu-list-grow' : null}
                     aria-haspopup="true"
-                    role="Button"
                   >
                     <Identicons id={clientId} width={20} size={3} />
-                  </div>
+                  </Button>
                   }
                 </div>
               </Target>
               {/* Bug : la position intial est incorrect.
               Surement car le popper est crée avant que le target soit crée */}
               <Popper
-                placement="bottom-start"
+                placement="bottom"
                 eventsEnabled={userMenuOpen}
                 className={classNames({
                    'popper-close': !userMenuOpen,
@@ -176,7 +176,7 @@ class Topbar extends Component {
                   <Grow in={userMenuOpen} id="menu-list-grow" style={{ transformOrigin: '0 0 0' }}>
                     <Paper className="user-menu">
                       <div className="user-menu-header">
-                        <Typography variant="title">
+                        <Typography variant="title" className="noselect">
                           Bonjour {clientFirstName} !
                         </Typography>
                       </div>
@@ -185,7 +185,7 @@ class Topbar extends Component {
                         <MenuItem onClick={this.handleCloseUserMenu}>Profile</MenuItem>
                         <MenuItem onClick={this.handleCloseUserMenu}>My account</MenuItem>
                         <a onClick={this.props.auth.logout} role="Link">
-                          <MenuItem onClick={this.handleCloseUserMenu}>Logout</MenuItem>
+                          <MenuItem onClick={this.handleCloseUserMenu} leftIcon={<LogoutIcon />}>Logout</MenuItem>
                         </a>
                       </MenuList>
                     </Paper>
@@ -193,6 +193,13 @@ class Topbar extends Component {
                 </ClickAwayListener>
               </Popper>
             </Manager>
+            {!this.state.authenticated &&
+            <Fragment>
+              <Button variant="fab" onClick={this.props.auth.login} className="loginButton">
+                <LoginIcon />
+              </Button>
+            </Fragment>
+            }
 
             <Drawer anchor="left" open={this.state.left} onClose={this.toggleDrawer('left', false)}>
               <div
@@ -213,7 +220,7 @@ class Topbar extends Component {
                   </Link>
                   <Divider />
 
-                  {this.state.authenticated ?
+                  {this.state.authenticated &&
                     <Fragment>
                       <Link to="/protected">
                         <ListItem>
@@ -230,19 +237,6 @@ class Topbar extends Component {
                             <LogoutIcon />
                           </ListItemIcon>
                           <ListItemText primary="Logout" />
-                        </ListItem>
-                      </a>
-                    </Fragment>
-                    :
-                    <Fragment>
-                      {/* <ListItem><Link to="/signup">Inscription</Link></ListItem> */}
-                      <Divider />
-                      <a onClick={this.props.auth.login} role="Link">
-                        <ListItem>
-                          <ListItemIcon>
-                            <LoginIcon />
-                          </ListItemIcon>
-                          <ListItemText primary="Login" />
                         </ListItem>
                       </a>
                     </Fragment>
