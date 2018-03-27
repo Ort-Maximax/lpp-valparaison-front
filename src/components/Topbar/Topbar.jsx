@@ -105,6 +105,7 @@ class Topbar extends Component {
 
     if (localStorage.getItem('okta-token-storage') && localStorage.getItem('okta-token-storage') !== '{}') {
       clientId = JSON.parse(localStorage.getItem('okta-token-storage')).idToken.clientId;
+      console.log(clientId);
       const clientName = JSON.parse(localStorage.getItem('okta-token-storage')).idToken.claims.name;
       clientFirstName = clientName.substr(0, clientName.indexOf(' '));
     }
@@ -185,7 +186,7 @@ class Topbar extends Component {
                         <MenuItem onClick={this.handleCloseUserMenu}>Profile</MenuItem>
                         <MenuItem onClick={this.handleCloseUserMenu}>My account</MenuItem>
                         <a onClick={this.props.auth.logout} role="Link">
-                          <MenuItem onClick={this.handleCloseUserMenu} leftIcon={<LogoutIcon />}>Logout</MenuItem>
+                          <MenuItem onClick={this.handleCloseUserMenu}>Logout</MenuItem>
                         </a>
                       </MenuList>
                     </Paper>

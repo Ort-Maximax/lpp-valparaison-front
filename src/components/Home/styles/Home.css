@@ -1,0 +1,15 @@
+.mainPaper {
+  width: 600px;
+  height: 90%;
+  margin: 20px auto 10px auto;
+}
+.mainPaper h1,
+.mainPaper h2 {
+  text-align: center;
+}
+@media only screen and (max-width: 600px) {
+  .mainPaper {
+    margin: 0;
+    width: 100%;
+  }
+}
