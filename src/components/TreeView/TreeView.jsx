@@ -1,17 +1,33 @@
 /* eslint no-param-reassign: 0 */
 import React, { Fragment } from 'react';
 import { Treebeard, decorators } from 'react-treebeard';
+
 import Input, { InputAdornment } from 'material-ui/Input';
 import Paper from 'material-ui/Paper';
 import Search from '@material-ui/icons/Search';
 import * as filters from './filter';
 
 
-const data = {
+const processData = (data) => {
+  // Iterate over all nodes
+  data.children.forEach((el, index) => {
+    // add its path
+    el.path = `${data.path}/${el.name.replace(' ', '\\ ')}`;
+    if (el.children) {
+      // If this is a folder, store it's parent
+      el.parent = data.children[index - 1];
+      // call the data processing function for its children
+      processData(el);
+    }
+  });
+  return data;
+};
+
+/* TODO : Get data from backend API */
+// Emulate getting datas from the API
+const apiData = {
   name: 'My Valparaiso',
-  root: true,
   path: 'path/to/user/folder',
-  toggled: true,
   children: [
     {
       name: 'Folder 1',
@@ -36,15 +52,23 @@ const data = {
         {
           name: 'Folder 21',
           children: [
-            { name: 'decorators.js', path: 'path/to/decorator' },
-            { name: 'treebeard.js', path: 'path/to/treebeard' },
+            { name: 'test.txt' },
+            { name: 'file.rar' },
           ],
         },
-        { name: 'index.js' },
+        { name: 'LoneFile.js' },
       ],
+    },
+    {
+      name: 'Empty Folder',
+      children: [],
     },
   ],
 };
+
+apiData.root = true;
+apiData.toggled = true;
+const data = processData(apiData);
 
 decorators.Header = ({ style, node }) => {
   const iconType = node.children ? 'folder' : 'file-text';
@@ -55,14 +79,13 @@ decorators.Header = ({ style, node }) => {
     <div style={style.base}>
       <div style={style.title}>
         <i className={iconClass} style={iconStyle} />
-
         {node.name}
       </div>
     </div>
   );
 };
 
-class TreeExample extends React.Component {
+class TreeView extends React.Component {
   constructor() {
     super();
 
@@ -131,4 +154,4 @@ class TreeExample extends React.Component {
   }
 }
 
-export default(TreeExample);
+export default(TreeView);

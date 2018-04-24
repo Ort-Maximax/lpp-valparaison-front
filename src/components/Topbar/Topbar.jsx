@@ -105,7 +105,7 @@ class Topbar extends Component {
 
     if (localStorage.getItem('okta-token-storage') && localStorage.getItem('okta-token-storage') !== '{}') {
       clientId = JSON.parse(localStorage.getItem('okta-token-storage')).idToken.clientId;
-      console.log(clientId);
+      // console.log(clientId);
       const clientName = JSON.parse(localStorage.getItem('okta-token-storage')).idToken.claims.name;
       clientFirstName = clientName.substr(0, clientName.indexOf(' '));
     }

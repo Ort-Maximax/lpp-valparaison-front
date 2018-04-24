@@ -2,7 +2,7 @@
 import React from 'react';
 import interact from 'interactjs';
 import Grid from 'material-ui/Grid';
-import TreeExample from '../Tree/Tree';
+import TreeView from '../TreeView/TreeView';
 
 import './styles/Protected.css';
 
@@ -52,11 +52,11 @@ function Protected() {
       spacing={16}
       direction="row"
     >
-      <div className="tree-resize">
-        <TreeExample />
+      <div className="tree-resize" flex="true">
+        <TreeView />
       </div>
 
-      <div className="content">
+      <div className="content" flex="true">
         <h1> {'Ici l\'utilisateur peut acceder a ces fichiers'} </h1>
       </div>
     </Grid>
