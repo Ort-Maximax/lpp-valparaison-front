@@ -1,6 +1,11 @@
+/* eslint no-param-reassign: 0 */
 import React, { Fragment } from 'react';
 import { Treebeard, decorators } from 'react-treebeard';
+import Input, { InputAdornment } from 'material-ui/Input';
+import Paper from 'material-ui/Paper';
+import Search from '@material-ui/icons/Search';
 import * as filters from './filter';
+
 
 const data = {
   name: 'My Valparaiso',
@@ -63,6 +68,7 @@ class TreeExample extends React.Component {
 
     this.state = { data };
     this.onToggle = this.onToggle.bind(this);
+    this.onFilterMouseUp = this.onFilterMouseUp.bind(this);
   }
   onToggle(node, toggled) {
     const { cursor } = this.state;
@@ -86,27 +92,35 @@ class TreeExample extends React.Component {
     }
     let filtered = filters.filterTree(data, filter);
     filtered = filters.expandFilteredNodes(filtered, filter);
-    this.setState({ data: filtered });
+    return this.setState({ data: filtered });
   }
 
   render() {
-    const { data: stateData, cursor} = this.state;
+    const { data: stateData } = this.state;
 
     return (
       <Fragment>
-        <div>
-          <div className="input-group">
-            <span className="input-group-addon">
-              <i className="fa fa-search" />
-            </span>
-            <input
-              className="form-control"
-              onKeyUp={this.onFilterMouseUp.bind(this)}
-              placeholder="Search the tree..."
-              type="text"
-            />
-          </div>
-        </div>
+        <Paper
+          style={{
+            paddingBottom: 2,
+            paddingLeft: 5,
+            paddingRight: 5,
+            marginBottom: 5,
+            width: 'calc(100% - 11px)',
+          }}
+          square
+        >
+          <Input
+            fullWidth
+            onKeyUp={this.onFilterMouseUp}
+            placeholder="Rechercher"
+            endAdornment={
+              <InputAdornment position="start">
+                <Search />
+              </InputAdornment>
+            }
+          />
+        </Paper>
         <Treebeard
           data={stateData}
           decorators={decorators}
