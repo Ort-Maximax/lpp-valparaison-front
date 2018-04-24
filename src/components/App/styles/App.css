@@ -10,6 +10,12 @@ html body {
   height: 100%;
   margin: 0;
 }
+html body #root {
+  height: 100%;
+}
+html body #root > div {
+  height: 100%;
+}
 .noselect {
   -webkit-touch-callout: none;
   /* iOS Safari */

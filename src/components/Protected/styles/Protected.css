@@ -1,0 +1,14 @@
+.tree-resize {
+  min-width: 25%;
+  width: 25%;
+  max-width: 50%;
+  height: 100%;
+  background-color: #21262b;
+}
+.fullHeight {
+  height: 100%;
+}
+.content h1 {
+  width: 100%;
+  text-align: center;
+}
