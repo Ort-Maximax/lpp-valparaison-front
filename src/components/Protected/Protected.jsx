@@ -47,17 +47,20 @@ function Protected() {
   return (
     <Grid
       style={{ margin: 0, width: '100%' }}
-      className="fullHeight"
+      className="explorer"
       container
-      spacing={16}
+      wrap="nowrap"
       direction="row"
     >
       <div className="tree-resize" flex="true">
+        {/* TODO : Lift state up,
+        pour pouvoir partager le curseur entre le treeview et le nodeview */}
         <TreeView />
       </div>
 
       <div className="content" flex="true">
-        <h1> {'Ici l\'utilisateur peut acceder a ces fichiers'} </h1>
+        {/* TODO : react dropzone sur tout content */}
+        <div>Giga test maximal très puissant et imposant</div>
       </div>
     </Grid>
   );

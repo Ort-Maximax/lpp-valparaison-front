@@ -29,6 +29,10 @@ a {
     line-height: 1.16667em;
   }
 
+  .topBarMenuButton {
+    display: none;
+  }
+
   .topBarLinks {
     * {    
       position: relative;
@@ -151,6 +155,15 @@ a {
     display: block;
     height: 100%;
     width: 90%;
+  }
+}
+
+@media all and (max-width: 750px){
+  .topBarLinks {
+    display: none !important;
+  }
+  .topBarMenuButton {
+    display: block !important;
   }
 }
 

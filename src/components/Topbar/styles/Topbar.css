@@ -26,6 +26,9 @@ a:hover {
   font-size: 1.6rem;
   line-height: 1.16667em;
 }
+.topBarContainer .topBarMenuButton {
+  display: none;
+}
 .topBarContainer .topBarLinks * {
   position: relative;
   outline: none;
@@ -133,4 +136,12 @@ a:hover {
   display: block;
   height: 100%;
   width: 90%;
+}
+@media all and (max-width: 750px) {
+  .topBarLinks {
+    display: none !important;
+  }
+  .topBarMenuButton {
+    display: block !important;
+  }
 }

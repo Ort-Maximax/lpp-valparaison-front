@@ -1,4 +1,4 @@
-/* global window, localStorage */
+/* global localStorage */
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 /* eslint prefer-destructuring: 0 */
 
@@ -43,15 +43,12 @@ import './styles/Topbar.css';
 class Topbar extends Component {
   constructor(props) {
     super(props);
-    this.state = { authenticated: null, width: 0 };
-    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    this.state = { authenticated: null };
     this.checkAuthentication = this.checkAuthentication.bind(this);
     this.checkAuthentication();
   }
 
   componentDidMount() {
-    this.updateWindowDimensions();
-    window.addEventListener('resize', this.updateWindowDimensions);
   }
 
   componentDidUpdate() {
@@ -59,7 +56,6 @@ class Topbar extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.updateWindowDimensions);
   }
 
   async checkAuthentication() {
@@ -67,10 +63,6 @@ class Topbar extends Component {
     if (authenticated !== this.state.authenticated) {
       this.setState({ authenticated });
     }
-  }
-
-  updateWindowDimensions() {
-    this.setState({ width: window.innerWidth });
   }
 
   toggleUserMenu = () => {
@@ -104,8 +96,7 @@ class Topbar extends Component {
     // let clientLastName;
 
     if (localStorage.getItem('okta-token-storage') && localStorage.getItem('okta-token-storage') !== '{}') {
-      clientId = JSON.parse(localStorage.getItem('okta-token-storage')).idToken.clientId;
-      // console.log(clientId);
+      clientId = JSON.parse(localStorage.getItem('okta-token-storage')).idToken.claims.email;
       const clientName = JSON.parse(localStorage.getItem('okta-token-storage')).idToken.claims.name;
       clientFirstName = clientName.substr(0, clientName.indexOf(' '));
     }
@@ -121,7 +112,7 @@ class Topbar extends Component {
               Valparaiso
             </Typography>
 
-            <div className="topBarLinks" style={{ display: this.state.width >= 600 ? 'block' : 'none' }}>
+            <div className="topBarLinks">
 
               <Link to="/">Home</Link>
 
@@ -138,7 +129,7 @@ class Topbar extends Component {
               }
             </div>
 
-            <div className="topBarMenuButton" style={{ display: this.state.width < 600 ? 'block' : 'none' }}>
+            <div className="topBarMenuButton">
               <IconButton onClick={this.toggleDrawer('left', true)}>
                 <MenuIcon />
               </IconButton>
@@ -159,7 +150,7 @@ class Topbar extends Component {
                     aria-owns={userMenuOpen ? 'menu-list-grow' : null}
                     aria-haspopup="true"
                   >
-                    <Identicons id={clientId} width={20} size={3} />
+                    <Identicons id={clientId.substr(0, 5)} width={20} size={3} />
                   </Button>
                   }
                 </div>

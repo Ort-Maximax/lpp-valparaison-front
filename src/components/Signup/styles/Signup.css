@@ -59,7 +59,7 @@
 .card .cardContent .form-container .button:hover {
   background-color: #0087d0;
 }
-@media only screen and (max-height: 750px) {
+@media all and (max-height: 750px) {
   #okta-sign-in,
   .card {
     margin-top: 0;
