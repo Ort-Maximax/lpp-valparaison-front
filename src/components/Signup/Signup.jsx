@@ -6,7 +6,7 @@ import Grid from 'material-ui/Grid';
 
 import axios from 'axios';
 
-import Logo from '../../img/svg/Logo';
+import Logo from '../../img/components/Logo';
 
 import './styles/Signup.css';
 
