@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint react/jsx-filename-extension: 0 */
+import React from 'react';
 
 const Logo = props => (
   <svg

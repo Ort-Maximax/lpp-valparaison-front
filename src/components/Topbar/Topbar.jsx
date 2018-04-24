@@ -91,12 +91,12 @@ class Topbar extends Component {
 
     const { userMenuOpen } = this.state;
 
-    let clientId;
+    let clientMail;
     let clientFirstName;
     // let clientLastName;
 
     if (localStorage.getItem('okta-token-storage') && localStorage.getItem('okta-token-storage') !== '{}') {
-      clientId = JSON.parse(localStorage.getItem('okta-token-storage')).idToken.claims.email;
+      clientMail = JSON.parse(localStorage.getItem('okta-token-storage')).idToken.claims.email;
       const clientName = JSON.parse(localStorage.getItem('okta-token-storage')).idToken.claims.name;
       clientFirstName = clientName.substr(0, clientName.indexOf(' '));
     }
@@ -139,10 +139,10 @@ class Topbar extends Component {
               <Target>
                 <div
                   ref={(node) => {
-                      this.target1 = node;
-                    }}
+                    this.target1 = node;
+                  }}
                 >
-                  { clientId &&
+                  { clientMail &&
                   <Button
                     variant="fab"
                     className="topbarLoggedUser"
@@ -150,7 +150,7 @@ class Topbar extends Component {
                     aria-owns={userMenuOpen ? 'menu-list-grow' : null}
                     aria-haspopup="true"
                   >
-                    <Identicons id={clientId.substr(0, 5)} width={20} size={3} />
+                    <Identicons id={clientMail} width={20} size={3} />
                   </Button>
                   }
                 </div>
@@ -161,8 +161,8 @@ class Topbar extends Component {
                 placement="bottom"
                 eventsEnabled={userMenuOpen}
                 className={classNames({
-                   'popper-close': !userMenuOpen,
-                  })}
+                  'popper-close': !userMenuOpen,
+                })}
               >
                 <ClickAwayListener onClickAway={this.handleCloseUserMenu}>
                   <Grow in={userMenuOpen} id="menu-list-grow" style={{ transformOrigin: '0 0 0' }}>
