@@ -1,60 +1,118 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Treebeard } from 'react-treebeard';
+import React, { Fragment } from 'react';
+import { Treebeard, decorators } from 'react-treebeard';
+import * as filters from './filter';
 
 const data = {
-  name: 'root',
+  name: 'My Valparaiso',
+  root: true,
+  path: 'path/to/user/folder',
   toggled: true,
   children: [
     {
-      name: 'parent',
+      name: 'Folder 1',
       children: [
-        { name: 'child1' },
-        { name: 'child2' },
+        { name: 'file.js', lastUpdated: '01/01/2001' },
+        { name: 'file.html', lastUpdated: '02/02/2002' },
+        { name: 'file.json', lastUpdated: '03/03/2003' },
+
+        { name: 'file.avi', lastUpdated: '04/04/2004' },
+        { name: 'file.mkv', lastUpdated: '05/05/2005' },
+        { name: 'file.mp4', lastUpdated: '06/06/2006' },
+
+        { name: 'file.mp3', lastUpdated: '07/07/2007' },
+        { name: 'file.ogg', lastUpdated: '08/08/2008' },
+        { name: 'file.flac', lastUpdated: '09/09/2009' },
+
       ],
     },
     {
-      name: 'loading parent',
-      loading: true,
-      children: [],
-    },
-    {
-      name: 'parent',
+      name: 'Folder 2',
       children: [
         {
-          name: 'nested parent',
+          name: 'Folder 21',
           children: [
-            { name: 'nested child 1' },
-            { name: 'nested child 2' },
+            { name: 'decorators.js', path: 'path/to/decorator' },
+            { name: 'treebeard.js', path: 'path/to/treebeard' },
           ],
         },
+        { name: 'index.js' },
       ],
     },
   ],
 };
 
+decorators.Header = ({ style, node }) => {
+  const iconType = node.children ? 'folder' : 'file-text';
+  const iconClass = `fa fa-${iconType}`;
+  const iconStyle = { marginRight: '5px' };
+
+  return (
+    <div style={style.base}>
+      <div style={style.title}>
+        <i className={iconClass} style={iconStyle} />
+
+        {node.name}
+      </div>
+    </div>
+  );
+};
+
 class TreeExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
+  constructor() {
+    super();
+
+    this.state = { data };
     this.onToggle = this.onToggle.bind(this);
   }
   onToggle(node, toggled) {
-    if (this.state.cursor) {
-      this.state.cursor.active = false;
+    const { cursor } = this.state;
+
+    if (cursor) {
+      cursor.active = false;
     }
+
     node.active = true;
     if (node.children) {
       node.toggled = toggled;
     }
+
     this.setState({ cursor: node });
   }
+
+  onFilterMouseUp(e) {
+    const filter = e.target.value.trim();
+    if (!filter) {
+      return this.setState({ data });
+    }
+    let filtered = filters.filterTree(data, filter);
+    filtered = filters.expandFilteredNodes(filtered, filter);
+    this.setState({ data: filtered });
+  }
+
   render() {
+    const { data: stateData, cursor} = this.state;
+
     return (
-      <Treebeard
-        data={data}
-        onToggle={this.onToggle}
-      />
+      <Fragment>
+        <div>
+          <div className="input-group">
+            <span className="input-group-addon">
+              <i className="fa fa-search" />
+            </span>
+            <input
+              className="form-control"
+              onKeyUp={this.onFilterMouseUp.bind(this)}
+              placeholder="Search the tree..."
+              type="text"
+            />
+          </div>
+        </div>
+        <Treebeard
+          data={stateData}
+          decorators={decorators}
+          onToggle={this.onToggle}
+        />
+      </Fragment>
     );
   }
 }
