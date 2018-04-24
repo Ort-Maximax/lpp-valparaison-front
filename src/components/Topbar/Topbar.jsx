@@ -36,7 +36,7 @@ import LogoutIcon from 'material-ui-icons/Close';
 
 import Identicons from '../../libs/identicons-react/index';
 
-import Logo from '../../img/svg/Logo';
+import Logo from '../../img/components/Logo';
 
 import './styles/Topbar.css';
 

@@ -25,7 +25,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:svg": "svgr --single-quote --ext jsx -d ./src/img/svg/ ./src/img/svg/",
+    "build:svg": "svgr --single-quote --ext jsx ./src/img/svg/ -d ./src/img/components/",
     "serve-build": "serve --port 3000 -os build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
