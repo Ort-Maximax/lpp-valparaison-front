@@ -5,7 +5,9 @@
   margin-bottom: 50px;
   cursor: pointer;
 }
-.elementContainer:hover {
+.elementContainer:hover,
+.elementContainer:focus,
+.elementContainer:active {
   background-color: #f1e8e8;
   -webkit-transition: background-color 100ms linear;
   -ms-transition: background-color 100ms linear;
