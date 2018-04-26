@@ -28,7 +28,7 @@ class NodeViewer extends React.Component {
       this.props.onCursorChange(node);
     } else {
       // Quand on click sur un fichier
-      // On ouvre une fenetre qui affiche les action possibles
+      // Ouvre un Dialog material UI qui contient les actions possible
     }
   }
 
@@ -49,6 +49,15 @@ class NodeViewer extends React.Component {
           <Element name={child.name} isFolder={!!child.children} />
         </span>
       )) : null;
+    const breadcrumbs = () => {
+      let ret = '';
+      let currentCursor = cursor;
+      while (currentCursor.parent) {
+        ret = `${currentCursor.parent.name} > ${ret}`;
+        currentCursor = currentCursor.parent;
+      }
+      return ret;
+    };
     /* Boucler dans cursor,
     creer une element graphique par folder/fichier */
     return (
@@ -56,7 +65,7 @@ class NodeViewer extends React.Component {
 
         { cursor &&
         <Fragment>
-          <h1> {cursor.parent ? cursor.parent.name : ''} {'>'} {cursor.name} </h1>
+          <h1> {breadcrumbs()} {cursor.name} </h1>
           <Grid
             style={{ margin: 0, width: '100%' }}
             container
