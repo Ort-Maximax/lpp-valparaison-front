@@ -1,0 +1,7 @@
+.dropzone {
+  position: fixed;
+  bottom: 5px;
+  height: 100px;
+  width: 930px;
+  border: 5px dashed red;
+}

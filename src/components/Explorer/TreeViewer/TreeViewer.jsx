@@ -10,12 +10,12 @@ import * as filters from './filter';
 
 const processData = (data) => {
   // Iterate over all nodes
-  data.children.forEach((el, index) => {
+  data.children.forEach((el) => {
     // add its path
     el.path = `${data.path}/${el.name.replace(' ', '\\ ')}`;
     if (el.children) {
       // If this is a folder, store it's parent
-      el.parent = data.children[index - 1];
+      el.parent = data;
       // call the data processing function for its children
       processData(el);
     }
@@ -44,6 +44,10 @@ const apiData = {
         { name: 'file.ogg', lastUpdated: '08/08/2008' },
         { name: 'file.flac', lastUpdated: '09/09/2009' },
 
+        { name: 'file.jpg', lastUpdated: '10/10/2010' },
+        { name: 'file.jpeg', lastUpdated: '11/11/2011' },
+        { name: 'file.png', lastUpdated: '12/12/2012' },
+
       ],
     },
     {
@@ -52,7 +56,7 @@ const apiData = {
         {
           name: 'Folder 21',
           children: [
-            { name: 'test.txt' },
+            { name: 'test.tar.gz' },
             { name: 'file.rar' },
           ],
         },
@@ -85,27 +89,29 @@ decorators.Header = ({ style, node }) => {
   );
 };
 
-class TreeView extends React.Component {
-  constructor() {
-    super();
-
-    this.state = { data };
+class TreeViewer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { data, cursor: data };
     this.onToggle = this.onToggle.bind(this);
     this.onFilterMouseUp = this.onFilterMouseUp.bind(this);
   }
+  componentDidMount() {
+    this.props.onCursorChange(this.state.cursor);
+  }
   onToggle(node, toggled) {
     const { cursor } = this.state;
-
     if (cursor) {
       cursor.active = false;
     }
 
     node.active = true;
-    if (node.children) {
+    // Click once = update the explorer, click twice : open or collapse tree view
+    if (node.children && cursor.active) {
       node.toggled = toggled;
     }
-
     this.setState({ cursor: node });
+    this.props.onCursorChange(node);
   }
 
   onFilterMouseUp(e) {
@@ -154,4 +160,4 @@ class TreeView extends React.Component {
   }
 }
 
-export default(TreeView);
+export default(TreeViewer);
