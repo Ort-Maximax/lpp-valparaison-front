@@ -3,6 +3,11 @@
 /* eslint no-plusplus: 0 */
 /* eslint func-names: 0 */
 import React from 'react';
+import Card, { CardContent } from 'material-ui/Card';
+import Typography from 'material-ui/Typography';
+
+import Divider from 'material-ui/Divider';
+
 import File from '../../../../img/components/File';
 import Folder from '../../../../img/components/Folder';
 import Archive from '../../../../img/components/Archive';
@@ -59,10 +64,20 @@ const Element = ({ name, isFolder, selected }) => {
     }
   }
   return (
-    <div className={`elementContainer ${selected ? 'selected' : ''}`} >
-      {icon}
-      <p style={{ textAlign: 'center' }} > {name} </p>
-    </div>
+    <Card className="elementContainer" raised={selected}>
+      <div className="mediaContainer">
+        {icon}
+      </div>
+      <Divider />
+      <CardContent className={`contentContainer ${selected ? 'selected' : ''}`}>
+        <div className="contentIconContainer">
+          {icon}
+        </div>
+        <Typography component="p" align="center" className="text">
+          {name}
+        </Typography>
+      </CardContent>
+    </Card>
   );
 };
 

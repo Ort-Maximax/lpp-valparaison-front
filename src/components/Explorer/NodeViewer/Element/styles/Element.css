@@ -1,16 +1,57 @@
 .elementContainer {
-  width: 100px;
-  height: 100px;
-  padding: 10px;
-  margin-bottom: 50px;
+  background-color: white !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 180px;
+  height: 180px;
+  margin-bottom: 30px;
   cursor: pointer;
+}
+.elementContainer .mediaContainer {
+  display: block;
+  margin: auto;
+  width: 40%;
+  padding: 5px;
+}
+.elementContainer .contentContainer {
+  display: flex;
+  padding: 5px !important;
+  flex-direction: row;
+  align-content: center;
+}
+.elementContainer .contentContainer .contentIconContainer {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+}
+.elementContainer .contentContainer .contentIconContainer > svg {
+  display: block;
+  margin: auto;
+  width: 70%;
+}
+.elementContainer .text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 10px;
+  user-select: none;
+}
+.elementContainer .selected .text {
+  color: white;
 }
 .elementContainer:hover,
 .elementContainer:focus,
 .elementContainer:active,
-.elementContainer.selected {
-  background-color: #cccccc;
-  -webkit-transition: background-color 100ms linear;
-  -ms-transition: background-color 100ms linear;
-  transition: background-color 100ms linear;
+.elementContainer .selected {
+  background: #4285f4;
+  -webkit-transition: background-color 30ms linear;
+  -ms-transition: background-color 30ms linear;
+  transition: background-color 30ms linear;
+  background-clip: padding-box;
 }

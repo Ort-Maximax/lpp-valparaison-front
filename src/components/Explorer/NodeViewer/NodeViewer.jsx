@@ -100,10 +100,12 @@ class NodeViewer extends React.Component {
 
     const clicks = [];
     let timeout;
+    // Gere le double click. C'est pas ouf mais ca marchouille
     const clickHandler = (event, child) => {
       event.stopPropagation();
       event.preventDefault();
       event.persist();
+
       clicks.push(new Date().getTime());
       window.clearTimeout(timeout);
       timeout = window.setTimeout(() => {
