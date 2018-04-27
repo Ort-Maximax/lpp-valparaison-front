@@ -2,6 +2,8 @@
 import React from 'react';
 import interact from 'interactjs';
 import Grid from 'material-ui/Grid';
+
+import Toolbar from './Toolbar/Toolbar';
 import TreeViewer from './TreeViewer/TreeViewer';
 import NodeViewer from './NodeViewer/NodeViewer';
 
@@ -65,18 +67,34 @@ class Explorer extends React.Component {
         className="explorer"
         container
         wrap="nowrap"
-        direction="row"
+        direction="column"
       >
-        <div className="tree-resize noselect" flex="true">
-          {/* TODO : Lift state up,
+        <Grid
+          style={{ margin: 0, width: '100%' }}
+          container
+          wrap="nowrap"
+          direction="row"
+        >
+          <Toolbar />
+        </Grid>
+        <Grid
+          style={{ margin: 0, width: '100%' }}
+          className="explorer"
+          container
+          wrap="nowrap"
+          direction="row"
+        >
+          <div className="tree-resize noselect" flex="true">
+            {/* TODO : Lift state up,
         pour pouvoir partager le curseur entre le treeview et le nodeview */}
-          <TreeViewer onCursorChange={this.onCursorChange} cursor={this.state.cursor} />
-        </div>
+            <TreeViewer onCursorChange={this.onCursorChange} cursor={this.state.cursor} />
+          </div>
 
-        <div className="content" flex="true">
-          {/* TODO : react dropzone sur tout content */}
-          <NodeViewer onCursorChange={this.onCursorChange} cursor={this.state.cursor} />
-        </div>
+          <div className="content" flex="true">
+            {/* TODO : react dropzone sur tout content */}
+            <NodeViewer onCursorChange={this.onCursorChange} cursor={this.state.cursor} />
+          </div>
+        </Grid>
       </Grid>
     );
   }

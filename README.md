@@ -23,4 +23,15 @@ yarn serve-build
 
 ```
 
+## Hostname
+
+Pour afficher le hostname dans le browser :
+- Dans le container Docker, dans le repertoire 'build' avant de serve 
+``` javascript
+ echo "setTimeout(() => {document.querySelector('#hostname').innerHTML = '`hostname`';}, 300);" > ./hostname.js 
+```
+- Ca va creer un fichier hostname.js et y ecrire un script qui stock le hostname de la machine, et l'inscrit dans le DOM
+
+
+
 

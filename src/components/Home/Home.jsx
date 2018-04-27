@@ -1,4 +1,3 @@
-/* global window */
 import React from 'react';
 import Paper from 'material-ui/Paper';
 import Grid from 'material-ui/Grid';
@@ -18,7 +17,7 @@ function Home() {
             <h1>
               {'Bienvenue à Valparaiso !'}
             </h1>
-            <h2>{`Hostname : ${window.location.hostname}`}</h2>
+            <h2 id="hostname"> Hostname inconnu ...</h2>
           </Grid>
 
           <Grid item xs={12}>
