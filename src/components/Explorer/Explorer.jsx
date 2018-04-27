@@ -58,6 +58,7 @@ class Explorer extends React.Component {
         target.style.transform = `translate( ${x}px, ${y}px)`;
       });
 
+    /* TODO : Composant Toolbar */
     return (
       <Grid
         style={{ margin: 0, width: '100%' }}

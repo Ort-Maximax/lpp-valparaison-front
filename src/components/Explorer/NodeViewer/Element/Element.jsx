@@ -21,7 +21,7 @@ String.prototype.nthIndexOf = function (pattern, n) {
   return i;
 };
 
-const Element = ({ name, isFolder }) => {
+const Element = ({ name, isFolder, selected }) => {
   let icon = <File />;
   if (isFolder) {
     icon = <Folder />;
@@ -59,9 +59,9 @@ const Element = ({ name, isFolder }) => {
     }
   }
   return (
-    <div className="elementContainer">
+    <div className={`elementContainer ${selected ? 'selected' : ''}`} >
       {icon}
-      <p style={{ textAlign: 'center' }}> {name} </p>
+      <p style={{ textAlign: 'center' }} > {name} </p>
     </div>
   );
 };

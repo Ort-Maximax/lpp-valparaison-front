@@ -7,8 +7,9 @@
 }
 .elementContainer:hover,
 .elementContainer:focus,
-.elementContainer:active {
-  background-color: #f1e8e8;
+.elementContainer:active,
+.elementContainer.selected {
+  background-color: #cccccc;
   -webkit-transition: background-color 100ms linear;
   -ms-transition: background-color 100ms linear;
   transition: background-color 100ms linear;

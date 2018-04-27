@@ -1,7 +1,12 @@
-.dropzone {
-  position: fixed;
-  bottom: 5px;
-  height: 100px;
-  width: 930px;
-  border: 5px dashed red;
+.nv-container {
+  height: 100%;
+  width: 100%;
+}
+.nv-container .dropzone {
+  position: relative;
+  height: inherit;
+  width: inherit;
+}
+.nv-container .dropzone .node {
+  padding: 10px;
 }

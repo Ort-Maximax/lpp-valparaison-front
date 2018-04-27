@@ -2,6 +2,8 @@
 import React, { Fragment } from 'react';
 import { Treebeard, decorators } from 'react-treebeard';
 
+import uuidv1 from 'uuid/v1';
+
 import Input, { InputAdornment } from 'material-ui/Input';
 import Paper from 'material-ui/Paper';
 import Search from '@material-ui/icons/Search';
@@ -13,6 +15,7 @@ const processData = (data) => {
   data.children.forEach((el) => {
     // add its path
     el.path = `${data.path}/${el.name.replace(' ', '\\ ')}`;
+    el.uuid = uuidv1();
     if (el.children) {
       // If this is a folder, store it's parent
       el.parent = data;
@@ -111,10 +114,12 @@ class TreeViewer extends React.Component {
       node.toggled = toggled;
     }
     this.setState({ cursor: node });
+    console.log(node);
     this.props.onCursorChange(node);
   }
 
   onFilterMouseUp(e) {
+    /* TODO : update cursor en même temps que la recherche */
     const filter = e.target.value.trim();
     if (!filter) {
       return this.setState({ data });

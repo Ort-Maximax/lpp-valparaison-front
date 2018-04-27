@@ -23,3 +23,7 @@
 .explorer {
   height: 100%;
 }
+.content {
+  padding-left: 10px;
+  width: 100%;
+}
