@@ -63,6 +63,7 @@ const Element = ({ name, isFolder, selected }) => {
         icon = <File />;
     }
   }
+  /* TODO : voir comment recuperer un thumbnail du fichier */
   return (
     <Card className="elementContainer" raised={selected}>
       <div className="mediaContainer">

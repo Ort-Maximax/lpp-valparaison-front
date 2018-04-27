@@ -2,7 +2,7 @@
 import React, { Fragment } from 'react';
 import { Treebeard, decorators } from 'react-treebeard';
 
-import uuidv1 from 'uuid/v1';
+// import uuidv1 from 'uuid/v1';
 
 import Input, { InputAdornment } from 'material-ui/Input';
 import Paper from 'material-ui/Paper';
@@ -15,7 +15,7 @@ const processData = (data) => {
   data.children.forEach((el) => {
     // add its path
     el.path = `${data.path}/${el.name.replace(' ', '\\ ')}`;
-    el.uuid = uuidv1();
+    // el.uuid = uuidv1();
     if (el.children) {
       // If this is a folder, store it's parent
       el.parent = data;
