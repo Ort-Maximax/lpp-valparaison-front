@@ -1,4 +1,4 @@
-.elementContainer {
+.fileElementContainer {
   background-color: white !important;
   display: flex;
   flex-direction: column;
@@ -8,19 +8,19 @@
   margin-bottom: 30px;
   cursor: pointer;
 }
-.elementContainer .previewContainer {
+.fileElementContainer .filePreviewContainer {
   display: block;
   margin: auto;
   width: 40%;
   padding: 5px;
 }
-.elementContainer .contentContainer {
+.fileElementContainer .fileContentContainer {
   display: flex;
   padding: 5px !important;
   flex-direction: row;
   align-content: center;
 }
-.elementContainer .contentContainer .contentIconContainer {
+.fileElementContainer .fileContentContainer .fileContentIconContainer {
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -30,12 +30,12 @@
   height: 30px;
   margin-left: 5px;
 }
-.elementContainer .contentContainer .contentIconContainer > svg {
+.fileElementContainer .fileContentContainer .fileContentIconContainer > svg {
   display: block;
   margin: auto;
   width: 70%;
 }
-.elementContainer .text {
+.fileElementContainer .fileContentContainer .text {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -46,16 +46,53 @@
   user-select: none;
   text-align: left;
 }
-.elementContainer .selected .text {
-  color: white;
-}
-.elementContainer:hover,
-.elementContainer:focus,
-.elementContainer:active,
-.elementContainer .selected {
+.fileElementContainer:focus,
+.fileElementContainer:active {
   background: #4285f4;
   -webkit-transition: background-color 30ms linear;
   -ms-transition: background-color 30ms linear;
   transition: background-color 30ms linear;
   background-clip: padding-box;
+}
+.folderContentContainer {
+  display: flex;
+  padding: 5px !important;
+  flex-direction: row;
+  align-content: center;
+}
+.folderContentContainer .folderContentIconContainer {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+}
+.folderContentContainer .folderContentIconContainer > svg {
+  display: block;
+  margin: auto;
+  width: 70%;
+}
+.folderContentContainer .text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-left: 10px;
+  height: 30px;
+  width: 10em;
+  line-height: 30px;
+  user-select: none;
+  text-align: left;
+}
+.selected {
+  background: #4285f4;
+  -webkit-transition: background-color 30ms linear;
+  -ms-transition: background-color 30ms linear;
+  transition: background-color 30ms linear;
+  background-clip: padding-box;
+}
+.selected .text {
+  color: white;
 }

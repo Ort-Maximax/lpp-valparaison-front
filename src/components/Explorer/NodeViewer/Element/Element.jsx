@@ -2,7 +2,7 @@
 /* eslint no-param-reassign: 0 */
 /* eslint no-plusplus: 0 */
 /* eslint func-names: 0 */
-import React from 'react';
+import React, { Fragment } from 'react';
 import Card, { CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 
@@ -65,20 +65,37 @@ const Element = ({ name, isFolder, selected }) => {
   }
   /* TODO : voir comment recuperer un thumbnail du fichier */
   return (
-    <Card className="elementContainer" raised={selected}>
-      <div className="previewContainer">
-        {icon}
-      </div>
-      <Divider />
-      <CardContent className={`contentContainer ${selected ? 'selected' : ''}`}>
-        <div className="contentIconContainer">
-          {icon}
-        </div>
-        <Typography component="p" align="center" className="text">
-          {name}
-        </Typography>
-      </CardContent>
-    </Card>
+    <Fragment>
+      {
+        isFolder ?
+          <Card raised={selected}>
+            <CardContent className={`folderContentContainer ${selected ? 'selected' : ''}`}>
+              <div className="folderContentIconContainer">
+                {icon}
+              </div>
+              <Typography component="p" align="center" className="text">
+                {name}
+              </Typography>
+            </CardContent>
+          </Card>
+      :
+          <Card className="fileElementContainer" raised={selected}>
+            <div className="filePreviewContainer">
+              {icon}
+            </div>
+            <Divider />
+            <CardContent className={`fileContentContainer ${selected ? 'selected' : ''}`}>
+              <div className="fileContentIconContainer">
+                {icon}
+              </div>
+              <Typography component="p" align="center" className="text">
+                {name}
+              </Typography>
+            </CardContent>
+          </Card>
+      }
+
+    </Fragment>
   );
 };
 

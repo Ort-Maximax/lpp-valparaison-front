@@ -1,68 +1,100 @@
-.elementContainer{
-  background-color: white !important;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width : 180px;
-  height: 180px;
-  margin-bottom : 30px;
-  cursor: pointer;
+.fileElementContainer {
+    background-color: white !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 180px;
+    height: 180px;
+    margin-bottom: 30px;
+    cursor: pointer;
+    .filePreviewContainer {
+        display: block;
+        margin: auto;
+        width: 40%;
+        padding: 5px;
+    }
+    .fileContentContainer {
+        display: flex;
+        padding: 5px !important;
+        flex-direction: row;
+        align-content: center;
+        .fileContentIconContainer {
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            margin-left: 5px;
+            &>svg {
+                display: block;
+                margin: auto;
+                width: 70%;
+            }
+        }
+        .text {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          padding-left: 10px;
+          height: 30px;
+          width: 10em;
+          line-height: 30px;
+          user-select: none;
+          text-align: left;
+      }
+    }
+    &:focus,
+    &:active {
+        background: #4285f4;
+        -webkit-transition: background-color 30ms linear;
+        -ms-transition: background-color 30ms linear;
+        transition: background-color 30ms linear;
+        background-clip: padding-box;
+    }
+}
 
-  .previewContainer{
-    display: block;
-    margin: auto;
-    width : 40%;
-    padding: 5px;
-  }
-  .contentContainer {
+.folderContentContainer {
     display: flex;
     padding: 5px !important;
     flex-direction: row;
     align-content: center;
-    .contentIconContainer {
-      background-color : white;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      margin-left: 5px;
-      & > svg {
-        display: block;
-        margin: auto;
-        width : 70%;
-      }
+    .folderContentIconContainer {
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        margin-left: 5px;
+        &>svg {
+            display: block;
+            margin: auto;
+            width: 70%;
+        }
     }
-  }
-  .text {
-    overflow: hidden; 
-    text-overflow: ellipsis;
-    white-space: nowrap;
-
-    padding-left : 10px;
-    height: 30px;
-    width : 10em;
-    line-height: 30px;
-    user-select: none;
-    text-align: left;
-  }
-
-
-
-  .selected {
     .text {
-      color: white;      
-    }
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding-left: 10px;
+      height: 30px;
+      width: 10em;
+      line-height: 30px;
+      user-select: none;
+      text-align: left;
   }
+}
 
-
-
-  &:hover, &:focus, &:active, .selected {
-    background : #4285f4;
+.selected {
+    background: #4285f4;
     -webkit-transition: background-color 30ms linear;
     -ms-transition: background-color 30ms linear;
     transition: background-color 30ms linear;
     background-clip: padding-box;
-  }
+    .text {
+        color: white;
+    }
 }
