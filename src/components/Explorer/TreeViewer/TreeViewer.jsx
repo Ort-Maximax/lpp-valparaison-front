@@ -78,7 +78,46 @@ apiData.toggled = true;
 const data = processData(apiData);
 
 decorators.Header = ({ style, node }) => {
-  const iconType = node.children ? 'folder' : 'file-text';
+  let ext = '';
+  let iconType = 'file-text';
+
+  if (node.name.nthIndexOf('.', 2) !== -1) {
+    ext = node.name.substring(node.name.indexOf('.'), node.name.nthIndexOf('.', 2));
+  } else {
+    ext = node.name.substring(node.name.indexOf('.'));
+  }
+  if (node.children) {
+    if (node.toggled) {
+      iconType = 'folder-open';
+    } else {
+      iconType = 'folder';
+    }
+  } else {
+    switch (ext) {
+      case ('.avi'):
+      case ('.mkv'):
+      case ('.mp4'):
+        iconType = 'film';
+        break;
+      case ('.mp3'):
+      case ('.ogg'):
+      case ('.flac'):
+        iconType = 'music';
+        break;
+      case ('.jpg'):
+      case ('.jpeg'):
+      case ('.png'):
+        iconType = 'image';
+        break;
+      case ('.zip'):
+      case ('.rar'):
+      case ('.tar'):
+        iconType = 'archive';
+        break;
+      default:
+        iconType = 'file-text';
+    }
+  }
   const iconClass = `fa fa-${iconType}`;
   const iconStyle = { marginRight: '5px' };
 

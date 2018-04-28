@@ -36,11 +36,15 @@
   width: 70%;
 }
 .elementContainer .text {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   padding-left: 10px;
+  height: 30px;
+  width: 10em;
+  line-height: 30px;
   user-select: none;
+  text-align: left;
 }
 .elementContainer .selected .text {
   color: white;
