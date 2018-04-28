@@ -1,4 +1,3 @@
-/* global window */
 import React, { Fragment } from 'react';
 import Dropzone from 'react-dropzone';
 import Grid from 'material-ui/Grid';
@@ -36,13 +35,19 @@ class NodeViewer extends React.Component {
     // Si la touche CTRL est pressé
     if (e.ctrlKey) {
       // On ajoute l'element clické a la liste d'elements selectionné
-      this.setState({ selectedElements: [...this.state.selectedElements, node] });
+      // Ou on le supprime
+      if (this.state.selectedElements.includes(node)) {
+        const index = this.state.selectedElements.indexOf(node);
+        this.state.selectedElements.splice(index, 1);
+        this.setState({ selectedElements: this.state.selectedElements });
+      } else {
+        this.setState({ selectedElements: [...this.state.selectedElements, node] });
+      }
     } else {
       // Sinon, on clear la liste, et on ajoute l'element clické
       this.setState({ selectedElements: [node] });
     }
     console.log('click');
-    console.log(this.state.selectedElements);
   }
 
   onDoubleClick(node) {
@@ -52,7 +57,6 @@ class NodeViewer extends React.Component {
     // Sauf si c'est le dossier .. alors
     // cursor = son parent
     if (node.children) {
-      console.log(node);
       this.props.onCursorChange(node);
     } else {
       // Quand on doubleclick sur un fichier
@@ -60,9 +64,11 @@ class NodeViewer extends React.Component {
     }
   }
 
-  onOffClick() {
+  onOffClick(e) {
     console.log('off click');
-    this.setState({ selectedElements: [] });
+    if (!e.ctrlKey) {
+      this.setState({ selectedElements: [] });
+    }
   }
 
   onDragEnter() {
@@ -96,40 +102,22 @@ class NodeViewer extends React.Component {
 
   render() {
     const { cursor } = this.props;
-
-
-    const clicks = [];
-    let timeout;
     // Gere le double click. C'est pas ouf mais ca marchouille
-    const clickHandler = (event, child) => {
+    const clickHandler = (event, node) => {
       event.stopPropagation();
       event.preventDefault();
       event.persist();
 
-      clicks.push(new Date().getTime());
-      window.clearTimeout(timeout);
-      timeout = window.setTimeout(() => {
-        if (clicks.length > 1 && clicks[clicks.length - 1] - clicks[clicks.length - 2] < 200) {
-          this.onDoubleClick(child);
-        } else {
-          this.onClick(event, child);
-        }
-      }, 200);
+      node.clicks.splice(0, node.clicks.length - 1);
+
+      node.clicks.push(new Date().getTime());
+      if (node.clicks.length > 1
+          && node.clicks[node.clicks.length - 1] - node.clicks[node.clicks.length - 2] < 300) {
+        this.onDoubleClick(node);
+      } else {
+        this.onClick(event, node);
+      }
     };
-
-
-    /*
-    const childrens = cursor.children ? cursor.children.map(child =>
-      (
-        <span onClick={e => clickHandler(e, child)} className="node" key={child.name} role="button">
-          <Element
-            name={child.name}
-            isFolder={!!child.children}
-            selected={this.state.selectedElements.includes(child)}
-          />
-        </span>
-      )) : null;
-      */
     const filesChildren = cursor.children ? cursor.children.filter(child => !child.children) : null;
 
     const filesElem = filesChildren ? filesChildren.map(child =>
@@ -168,13 +156,10 @@ class NodeViewer extends React.Component {
       return ret;
     };
 
-    console.log('files', filesElem);
-    console.log('folder', foldersElem);
-
     /* Boucler dans cursor,
     creer une element graphique par folder/fichier */
     return (
-      <div className="nv-container" onClick={this.onOffClick} role="button">
+      <div className="nv-container" onClick={e => this.onOffClick(e)} role="button">
         <Dropzone
           onDrop={this.onDrop}
           disabled={this.state.disabled}

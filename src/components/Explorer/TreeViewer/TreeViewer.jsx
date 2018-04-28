@@ -15,6 +15,7 @@ const processData = (data) => {
   data.children.forEach((el) => {
     // add its path
     el.path = `${data.path}/${el.name.replace(' ', '\\ ')}`;
+    el.clicks = [];
     // el.uuid = uuidv1();
     if (el.children) {
       // If this is a folder, store it's parent

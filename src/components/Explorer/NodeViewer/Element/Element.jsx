@@ -66,7 +66,7 @@ const Element = ({ name, isFolder, selected }) => {
   /* TODO : voir comment recuperer un thumbnail du fichier */
   return (
     <Card className="elementContainer" raised={selected}>
-      <div className="mediaContainer">
+      <div className="previewContainer">
         {icon}
       </div>
       <Divider />
