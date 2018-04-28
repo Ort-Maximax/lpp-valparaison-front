@@ -118,6 +118,7 @@ class NodeViewer extends React.Component {
     };
 
 
+    /*
     const childrens = cursor.children ? cursor.children.map(child =>
       (
         <span onClick={e => clickHandler(e, child)} className="node" key={child.name} role="button">
@@ -128,6 +129,35 @@ class NodeViewer extends React.Component {
           />
         </span>
       )) : null;
+      */
+    const filesChildren = cursor.children ? cursor.children.filter(child => !child.children) : null;
+
+    const filesElem = filesChildren ? filesChildren.map(child =>
+      (
+        !child.children &&
+        <span onClick={e => clickHandler(e, child)} className="node" key={child.name} role="button">
+          <Element
+            name={child.name}
+            isFolder={!!child.children}
+            selected={this.state.selectedElements.includes(child)}
+          />
+        </span>
+      )) : null;
+
+    const folderChildren = cursor.children ? cursor.children.filter(child => child.children) : null;
+
+    const foldersElem = folderChildren ? folderChildren.map(child =>
+      (
+        child.children &&
+          <span onClick={e => clickHandler(e, child)} className="node" key={child.name} role="button">
+            <Element
+              name={child.name}
+              isFolder={!!child.children}
+              selected={this.state.selectedElements.includes(child)}
+            />
+          </span>
+      )) : null;
+
     const breadcrumbs = () => {
       let ret = '';
       let currentCursor = cursor;
@@ -137,6 +167,9 @@ class NodeViewer extends React.Component {
       }
       return ret;
     };
+
+    console.log('files', filesElem);
+    console.log('folder', foldersElem);
 
     /* Boucler dans cursor,
     creer une element graphique par folder/fichier */
@@ -156,11 +189,43 @@ class NodeViewer extends React.Component {
             <Grid
               style={{ margin: 0, width: '100%' }}
               container
-              direction="row"
+              direction="column"
             >
-              {childrens ||
-              /* En fonction du type du fichier, on ouvre la page qui lui correspond */
-              <div> test </div> }
+              { foldersElem && foldersElem.length > 0 &&
+                <Grid
+                  style={{ margin: 0, width: '100%' }}
+                  container
+                  direction="column"
+                >
+                  <div>  Dossiers </div>
+                  <Grid
+                    style={{ margin: 0, width: '100%' }}
+                    container
+                    direction="row"
+                  >
+                    {foldersElem}
+                  </Grid>
+
+                </Grid>
+              }
+
+              { filesElem && filesElem.length > 0 &&
+              <Grid
+                style={{ margin: 0, width: '100%' }}
+                container
+                direction="column"
+              >
+                <div>  Fichiers </div>
+                <Grid
+                  style={{ margin: 0, width: '100%' }}
+                  container
+                  direction="row"
+                >
+                  {filesElem}
+                </Grid>
+              </Grid>
+              }
+
               <Rodal visible={this.state.dragModalVisible} onClose={this.hideDragModal}>
                 <div>On est en train de drag !!!!</div>
               </Rodal>
