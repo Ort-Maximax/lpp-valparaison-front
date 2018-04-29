@@ -7,7 +7,7 @@
 .mainPaper h2 {
   text-align: center;
 }
-@media all and (max-width: 750px) {
+@media all and (max-width: 760px) {
   .mainPaper {
     margin: 0;
     width: 100%;

@@ -160,6 +160,7 @@ class Topbar extends Component {
               <Popper
                 placement="bottom"
                 eventsEnabled={userMenuOpen}
+                style={{ zIndex: 999 }}
                 className={classNames({
                   'popper-close': !userMenuOpen,
                 })}

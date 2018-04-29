@@ -4,6 +4,7 @@
   line-height: 20px;
   min-width: 30px;
   padding: 7px;
+  user-select: none;
   border: 1px solid black;
 }
 .crumb.selected {

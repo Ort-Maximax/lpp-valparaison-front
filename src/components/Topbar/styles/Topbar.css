@@ -137,7 +137,7 @@ a:hover {
   height: 100%;
   width: 90%;
 }
-@media all and (max-width: 750px) {
+@media all and (max-width: 760px) {
   .topBarLinks {
     display: none !important;
   }

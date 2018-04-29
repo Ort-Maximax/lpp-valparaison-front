@@ -36,28 +36,16 @@ class Breadcrumbs extends React.Component {
       this.setState({ crumbs });
     } else {
       // Change le crumb selectionné
-
-      console.log(found);
-
-      // On reset tout les crumbs selectionné
-      const crumbs = this.state.crumbs.map((crumb) => {
-        if (crumb.key === found.key) {
-          return Object.assign({}, crumb, { props: { ...crumb.props, selected: true } });
-        }
-        return Object.assign({}, crumb, { props: { ...crumb.props, selected: false } });
-      });
-
+      const crumbs = this.state.crumbs.map(crumb =>
+        Object.assign({}, crumb, { props: { ...crumb.props, selected: crumb.key === found.key } }));
       this.setState({ crumbs });
-      // Puis on selectionne le crumb = found
-
-      console.log('il faut changer le crumb select');
     }
   }
 
   render() {
     return (
       <Grid
-        style={{ margin: 0, width: '80%', padding: '0 10px' }}
+        style={{ margin: 0, width: '75%', padding: '0 10px' }}
         container
         direction="row"
       >

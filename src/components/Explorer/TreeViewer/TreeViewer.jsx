@@ -2,6 +2,10 @@
 import React from 'react';
 import { Treebeard, decorators } from 'react-treebeard';
 import uuidv1 from 'uuid';
+
+import Paper from 'material-ui/Paper';
+import Input, { InputAdornment } from 'material-ui/Input';
+import Search from '@material-ui/icons/Search';
 import * as filters from './filter';
 
 const processData = (data) => {
@@ -131,7 +135,7 @@ class TreeViewer extends React.Component {
     super(props);
     this.state = { data, cursor: data };
     this.onToggle = this.onToggle.bind(this);
-    this.filter = this.filter.bind(this);
+    this.onFilterMouseUp = this.onFilterMouseUp.bind(this);
   }
 
   componentWillMount() {
@@ -146,13 +150,21 @@ class TreeViewer extends React.Component {
 
   componentDidMount() {
     this.props.onCursorChange(this.state.cursor);
-    this.filter(this.props.filter);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.filter) {
       this.filter(nextProps.filter);
     }
+  }
+  onFilterMouseUp(e) {
+    const filter = e.target.value.trim();
+    if (!filter) {
+      return this.setState({ data });
+    }
+    let filtered = filters.filterTree(data, filter);
+    filtered = filters.expandFilteredNodes(filtered, filter);
+    return this.setState({ data: filtered });
   }
 
   onToggle(node, toggled) {
@@ -162,7 +174,7 @@ class TreeViewer extends React.Component {
     }
 
     node.active = true;
-    // Click once = update the explorer, click twice : open or collapse tree view
+    // Click once = update the explorer, click twice : open or c  ollapse tree view
     if (node.children && cursor.active) {
       node.toggled = toggled;
     }
@@ -170,20 +182,33 @@ class TreeViewer extends React.Component {
     this.props.onCursorChange(node);
   }
 
-  filter(filter) {
-    if (!filter) {
-      return this.setState({ data });
-    }
-    let filtered = filters.filterTree(data, filter);
-    filtered = filters.expandFilteredNodes(filtered, filter);
-    return this.setState({ data: filtered });
-  }
-
   render() {
     const { data: stateData } = this.state;
 
     return (
       <div style={{ paddingTop: 10 }}>
+        <Paper
+          style={{
+              paddingBottom: 2,
+              paddingLeft: 5,
+              paddingRight: 5,
+              marginBottom: 5,
+              width: 'calc(100% - 11px)',
+            }}
+          className="searchBar"
+          square
+        >
+          <Input
+            fullWidth
+            placeholder="Rechercher"
+            onKeyUp={this.onFilterMouseUp}
+            endAdornment={
+              <InputAdornment position="start">
+                <Search />
+              </InputAdornment>
+              }
+          />
+        </Paper>
         <Treebeard
           data={stateData}
           decorators={decorators}
