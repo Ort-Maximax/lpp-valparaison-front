@@ -55,6 +55,7 @@
   background-clip: padding-box;
 }
 .folderContentContainer {
+  width: 170px;
   display: flex;
   padding: 5px !important;
   flex-direction: row;

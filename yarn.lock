@@ -4487,10 +4487,6 @@ inquirer@3.3.0, inquirer@^3.0.6:
     strip-ansi "^4.0.0"
     through "^2.3.6"
 
-interactjs@^1.3.3:
-  version "1.3.3"
-  resolved "https://registry.yarnpkg.com/interactjs/-/interactjs-1.3.3.tgz#863dbb04b3867a02ef8f6509dc422873d75840aa"
-
 internal-ip@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/internal-ip/-/internal-ip-1.2.0.tgz#ae9fbf93b984878785d50a8de1b356956058cf5c"
@@ -6975,6 +6971,10 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     ini "~1.3.0"
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
+
+re-resizable@^4.4.8:
+  version "4.4.8"
+  resolved "https://registry.yarnpkg.com/re-resizable/-/re-resizable-4.4.8.tgz#1c7eedfd9b9ed1f83b3adfa7a97cda76881e4e57"
 
 react-dev-utils@^5.0.0:
   version "5.0.0"

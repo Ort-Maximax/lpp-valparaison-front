@@ -1,14 +1,8 @@
 /* eslint no-param-reassign: 0 */
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Treebeard, decorators } from 'react-treebeard';
-
-// import uuidv1 from 'uuid/v1';
-
-import Input, { InputAdornment } from 'material-ui/Input';
-import Paper from 'material-ui/Paper';
-import Search from '@material-ui/icons/Search';
+import uuidv1 from 'uuid';
 import * as filters from './filter';
-
 
 const processData = (data) => {
   // Iterate over all nodes
@@ -16,10 +10,9 @@ const processData = (data) => {
     // add its path
     el.path = `${data.path}/${el.name.replace(' ', '\\ ')}`;
     el.clicks = [];
-    // el.uuid = uuidv1();
+    el.parent = data;
+    el.uuid = uuidv1();
     if (el.children) {
-      // If this is a folder, store it's parent
-      el.parent = data;
       // call the data processing function for its children
       processData(el);
     }
@@ -30,7 +23,7 @@ const processData = (data) => {
 /* TODO : Get data from backend API */
 // Emulate getting datas from the API
 const apiData = {
-  name: 'My Valparaiso',
+  name: 'Home',
   path: 'path/to/user/folder',
   children: [
     {
@@ -74,6 +67,7 @@ const apiData = {
   ],
 };
 
+apiData.uuid = uuidv1();
 apiData.root = true;
 apiData.toggled = true;
 const data = processData(apiData);
@@ -137,11 +131,30 @@ class TreeViewer extends React.Component {
     super(props);
     this.state = { data, cursor: data };
     this.onToggle = this.onToggle.bind(this);
-    this.onFilterMouseUp = this.onFilterMouseUp.bind(this);
+    this.filter = this.filter.bind(this);
   }
+
+  componentWillMount() {
+    const { filter } = this.props;
+    if (!filter) {
+      return this.setState({ data });
+    }
+    let filtered = filters.filterTree(data, filter);
+    filtered = filters.expandFilteredNodes(filtered, filter);
+    return this.setState({ data: filtered });
+  }
+
   componentDidMount() {
     this.props.onCursorChange(this.state.cursor);
+    this.filter(this.props.filter);
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.filter) {
+      this.filter(nextProps.filter);
+    }
+  }
+
   onToggle(node, toggled) {
     const { cursor } = this.state;
     if (cursor) {
@@ -154,13 +167,10 @@ class TreeViewer extends React.Component {
       node.toggled = toggled;
     }
     this.setState({ cursor: node });
-    console.log(node);
     this.props.onCursorChange(node);
   }
 
-  onFilterMouseUp(e) {
-    /* TODO : update cursor en même temps que la recherche */
-    const filter = e.target.value.trim();
+  filter(filter) {
     if (!filter) {
       return this.setState({ data });
     }
@@ -173,34 +183,13 @@ class TreeViewer extends React.Component {
     const { data: stateData } = this.state;
 
     return (
-      <Fragment>
-        <Paper
-          style={{
-            paddingBottom: 2,
-            paddingLeft: 5,
-            paddingRight: 5,
-            marginBottom: 5,
-            width: 'calc(100% - 11px)',
-          }}
-          square
-        >
-          <Input
-            fullWidth
-            onKeyUp={this.onFilterMouseUp}
-            placeholder="Rechercher"
-            endAdornment={
-              <InputAdornment position="start">
-                <Search />
-              </InputAdornment>
-            }
-          />
-        </Paper>
+      <div style={{ paddingTop: 10 }}>
         <Treebeard
           data={stateData}
           decorators={decorators}
           onToggle={this.onToggle}
         />
-      </Fragment>
+      </div>
     );
   }
 }

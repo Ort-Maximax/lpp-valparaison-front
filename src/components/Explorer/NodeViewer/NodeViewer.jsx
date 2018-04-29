@@ -35,7 +35,7 @@ class NodeViewer extends React.Component {
     // Si la touche CTRL est pressé
     if (e.ctrlKey) {
       // On ajoute l'element clické a la liste d'elements selectionné
-      // Ou on le supprime
+      // Ou on le supprime si il est deja dans la liste
       if (this.state.selectedElements.includes(node)) {
         const index = this.state.selectedElements.indexOf(node);
         this.state.selectedElements.splice(index, 1);
@@ -54,13 +54,11 @@ class NodeViewer extends React.Component {
     console.log('double click');
     // Quand on doubleclick sur un dossier,
     // cursor = ses children
-    // Sauf si c'est le dossier .. alors
-    // cursor = son parent
     if (node.children) {
       this.props.onCursorChange(node);
     } else {
       // Quand on doubleclick sur un fichier
-      // Ouvre l'action par defaut de ce fichier
+      // Execute l'action par defaut de ce fichier = open
     }
   }
 
@@ -146,18 +144,6 @@ class NodeViewer extends React.Component {
           </span>
       )) : null;
 
-    const breadcrumbs = () => {
-      let ret = '';
-      let currentCursor = cursor;
-      while (currentCursor.parent) {
-        ret = `${currentCursor.parent.name} > ${ret}`;
-        currentCursor = currentCursor.parent;
-      }
-      return ret;
-    };
-
-    /* Boucler dans cursor,
-    creer une element graphique par folder/fichier */
     return (
       <div className="nv-container" onClick={e => this.onOffClick(e)} role="button">
         <Dropzone
@@ -170,7 +156,6 @@ class NodeViewer extends React.Component {
         >
           { cursor &&
           <Fragment>
-            <h1> {breadcrumbs()} {cursor.name} </h1>
             <Grid
               style={{ margin: 0, width: '100%' }}
               container
@@ -190,7 +175,6 @@ class NodeViewer extends React.Component {
                   >
                     {foldersElem}
                   </Grid>
-
                 </Grid>
               }
 
