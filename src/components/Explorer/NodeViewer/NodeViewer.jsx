@@ -32,6 +32,8 @@ class NodeViewer extends React.Component {
   }
 
   onClick(e, node) {
+    e.stopPropagation();
+    e.preventDefault();
     // Si la touche CTRL est pressé
     if (e.ctrlKey) {
       // On ajoute l'element clické a la liste d'elements selectionné
@@ -50,8 +52,13 @@ class NodeViewer extends React.Component {
     console.log('click');
   }
 
-  onDoubleClick(node) {
+  onDoubleClick(e, node) {
+    /* TODO : check si pointer est toujours au dessus de l'element cible */
+    console.log(e);
+    console.log(node);
     console.log('double click');
+    e.stopPropagation();
+    e.preventDefault();
     // Quand on doubleclick sur un dossier,
     // cursor = ses children
     if (node.children) {
@@ -111,17 +118,25 @@ class NodeViewer extends React.Component {
       node.clicks.push(new Date().getTime());
       if (node.clicks.length > 1
           && node.clicks[node.clicks.length - 1] - node.clicks[node.clicks.length - 2] < 300) {
-        this.onDoubleClick(node);
+        this.onDoubleClick(event, node);
       } else {
         this.onClick(event, node);
       }
     };
+
     const filesChildren = cursor.children ? cursor.children.filter(child => !child.children) : null;
 
     const filesElem = filesChildren ? filesChildren.map(child =>
       (
         !child.children &&
-        <span onClick={e => clickHandler(e, child)} className="node" key={child.name} role="button">
+        <span
+          onTouchStart={e => this.onClick(e, child)}
+          onTouchEnd={e => this.onDoubleClick(e, child)}
+          onClick={e => clickHandler(e, child)}
+          className="node"
+          key={child.name}
+          role="button"
+        >
           <Element
             name={child.name}
             isFolder={!!child.children}
@@ -135,7 +150,14 @@ class NodeViewer extends React.Component {
     const foldersElem = folderChildren ? folderChildren.map(child =>
       (
         child.children &&
-          <span onClick={e => clickHandler(e, child)} className="node" key={child.name} role="button">
+          <span
+            onTouchStart={e => this.onClick(e, child)}
+            onTouchEnd={e => this.onDoubleClick(e, child)}
+            onClick={e => clickHandler(e, child)}
+            className="node"
+            key={child.name}
+            role="button"
+          >
             <Element
               name={child.name}
               isFolder={!!child.children}

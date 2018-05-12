@@ -19,7 +19,6 @@
         flex-direction: row;
         align-content: center;
         .fileContentIconContainer {
-            background-color: white;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -67,8 +66,7 @@
         flex-direction: column;
         justify-content: center;
         border-radius: 50%;
-        width: 30px;
-        height: 30px;
+        width: 35px;
         margin-left: 5px;
         &>svg {
             display: block;
@@ -97,5 +95,19 @@
     background-clip: padding-box;
     .text {
         color: white;
+    }
+}
+
+@media all and (max-width: 760px) {
+    .fileElementContainer {
+        width : 120px;
+        height: 120px;
+    }
+}
+
+@media all and (max-width: 430px) {
+    .fileElementContainer {
+        width : 100px;
+        height: 100px;
     }
 }

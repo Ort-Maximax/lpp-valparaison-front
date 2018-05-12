@@ -1,3 +1,4 @@
+/* global window */
 /* eslint no-extend-native: 0 */
 /* eslint no-param-reassign: 0 */
 /* eslint no-plusplus: 0 */
@@ -7,6 +8,10 @@ import Card, { CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 
 import Divider from 'material-ui/Divider';
+/*
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+*/
 
 import File from '../../../../img/components/File';
 import Folder from '../../../../img/components/Folder';
@@ -63,6 +68,7 @@ const Element = ({ name, isFolder, selected }) => {
         icon = <File />;
     }
   }
+  const width = window.innerWidth;
   /* TODO : voir comment recuperer un thumbnail du fichier */
   return (
     <Fragment>
@@ -70,12 +76,20 @@ const Element = ({ name, isFolder, selected }) => {
         isFolder ?
           <Card raised={selected}>
             <CardContent className={`folderContentContainer ${selected ? 'selected' : ''}`}>
+
               <div className="folderContentIconContainer">
                 {icon}
               </div>
+
+
               <Typography component="p" align="center" className="text">
                 {name}
               </Typography>
+              {/*
+              <IconButton style={{ height: 30, width: 20 }}>
+                <MoreVertIcon />
+              </IconButton>
+              */}
             </CardContent>
           </Card>
       :
@@ -85,12 +99,20 @@ const Element = ({ name, isFolder, selected }) => {
             </div>
             <Divider />
             <CardContent className={`fileContentContainer ${selected ? 'selected' : ''}`}>
-              <div className="fileContentIconContainer">
-                {icon}
-              </div>
+              {width > 400 &&
+                <div className="fileContentIconContainer">
+                  {icon}
+                </div>
+              }
               <Typography component="p" align="center" className="text">
                 {name}
               </Typography>
+              {/*
+              <IconButton style={{ height: 30, width: 20 }}>
+                <MoreVertIcon />
+              </IconButton>
+              */}
+
             </CardContent>
           </Card>
       }

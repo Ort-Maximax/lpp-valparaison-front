@@ -58,11 +58,9 @@ class Explorer extends React.Component {
           direction="row"
         >
           <Resizable
-            className="tree-resize noselect"
+            className="tree-resize"
           >
             <div flex="true">
-              {/* TODO : Lift state up,
-        pour pouvoir partager le curseur entre le treeview et le nodeview */}
               <TreeViewer
                 onCursorChange={this.onCursorChange}
                 cursor={this.state.cursor}
@@ -71,10 +69,8 @@ class Explorer extends React.Component {
             </div>
           </Resizable>
 
-          <div className="content" flex="true">
-            {/* TODO : react dropzone sur tout content */}
-            <NodeViewer onCursorChange={this.onCursorChange} cursor={this.state.cursor} />
-          </div>
+          <NodeViewer onCursorChange={this.onCursorChange} cursor={this.state.cursor} flex="true" />
+
         </Grid>
       </Grid>
     );

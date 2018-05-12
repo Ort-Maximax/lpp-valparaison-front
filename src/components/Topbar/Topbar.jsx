@@ -136,7 +136,7 @@ class Topbar extends Component {
             </div>
 
             <Manager>
-              <Target>
+              <Target component="div">
                 <div
                   ref={(node) => {
                     this.target1 = node;
