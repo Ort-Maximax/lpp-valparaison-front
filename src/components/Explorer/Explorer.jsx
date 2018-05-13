@@ -1,7 +1,5 @@
 import React from 'react';
 import Grid from 'material-ui/Grid';
-import Resizable from 're-resizable';
-
 import Toolbar from './Toolbar/Toolbar';
 import TreeViewer from './TreeViewer/TreeViewer';
 import NodeViewer from './NodeViewer/NodeViewer';
@@ -57,17 +55,14 @@ class Explorer extends React.Component {
           wrap="nowrap"
           direction="row"
         >
-          <Resizable
-            className="tree-resize"
-          >
-            <div flex="true">
-              <TreeViewer
-                onCursorChange={this.onCursorChange}
-                cursor={this.state.cursor}
-                filter={this.state.filter}
-              />
-            </div>
-          </Resizable>
+
+          <div flex="true" className="tree-resize">
+            <TreeViewer
+              onCursorChange={this.onCursorChange}
+              cursor={this.state.cursor}
+              filter={this.state.filter}
+            />
+          </div>
 
           <NodeViewer onCursorChange={this.onCursorChange} cursor={this.state.cursor} flex="true" />
 

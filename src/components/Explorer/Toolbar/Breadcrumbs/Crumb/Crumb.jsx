@@ -14,14 +14,12 @@ const Crumb = props => (
       container
       direction="row"
     >
-      {props.cursor.root &&
+      {props.cursor.root ?
+      (<Home />)
+      :
+      (props.cursor.name)
+      }
 
-      <Home />
-
-    }
-      <div>
-        {props.cursor.name}
-      </div>
     </Grid>
 
   </div>

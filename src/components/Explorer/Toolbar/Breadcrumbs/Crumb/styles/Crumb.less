@@ -2,12 +2,24 @@
   text-align : center;
   height: 22px;
   line-height: 20px;
-  min-width: 30px;
-  padding: 7px;
+  min-width: 30px;  
+  max-width: 180px;
+  
+  
+  padding: 7px 15px;
   user-select:none;
   color: #c2c3c4;
   background-color: #3f3e47;
-  &.selected {
+
+  &>* {    
+    width: 100% !important;
+    display: inline-block !important;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &.selected {    
     font-weight: bold;
     color: white;
     background-color: #0177b8;

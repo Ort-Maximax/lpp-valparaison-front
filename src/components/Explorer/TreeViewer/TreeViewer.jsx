@@ -33,6 +33,27 @@ const apiData = {
     {
       name: 'Folder 1',
       children: [
+        {
+          name: 'Folder 11',
+          children: [
+            { name: 'test.tar.gz' },
+            { name: 'file.rar' },
+          ],
+        },
+        {
+          name: 'Folder $^3ç#?&',
+          children: [
+            { name: 'test.tar.gz' },
+            { name: 'file.rar' },
+          ],
+        },
+        {
+          name: 'Folder qui a un nom qui, il se trouve, est très long et prend beaucoup d\'espace OMG ce nom est interminable',
+          children: [
+            { name: 'test.tar.gz' },
+            { name: 'file.rar' },
+          ],
+        },
         { name: 'file.js', lastUpdated: '01/01/2001' },
         { name: 'file.html', lastUpdated: '02/02/2002' },
         { name: 'file.json', lastUpdated: '03/03/2003' },
@@ -120,9 +141,23 @@ decorators.Header = ({ style, node }) => {
   const iconClass = `fa fa-${iconType}`;
   const iconStyle = { marginRight: '5px' };
 
+  const baseStyle = {
+    width: 'calc(100% - 24px)',
+    maxWidth: '25vw',
+  };
+
+  const titleStyle = {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  };
+
+  Object.assign(baseStyle, style.base);
+  Object.assign(titleStyle, style.title);
+
   return (
-    <div style={style.base}>
-      <div style={style.title}>
+    <div style={baseStyle}>
+      <div style={titleStyle}>
         <i className={iconClass} style={iconStyle} />
         {node.name}
       </div>
