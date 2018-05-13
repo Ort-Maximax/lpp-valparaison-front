@@ -47,7 +47,9 @@ class Breadcrumbs extends React.Component {
     }
   }
 
-  /* TODO: Style + Onclick des arrows, changer le curseur */
+  /* TODO: Onclick des arrows, changer le curseur */
+  /* TODO: Quand le breadcrumbs depasse de son parent,
+   on choisit d'afficher un crumb en moins, et le fleches s'active */
   render() {
     return (
       <Grid
