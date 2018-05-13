@@ -117,12 +117,11 @@ a:hover {
   top: 58px;
   right: 5px;
   z-index: 999;
-}
-.user-menu.open {
-  display: block;
+  transition: linear 100ms;
 }
 .user-menu.hidden {
-  display: none;
+  visibility: hidden;
+  opacity: 0;
 }
 .user-menu .user-menu-header {
   padding: 10px;

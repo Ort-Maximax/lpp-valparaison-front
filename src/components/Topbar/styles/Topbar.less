@@ -134,11 +134,10 @@ a {
   top: 58px;
   right: 5px;
   z-index: 999;
-  &.open {
-    display: block;
-  }
+  transition: linear 100ms;
   &.hidden {
-    display: none;
+    visibility: hidden;
+    opacity:0;    
   }
   .user-menu-header {
     padding : 10px;

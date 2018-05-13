@@ -148,7 +148,7 @@ class Topbar extends Component {
             {/* Bug : la position intial est incorrect.
               Surement car le popper est crée avant que le target soit crée */}
 
-            <Paper className={userMenuOpen ? 'user-menu open' : 'user-menu hidden'}>
+            <Paper className={userMenuOpen ? 'user-menu visible' : 'user-menu hidden'}>
               <div className="user-menu-header">
                 <Typography variant="title" className="noselect">
                           Bonjour {clientFirstName} !
