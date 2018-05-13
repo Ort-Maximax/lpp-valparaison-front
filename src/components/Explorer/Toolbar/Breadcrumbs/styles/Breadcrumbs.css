@@ -1,0 +1,17 @@
+.arrow {
+  text-align: center;
+  height: 22px;
+  line-height: 20px;
+  padding: 7px 0px;
+  user-select: none;
+  background-color: #3f3e47;
+}
+.arrow.right {
+  border-radius: 0 5px 5px 0;
+}
+.arrow.left {
+  border-radius: 5px 0 0 5px;
+}
+.arrow > svg {
+  color: #c2c3c7;
+}

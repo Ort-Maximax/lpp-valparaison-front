@@ -1,6 +1,11 @@
 import React from 'react';
 import Grid from 'material-ui/Grid';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+
+
 import Crumb from './Crumb/Crumb';
+import './styles/Breadcrumbs.css';
 
 class Breadcrumbs extends React.Component {
   constructor(props) {
@@ -42,6 +47,7 @@ class Breadcrumbs extends React.Component {
     }
   }
 
+  /* TODO: Style + Onclick des arrows, changer le curseur */
   render() {
     return (
       <Grid
@@ -49,7 +55,9 @@ class Breadcrumbs extends React.Component {
         container
         direction="row"
       >
+        <div className="arrow left"> <KeyboardArrowLeft /> </div>
         {this.state.crumbs}
+        <div className="arrow right"> <KeyboardArrowRight /> </div>
       </Grid>
     );
   }

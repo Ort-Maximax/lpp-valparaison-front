@@ -1,17 +1,22 @@
 .crumb {
   text-align: center;
-  height: 20px;
+  height: 22px;
   line-height: 20px;
   min-width: 30px;
   padding: 7px;
   user-select: none;
-  border: 1px solid black;
+  color: #c2c3c4;
+  background-color: #3f3e47;
 }
 .crumb.selected {
-  background-color: green;
+  font-weight: bold;
+  color: white;
+  background-color: #0177b8;
 }
 .crumb:hover {
   cursor: pointer;
+  background-color: #595763;
+  transition: linear 0.1s;
 }
 .crumb svg {
   margin-top: -2px;

@@ -24,7 +24,7 @@ const processData = (data) => {
   return data;
 };
 
-/* TODO : Get data from backend API */
+/* TODO: Get data from backend API */
 // Emulate getting datas from the API
 const apiData = {
   name: 'Home',

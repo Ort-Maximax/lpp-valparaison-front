@@ -174,7 +174,7 @@ class Topbar extends Component {
                         </Typography>
                       </div>
                       <MenuList role="menu">
-                        {/* TODO : mettre les links */}
+                        {/* TODO: mettre les links */}
                         <MenuItem onClick={this.handleCloseUserMenu}>Profile</MenuItem>
                         <MenuItem onClick={this.handleCloseUserMenu}>My account</MenuItem>
                         <a onClick={this.props.auth.logout} role="Link">

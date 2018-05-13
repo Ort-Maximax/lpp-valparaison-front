@@ -69,7 +69,7 @@ const Element = ({ name, isFolder, selected }) => {
     }
   }
   const width = window.innerWidth;
-  /* TODO : voir comment recuperer un thumbnail du fichier */
+  /* TODO: voir comment recuperer un thumbnail du fichier */
   return (
     <Fragment>
       {

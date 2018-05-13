@@ -29,7 +29,7 @@ class Explorer extends React.Component {
   }
 
   render() {
-    /* TODO : Composant Toolbar */
+    /* TODO: Composant Toolbar */
     return (
       <Grid
         style={{ margin: 0, width: '100%' }}

@@ -7,7 +7,7 @@ import App from './components/App/App';
 import registerServiceWorker from './registerServiceWorker';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 
-/* TODO : faire les deux themes */
+/* TODO: faire les deux themes */
 const theme = createMuiTheme({
   palette: {
     primary: {

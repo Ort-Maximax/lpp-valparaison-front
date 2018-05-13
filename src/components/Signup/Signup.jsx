@@ -35,7 +35,7 @@ class Signup extends Component {
       },
     };
 
-    /* TODO Mettre le token et l'url de base dans le contexte */
+    /* TODO: Mettre le token et l'url de base dans le contexte */
     const apiToken = '00hrOoFyIT8AesDcuXxPpK6u_NtuWzb7yDKq5VQaz3';
     const baseUrl = 'https://dev-438691.oktapreview.com/';
 
@@ -54,7 +54,7 @@ class Signup extends Component {
       .then((res) => {
         console.log(res);
         // console.log(res.data);
-        // TODO : Redirect
+        // TODO: Redirect
       }, ((err) => {
           console.log(err);
         }));
