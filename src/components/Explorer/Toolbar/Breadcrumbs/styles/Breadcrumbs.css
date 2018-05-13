@@ -7,9 +7,11 @@
   background-color: #3f3e47;
 }
 .arrow.right {
+  border-left: 1px solid #58575f;
   border-radius: 0 5px 5px 0;
 }
 .arrow.left {
+  border-right: 1px solid #58575f;
   border-radius: 5px 0 0 5px;
 }
 .arrow:hover {
@@ -20,4 +22,9 @@
 }
 .arrow > svg:hover {
   color: white;
+}
+@media all and (max-width: 800px) {
+  .arrow > svg {
+    width: 15px;
+  }
 }

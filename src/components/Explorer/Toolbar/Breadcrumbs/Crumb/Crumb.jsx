@@ -13,9 +13,10 @@ const Crumb = props => (
       style={{ margin: 0 }}
       container
       direction="row"
+      alignItems="center"
     >
       {props.cursor.root ?
-      (<Home />)
+      (<Home style={{ display: 'flex' }} />)
       :
       (props.cursor.name)
       }

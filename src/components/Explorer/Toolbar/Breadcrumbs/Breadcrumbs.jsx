@@ -1,3 +1,4 @@
+/* eslint no-param-reassign: 0 */
 import React from 'react';
 import Grid from 'material-ui/Grid';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
@@ -10,13 +11,18 @@ import './styles/Breadcrumbs.css';
 class Breadcrumbs extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { crumbs: [], currentCursor: {} };
+    this.state = { crumbs: [], currentCursor: props.cursor };
+  }
+  componentWillMount() {
+    this.buildBreadCrumbs(this.props.cursor);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ currentCursor: nextProps.cursor });
-    let currentCursor = nextProps.cursor;
+    this.buildBreadCrumbs(nextProps.cursor);
+  }
 
+  buildBreadCrumbs(currentCursor) {
+    this.setState({ currentCursor });
     // Cherche cursor dans le breadcrumbs du state precedent
     const found = this.state.crumbs.find(element => element.key === currentCursor.uuid);
 
@@ -46,7 +52,6 @@ class Breadcrumbs extends React.Component {
     }
   }
 
-
   /* TODO: Quand le breadcrumbs depasse de son parent,
    on choisit d'afficher un crumb en moins */
   render() {
@@ -71,7 +76,7 @@ class Breadcrumbs extends React.Component {
     };
     return (
       <Grid
-        style={{ margin: 0, width: '75%', padding: '0 10px' }}
+        style={{ margin: 0, width: '100%', padding: '0' }}
         container
         direction="row"
       >

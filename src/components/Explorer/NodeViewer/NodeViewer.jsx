@@ -62,8 +62,8 @@ class NodeViewer extends React.Component {
     if (node.children) {
       this.props.onCursorChange(node);
     } else {
-      // Quand on doubleclick sur un fichier
-      // Execute l'action par defaut de ce fichier = open
+      /* TODO: En fonction de l'extension du fichier, ouvre la page adequat */
+      // Si l'element est streamable, on lance le streaming
     }
   }
 
