@@ -19,6 +19,7 @@ import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 
 /* User Menu */
+import ClickOutside from 'react-click-outside';
 import Paper from 'material-ui/Paper';
 import { MenuItem, MenuList } from 'material-ui/Menu';
 
@@ -129,40 +130,42 @@ class Topbar extends Component {
                 <MenuIcon />
               </IconButton>
             </div>
-
-            <div
-              ref={(node) => {
+            <ClickOutside onClickOutside={this.toggleUserMenu}>
+              <div
+                ref={(node) => {
                     this.target1 = node;
                   }}
-            >
-              { clientMail &&
-              <Button
-                variant="fab"
-                className="topbarLoggedUser"
-                onClick={this.toggleUserMenu}
               >
-                <Identicons id={clientMail} width={20} size={3} />
-              </Button>
+                { clientMail &&
+                <Button
+                  variant="fab"
+                  className="topbarLoggedUser"
+                  onClick={this.toggleUserMenu}
+                >
+                  <Identicons id={clientMail} width={20} size={3} />
+                </Button>
                   }
-            </div>
-            {/* Bug : la position intial est incorrect.
+              </div>
+              {/* Bug : la position intial est incorrect.
               Surement car le popper est crée avant que le target soit crée */}
 
-            <Paper className={userMenuOpen ? 'user-menu visible' : 'user-menu hidden'}>
-              <div className="user-menu-header">
-                <Typography variant="title" className="noselect">
+
+              <Paper className={userMenuOpen ? 'user-menu visible' : 'user-menu hidden'}>
+                <div className="user-menu-header">
+                  <Typography variant="title" className="noselect">
                           Bonjour {clientFirstName} !
-                </Typography>
-              </div>
-              <MenuList role="menu">
-                {/* TODO: mettre les links */}
-                <MenuItem onClick={this.handleCloseUserMenu}>Profile</MenuItem>
-                <MenuItem onClick={this.handleCloseUserMenu}>My account</MenuItem>
-                <a onClick={this.props.auth.logout} role="Link">
-                  <MenuItem onClick={this.handleCloseUserMenu}>Logout</MenuItem>
-                </a>
-              </MenuList>
-            </Paper>
+                  </Typography>
+                </div>
+                <MenuList role="menu">
+                  {/* TODO: mettre les links */}
+                  <MenuItem onClick={this.handleCloseUserMenu}>Profile</MenuItem>
+                  <MenuItem onClick={this.handleCloseUserMenu}>My account</MenuItem>
+                  <a onClick={this.props.auth.logout} role="Link">
+                    <MenuItem onClick={this.handleCloseUserMenu}>Logout</MenuItem>
+                  </a>
+                </MenuList>
+              </Paper>
+            </ClickOutside>
             {!this.state.authenticated &&
             <Fragment>
               <Button variant="fab" onClick={this.props.auth.login} className="loginButton">
