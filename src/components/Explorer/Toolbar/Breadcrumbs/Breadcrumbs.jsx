@@ -10,10 +10,11 @@ import './styles/Breadcrumbs.css';
 class Breadcrumbs extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { crumbs: [] };
+    this.state = { crumbs: [], currentCursor: {} };
   }
 
   componentWillReceiveProps(nextProps) {
+    this.setState({ currentCursor: nextProps.cursor });
     let currentCursor = nextProps.cursor;
 
     // Cherche cursor dans le breadcrumbs du state precedent
@@ -21,8 +22,6 @@ class Breadcrumbs extends React.Component {
 
     // Si on ne trouve pas
     if (!found) {
-      console.log(currentCursor.name);
-
       const crumbs = [<Crumb
         key={currentCursor.uuid}
         cursor={currentCursor}
@@ -47,19 +46,38 @@ class Breadcrumbs extends React.Component {
     }
   }
 
-  /* TODO: Onclick des arrows, changer le curseur */
+
   /* TODO: Quand le breadcrumbs depasse de son parent,
-   on choisit d'afficher un crumb en moins, et le fleches s'active */
+   on choisit d'afficher un crumb en moins */
   render() {
+    const arrowClick = (direction) => {
+      const index = this.state.crumbs.findIndex(el => el.key === this.state.currentCursor.uuid);
+      switch (direction) {
+        case '>':
+          // Si l'index n+1 existe, on selectionne le cursor de cet index
+          if (this.state.crumbs[index + 1]) {
+            this.props.onCursorChange(this.state.crumbs[index + 1].props.cursor);
+          }
+          break;
+        case '<':
+          // Si l'index n-1 existe, on selectionne le cursor de cet index
+          if (this.state.crumbs[index - 1]) {
+            this.props.onCursorChange(this.state.crumbs[index - 1].props.cursor);
+          }
+          break;
+        default:
+          break;
+      }
+    };
     return (
       <Grid
         style={{ margin: 0, width: '75%', padding: '0 10px' }}
         container
         direction="row"
       >
-        <div className="arrow left"> <KeyboardArrowLeft /> </div>
+        <div className="arrow left" onClick={() => arrowClick('<')} role="button"> <KeyboardArrowLeft /> </div>
         {this.state.crumbs}
-        <div className="arrow right"> <KeyboardArrowRight /> </div>
+        <div className="arrow right" onClick={() => arrowClick('>')} role="button"> <KeyboardArrowRight /> </div>
       </Grid>
     );
   }

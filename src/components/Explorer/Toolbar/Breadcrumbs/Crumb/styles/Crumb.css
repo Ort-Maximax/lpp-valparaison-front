@@ -21,6 +21,9 @@
   color: white;
   background-color: #0177b8;
 }
+.crumb.selected:hover {
+  background-color: #0177b8;
+}
 .crumb:hover {
   cursor: pointer;
   background-color: #595763;

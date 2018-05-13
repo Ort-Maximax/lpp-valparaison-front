@@ -54,8 +54,6 @@ class NodeViewer extends React.Component {
 
   onDoubleClick(e, node) {
     /* TODO: check si pointer est toujours au dessus de l'element cible */
-    console.log(e);
-    console.log(node);
     console.log('double click');
     e.stopPropagation();
     e.preventDefault();

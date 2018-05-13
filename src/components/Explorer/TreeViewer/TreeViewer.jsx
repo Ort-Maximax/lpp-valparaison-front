@@ -1,11 +1,14 @@
 /* eslint no-param-reassign: 0 */
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Treebeard, decorators } from 'react-treebeard';
 import uuidv1 from 'uuid';
 
 import Paper from 'material-ui/Paper';
 import Input, { InputAdornment } from 'material-ui/Input';
 import Search from '@material-ui/icons/Search';
+import Home from '@material-ui/icons/Home';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+
 import * as filters from './filter';
 
 const processData = (data) => {
@@ -158,12 +161,30 @@ decorators.Header = ({ style, node }) => {
   return (
     <div style={baseStyle}>
       <div style={titleStyle}>
-        <i className={iconClass} style={iconStyle} />
-        {node.name}
+
+        {
+          node.root ?
+          (<Home />)
+          :
+
+          (
+            <Fragment>
+              <i className={iconClass} style={iconStyle} />
+              {node.name}
+            </Fragment>
+          )
+        }
+
       </div>
     </div>
   );
 };
+
+decorators.Toggle = ({ style }) => (
+  <div style={style.base}>
+    <KeyboardArrowRight height={style.height} width={style.width} />
+  </div>
+);
 
 class TreeViewer extends React.Component {
   constructor(props) {

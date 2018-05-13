@@ -12,6 +12,9 @@
 .arrow.left {
   border-radius: 5px 0 0 5px;
 }
+.arrow:hover {
+  cursor: pointer;
+}
 .arrow > svg {
   color: #c2c3c4;
 }
