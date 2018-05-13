@@ -76,7 +76,9 @@ class Breadcrumbs extends React.Component {
     };
     return (
       <Grid
-        style={{ margin: 0, width: '100%', padding: '0' }}
+        style={{
+          margin: 0, width: '100%', height: 36, padding: '0',
+        }}
         container
         direction="row"
       >
