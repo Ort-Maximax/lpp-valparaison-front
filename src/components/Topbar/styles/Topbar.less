@@ -130,7 +130,16 @@ a {
 }
 
 .user-menu {
-  margin-top : 16px;
+  position: absolute;
+  top: 58px;
+  right: 5px;
+  z-index: 999;
+  &.open {
+    display: block;
+  }
+  &.hidden {
+    display: none;
+  }
   .user-menu-header {
     padding : 10px;
     display: flex;
@@ -140,6 +149,12 @@ a {
     color: rgba(0, 0, 0, 0.87);
 
     border-bottom: solid 1px #ddd;
+  }
+}
+
+@media all and (min-width: 600px) {
+  .user-menu {
+    top : 66px
   }
 }
 

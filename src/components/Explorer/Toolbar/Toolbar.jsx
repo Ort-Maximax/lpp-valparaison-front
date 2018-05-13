@@ -8,7 +8,7 @@ import './styles/Toolbar.css';
 const Toolbar = props => (
   <Paper className="toolbar-container">
     <Grid
-      style={{ margin: 0 }}
+      style={{ margin: 0, width: '100%' }}
       container
       direction="row"
     >

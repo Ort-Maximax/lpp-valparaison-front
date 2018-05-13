@@ -5,7 +5,6 @@
 import React, { Fragment, Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withAuth } from '@okta/okta-react';
-import classNames from 'classnames';
 
 /* Appbar */
 import AppBar from 'material-ui/AppBar';
@@ -13,7 +12,6 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import Button from 'material-ui/Button';
-/* import SvgIcon from 'material-ui/SvgIcon'; */
 
 /* Drawer */
 import Drawer from 'material-ui/Drawer';
@@ -21,9 +19,6 @@ import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 
 /* User Menu */
-import Grow from 'material-ui/transitions/Grow';
-import { Manager, Target, Popper } from 'react-popper';
-import ClickAwayListener from 'material-ui/utils/ClickAwayListener';
 import Paper from 'material-ui/Paper';
 import { MenuItem, MenuList } from 'material-ui/Menu';
 
@@ -135,57 +130,39 @@ class Topbar extends Component {
               </IconButton>
             </div>
 
-            <Manager>
-              <Target component="div">
-                <div
-                  ref={(node) => {
+            <div
+              ref={(node) => {
                     this.target1 = node;
                   }}
-                >
-                  { clientMail &&
-                  <Button
-                    variant="fab"
-                    className="topbarLoggedUser"
-                    onClick={this.toggleUserMenu}
-                    aria-owns={userMenuOpen ? 'menu-list-grow' : null}
-                    aria-haspopup="true"
-                  >
-                    <Identicons id={clientMail} width={20} size={3} />
-                  </Button>
-                  }
-                </div>
-              </Target>
-              {/* Bug : la position intial est incorrect.
-              Surement car le popper est crée avant que le target soit crée */}
-              <Popper
-                placement="bottom"
-                eventsEnabled={userMenuOpen}
-                style={{ zIndex: 999 }}
-                className={classNames({
-                  'popper-close': !userMenuOpen,
-                })}
+            >
+              { clientMail &&
+              <Button
+                variant="fab"
+                className="topbarLoggedUser"
+                onClick={this.toggleUserMenu}
               >
-                <ClickAwayListener onClickAway={this.handleCloseUserMenu}>
-                  <Grow in={userMenuOpen} id="menu-list-grow" style={{ transformOrigin: '0 0 0' }}>
-                    <Paper className="user-menu">
-                      <div className="user-menu-header">
-                        <Typography variant="title" className="noselect">
+                <Identicons id={clientMail} width={20} size={3} />
+              </Button>
+                  }
+            </div>
+            {/* Bug : la position intial est incorrect.
+              Surement car le popper est crée avant que le target soit crée */}
+
+            <Paper className={userMenuOpen ? 'user-menu open' : 'user-menu hidden'}>
+              <div className="user-menu-header">
+                <Typography variant="title" className="noselect">
                           Bonjour {clientFirstName} !
-                        </Typography>
-                      </div>
-                      <MenuList role="menu">
-                        {/* TODO: mettre les links */}
-                        <MenuItem onClick={this.handleCloseUserMenu}>Profile</MenuItem>
-                        <MenuItem onClick={this.handleCloseUserMenu}>My account</MenuItem>
-                        <a onClick={this.props.auth.logout} role="Link">
-                          <MenuItem onClick={this.handleCloseUserMenu}>Logout</MenuItem>
-                        </a>
-                      </MenuList>
-                    </Paper>
-                  </Grow>
-                </ClickAwayListener>
-              </Popper>
-            </Manager>
+                </Typography>
+              </div>
+              <MenuList role="menu">
+                {/* TODO: mettre les links */}
+                <MenuItem onClick={this.handleCloseUserMenu}>Profile</MenuItem>
+                <MenuItem onClick={this.handleCloseUserMenu}>My account</MenuItem>
+                <a onClick={this.props.auth.logout} role="Link">
+                  <MenuItem onClick={this.handleCloseUserMenu}>Logout</MenuItem>
+                </a>
+              </MenuList>
+            </Paper>
             {!this.state.authenticated &&
             <Fragment>
               <Button variant="fab" onClick={this.props.auth.login} className="loginButton">
