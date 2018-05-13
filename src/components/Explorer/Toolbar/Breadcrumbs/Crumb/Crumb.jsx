@@ -19,9 +19,7 @@ const Crumb = props => (
       :
       (props.cursor.name)
       }
-
     </Grid>
-
   </div>
 );
 

@@ -104,7 +104,7 @@ class Topbar extends Component {
     }
 
     return (
-      <div className="topBarContainer">
+      <section className="topBarContainer">
         <AppBar position="static" color="primary">
           <Toolbar>
             <IconButton color="inherit" className="logoContainer" aria-label="Logo">
@@ -114,7 +114,7 @@ class Topbar extends Component {
               Valparaiso
             </Typography>
 
-            <div className="topBarLinks">
+            <section className="topBarLinks">
 
               <Link to="/">Home</Link>
 
@@ -129,13 +129,12 @@ class Topbar extends Component {
                 </Fragment>
                 */
               }
-            </div>
+            </section>
 
-            <div className="topBarMenuButton">
-              <IconButton onClick={this.toggleDrawer('left', true)}>
-                <MenuIcon />
-              </IconButton>
-            </div>
+            <IconButton onClick={this.toggleDrawer('left', true)} className="topBarMenuButton">
+              <MenuIcon />
+            </IconButton>
+
             <ClickOutside onClickOutside={this.closeUserMenu}>
               <div
                 ref={(node) => {
@@ -181,7 +180,7 @@ class Topbar extends Component {
             }
 
             <Drawer anchor="left" open={this.state.left} onClose={this.toggleDrawer('left', false)}>
-              <div
+              <section
                 tabIndex={0}
                 role="button"
                 onClick={this.toggleDrawer('left', false)}
@@ -221,11 +220,11 @@ class Topbar extends Component {
                     </Fragment>
                   }
                 </List>
-              </div>
+              </section>
             </Drawer>
           </Toolbar>
         </AppBar>
-      </div>
+      </section>
     );
   }
 }

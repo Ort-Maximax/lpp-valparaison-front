@@ -6,7 +6,7 @@ import './styles/stars.css';
 import './styles/Home.css';
 
 const Home = () => (
-  <div className="starsContainer">
+  <section className="starsContainer">
     <div id="stars" />
     <div id="stars2" />
     <div id="stars3" />
@@ -26,7 +26,7 @@ const Home = () => (
         </Grid>
       </Grid>
     </Paper>
-  </div>
+  </section>
 );
 
 export default(Home);

@@ -33,7 +33,7 @@ class OktaSignInWidget extends Component {
 
   render() {
     return (
-      <div />
+      <section />
     );
   }
 }

@@ -242,7 +242,7 @@ class TreeViewer extends React.Component {
     const { data: stateData } = this.state;
 
     return (
-      <div style={{ paddingTop: 10 }}>
+      <section style={{ paddingTop: 10 }}>
         <Paper
           style={{
               paddingBottom: 2,
@@ -270,7 +270,7 @@ class TreeViewer extends React.Component {
           decorators={decorators}
           onToggle={this.onToggle}
         />
-      </div>
+      </section>
     );
   }
 }

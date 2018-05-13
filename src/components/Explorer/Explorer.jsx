@@ -56,13 +56,13 @@ class Explorer extends React.Component {
           direction="row"
         >
 
-          <div flex="true" className="tree-resize">
+          <section flex="true" className="tree-resize">
             <TreeViewer
               onCursorChange={this.onCursorChange}
               cursor={this.state.cursor}
               filter={this.state.filter}
             />
-          </div>
+          </section>
 
           <NodeViewer onCursorChange={this.onCursorChange} cursor={this.state.cursor} flex="true" />
 

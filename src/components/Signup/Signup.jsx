@@ -64,15 +64,15 @@ class Signup extends Component {
     return (
       <Fragment>
         <Card className="card">
-          <div
+          <section
             className="header"
           >
             <div className="logoContainer">
               <Logo className="logoIcon" />
             </div>
-          </div>
+          </section>
 
-          <div className="cardContent">
+          <section className="cardContent">
 
             <h2 className="form-head"> {'S\'inscrire'} </h2>
             <ValidatorForm
@@ -129,7 +129,7 @@ class Signup extends Component {
                 </Grid>
               </Grid>
             </ValidatorForm>
-          </div>
+          </section>
         </Card>
       </Fragment>
     );
