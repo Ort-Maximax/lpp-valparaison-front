@@ -53,7 +53,7 @@ class Toolbar extends React.Component {
           </Grid>
         </Paper>
 
-        <section className="searchbar-container"style={{ display: this.state.SearchBar ? 'flex' : 'none' }}>
+        <section className="searchbar-container"style={{ maxHeight: this.state.SearchBar ? 25 : 0 }}>
           SEARCHBAR
         </section>
 
