@@ -136,13 +136,13 @@ class Topbar extends Component {
                 <MenuIcon />
               </IconButton>
             </div>
-
-            <div
-              ref={(node) => {
+            <ClickOutside onClickOutside={this.closeUserMenu}>
+              <div
+                ref={(node) => {
                     this.target1 = node;
                   }}
-            >
-              { clientMail &&
+              >
+                { clientMail &&
                 <Button
                   variant="fab"
                   className="topbarLoggedUser"
@@ -151,11 +151,11 @@ class Topbar extends Component {
                   <Identicons id={clientMail} width={20} size={3} />
                 </Button>
                   }
-            </div>
-            {/* Bug : la position intial est incorrect.
+              </div>
+              {/* Bug : la position intial est incorrect.
               Surement car le popper est crée avant que le target soit crée */}
 
-            <ClickOutside onClickOutside={this.closeUserMenu}>
+
               <Paper className={userMenuOpen ? 'user-menu visible' : 'user-menu hidden'}>
                 <div className="user-menu-header">
                   <Typography variant="title" className="noselect">
