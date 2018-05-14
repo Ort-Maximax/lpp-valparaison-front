@@ -32,8 +32,6 @@ class NodeViewer extends React.Component {
   }
 
   onClick(e, node) {
-    e.stopPropagation();
-    e.preventDefault();
     // Si la touche CTRL est pressé
     if (e.ctrlKey) {
       // On ajoute l'element clické a la liste d'elements selectionné
@@ -55,8 +53,6 @@ class NodeViewer extends React.Component {
   onDoubleClick(e, node) {
     /* TODO: check si pointer est toujours au dessus de l'element cible */
     console.log('double click');
-    e.stopPropagation();
-    e.preventDefault();
     // Quand on doubleclick sur un dossier,
     // cursor = ses children
     if (node.children) {

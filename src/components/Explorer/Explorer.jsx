@@ -3,6 +3,7 @@ import React from 'react';
 import Grid from 'material-ui/Grid';
 
 import uuidv1 from 'uuid';
+import uniq from 'uniq';
 
 import Toolbar from './Toolbar/Toolbar';
 // import TreeViewer from './TreeViewer/TreeViewer';
@@ -17,7 +18,7 @@ const processData = (data) => {
     el.path = `${data.path}/${el.name.replace(' ', '\\ ')}`;
     el.clicks = [];
     el.parent = data;
-    el.uuid = uuidv1();
+    el.key = uuidv1();
     if (el.children) {
       // call the data processing function for its children
       processData(el);
@@ -38,22 +39,22 @@ const apiData = {
         {
           name: 'Folder 11',
           children: [
-            { name: 'test.tar.gz' },
-            { name: 'file.rar' },
+            { name: 'test1.tar.gz' },
+            { name: 'file1.rar' },
           ],
         },
         {
           name: 'Folder $^3ç#?&',
           children: [
-            { name: 'test.tar.gz' },
-            { name: 'file.rar' },
+            { name: 'test2.tar.gz' },
+            { name: 'file2.rar' },
           ],
         },
         {
           name: 'Folder qui a un nom qui, il se trouve, est très long et prend beaucoup d\'espace OMG ce nom est interminable',
           children: [
-            { name: 'test.tar.gz' },
-            { name: 'file.rar' },
+            { name: 'test3.tar.gz' },
+            { name: 'file3.rar' },
           ],
         },
         { name: 'file.js', lastUpdated: '01/01/2001' },
@@ -80,8 +81,8 @@ const apiData = {
         {
           name: 'Folder 21',
           children: [
-            { name: 'test.tar.gz' },
-            { name: 'file.rar' },
+            { name: 'test4.tar.gz' },
+            { name: 'file4.rar' },
           ],
         },
         { name: 'LoneFile.js' },
@@ -94,7 +95,7 @@ const apiData = {
   ],
 };
 
-apiData.uuid = uuidv1();
+apiData.key = uuidv1();
 apiData.root = true;
 apiData.toggled = true;
 const data = processData(apiData);
@@ -102,12 +103,50 @@ const data = processData(apiData);
 class Explorer extends React.Component {
   constructor(props) {
     super(props);
+    this.onSearchbarUpdate = this.onSearchbarUpdate.bind(this);
+    this.onSearchQueryChange = this.onSearchQueryChange.bind(this);
     this.onCursorChange = this.onCursorChange.bind(this);
-    this.state = { cursor: data };
+    this.state = { cursor: data, storedCursor: undefined, searchbar: false };
+  }
+
+  onSearchbarUpdate() {
+    this.setState({ searchbar: !this.state.searchbar });
+  }
+
+  onSearchQueryChange(query) {
+    if (query) {
+      // Create a temporary cursor, container the filtered children of current folder
+      console.log(this.state.cursor);
+      if (!this.state.storedCursor) {
+        this.setState({ storedCursor: this.state.cursor });
+      }
+      const searchCursor = {
+        name: 'Recherche',
+        key: 'xxxS34RCHxxx',
+        children: [],
+      };
+      const lookup = (node) => {
+        node.children.forEach((el) => {
+          if (el.name.includes(query)) {
+            searchCursor.children.push(el);
+          }
+          if (el.children && el.children.length > 0) {
+            lookup(el);
+          }
+        });
+      };
+      lookup(this.state.cursor);
+      uniq(searchCursor.children);
+      this.setState({ cursor: searchCursor });
+    } else if (this.state.storedCursor) {
+      this.setState({ cursor: this.state.storedCursor });
+    }
   }
 
   onCursorChange(cursor) {
+    /* TODO: Clear la recherche au changement de curseur */
     this.setState({
+      searchbar: false,
       cursor,
     });
   }
@@ -129,8 +168,11 @@ class Explorer extends React.Component {
           direction="row"
         >
           <Toolbar
+            onSearchbarUpdate={this.onSearchbarUpdate}
+            onSearchQueryChange={this.onSearchQueryChange}
             onCursorChange={this.onCursorChange}
             cursor={this.state.cursor}
+            searchbar={this.state.searchbar}
           />
         </Grid>
         <Grid
