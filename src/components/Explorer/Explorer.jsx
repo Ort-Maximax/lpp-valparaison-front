@@ -2,8 +2,9 @@
 import React from 'react';
 import Grid from 'material-ui/Grid';
 
+import uniqBy from 'lodash.uniqby';
+
 import uuidv1 from 'uuid';
-import uniq from 'uniq';
 
 import Toolbar from './Toolbar/Toolbar';
 // import TreeViewer from './TreeViewer/TreeViewer';
@@ -111,12 +112,12 @@ class Explorer extends React.Component {
 
   onSearchbarUpdate() {
     this.setState({ searchbar: !this.state.searchbar });
+    this.setState({ storedCursor: undefined });
   }
 
   onSearchQueryChange(query) {
     if (query) {
       // Create a temporary cursor, container the filtered children of current folder
-      console.log(this.state.cursor);
       if (!this.state.storedCursor) {
         this.setState({ storedCursor: this.state.cursor });
       }
@@ -127,7 +128,7 @@ class Explorer extends React.Component {
       };
       const lookup = (node) => {
         node.children.forEach((el) => {
-          if (el.name.includes(query)) {
+          if (el.name.toUpperCase().includes(query.toUpperCase())) {
             searchCursor.children.push(el);
           }
           if (el.children && el.children.length > 0) {
@@ -136,7 +137,7 @@ class Explorer extends React.Component {
         });
       };
       lookup(this.state.cursor);
-      uniq(searchCursor.children);
+      searchCursor.children = uniqBy(searchCursor.children, e => e.key);
       this.setState({ cursor: searchCursor });
     } else if (this.state.storedCursor) {
       this.setState({ cursor: this.state.storedCursor });
@@ -146,6 +147,7 @@ class Explorer extends React.Component {
   onCursorChange(cursor) {
     /* TODO: Clear la recherche au changement de curseur */
     this.setState({
+      storedCursor: undefined,
       searchbar: false,
       cursor,
     });

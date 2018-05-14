@@ -6,6 +6,10 @@
     height: 22px;
     width: 22px;
     margin: 0 10px;
+    &.active {
+      background-color: yellow;
+      border-radius: 20%;
+    }
   }
 }
 
@@ -17,6 +21,7 @@
   transition: ease .3s;
   overflow: hidden;
   .searchbar {
+    z-index: 999;
     border: 1px solid #c4c4c4;
     padding : 10px 10px;
     width : 300px;

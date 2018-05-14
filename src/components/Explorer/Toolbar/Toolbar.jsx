@@ -18,7 +18,7 @@ class Toolbar extends React.Component {
   constructor(props) {
     super(props);
     this.handleSearch = this.handleSearch.bind(this);
-    this.state = { searchbar: this.props.searchbar, searchQuery: '' };
+    this.state = { searchQuery: '' };
   }
   handleSearch(event) {
     this.setState({ searchQuery: event.target.value });
@@ -26,15 +26,15 @@ class Toolbar extends React.Component {
   }
   closeToolbar() {
     this.props.onSearchbarUpdate(false);
-    this.setState({ searchQuery: '' });
-    this.props.onSearchQueryChange('');
+    this.setState({ searchQuery: undefined });
+    this.props.onSearchQueryChange(undefined);
   }
 
   toggleSearchbar() {
     this.setState({ searchQuery: '' });
     this.props.onSearchQueryChange('');
 
-    this.props.onSearchbarUpdate(!this.state.searchbar);
+    this.props.onSearchbarUpdate(!this.props.searchbar);
   }
 
   render() {
@@ -57,7 +57,7 @@ class Toolbar extends React.Component {
             </Grid>
 
             <Grid item style={{ width: 160 }} container direction="row" justify="flex-end" alignItems="center">
-              <IconButton className="toolbar-button" onClick={() => this.toggleSearchbar()}>
+              <IconButton className={`toolbar-button ${this.props.searchbar && 'active'}`} onClick={() => this.toggleSearchbar()}>
                 <Search />
               </IconButton>
               <IconButton className="toolbar-button">

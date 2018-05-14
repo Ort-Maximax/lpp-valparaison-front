@@ -8,6 +8,10 @@
   width: 22px;
   margin: 0 10px;
 }
+.toolbar-container .toolbar-button.active {
+  background-color: yellow;
+  border-radius: 20%;
+}
 .searchbar-container {
   display: flex;
   align-items: center;
@@ -17,6 +21,7 @@
   overflow: hidden;
 }
 .searchbar-container .searchbar {
+  z-index: 999;
   border: 1px solid #c4c4c4;
   padding: 10px 10px;
   width: 300px;

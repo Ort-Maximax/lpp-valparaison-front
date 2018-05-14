@@ -9,6 +9,7 @@
     "axios": "^0.18.0",
     "classnames": "^2.2.5",
     "font-awesome": "^4.7.0",
+    "lodash.uniqby": "^4.7.0",
     "material-ui": "^1.0.0-beta.38",
     "material-ui-icons": "^1.0.0-beta.36",
     "prop-types": "^15.6.1",
@@ -23,7 +24,6 @@
     "react-treebeard": "^2.1.0",
     "rodal": "^1.6.3",
     "svgr": "^1.9.0",
-    "uniq": "^1.0.1",
     "uuid": "^3.2.1",
     "video.js": "^6.8.0"
   },
