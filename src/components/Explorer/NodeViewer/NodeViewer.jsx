@@ -3,8 +3,6 @@ import Dropzone from 'react-dropzone';
 import Grid from 'material-ui/Grid';
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
-
-import 'video.js';
 import './styles/NodeViewer.css';
 import Element from './Element/Element';
 
@@ -59,6 +57,39 @@ class NodeViewer extends React.Component {
       this.props.onCursorChange(node);
     } else {
       /* TODO: En fonction de l'extension du fichier, ouvre la page adequat */
+      console.log(node);
+      let ext = '';
+
+      if (node.name.nthIndexOf('.', 2) !== -1) {
+        ext = node.name.substring(node.name.indexOf('.'), node.name.nthIndexOf('.', 2));
+      } else {
+        ext = node.name.substring(node.name.indexOf('.'));
+      }
+      switch (ext) {
+        case ('.avi'):
+        case ('.mkv'):
+        case ('.mp4'):
+          break;
+        case ('.mp3'):
+        case ('.ogg'):
+        case ('.flac'):
+          if (node.name === 'file.flac') {
+            this.props.onPlaylistChange({ name: node.name, src: 'http://www.terrillthompson.com/music/audio/smallf.mp3?id=blahblahblah' });
+          } else {
+            this.props.onPlaylistChange({ name: node.name, src: 'https://www.hrupin.com/wp-content/uploads/mp3/testsong_20_sec.mp3' });
+          }
+          break;
+        case ('.jpg'):
+        case ('.jpeg'):
+        case ('.png'):
+          break;
+        case ('.zip'):
+        case ('.rar'):
+        case ('.tar'):
+          break;
+        default:
+          break;
+      }
       // Si l'element est streamable, on lance le streaming
     }
   }

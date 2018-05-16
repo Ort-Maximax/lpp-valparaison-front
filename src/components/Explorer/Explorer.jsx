@@ -2,6 +2,7 @@
 import React from 'react';
 import Grid from 'material-ui/Grid';
 
+import sortBy from 'lodash.sortby';
 import uniqBy from 'lodash.uniqby';
 
 import uuidv1 from 'uuid';
@@ -19,8 +20,10 @@ const processData = (data) => {
     el.path = `${data.path}/${el.name.replace(' ', '\\ ')}`;
     el.clicks = [];
     el.parent = data;
+    // !!! Le backend devrais s'occuper de donner les clés !!!
     el.key = uuidv1();
     if (el.children) {
+      el.children = sortBy(el.children, x => x.name);
       // call the data processing function for its children
       processData(el);
     }
@@ -98,7 +101,11 @@ const apiData = {
 
 apiData.key = uuidv1();
 apiData.root = true;
-apiData.toggled = true;
+if (apiData.children && apiData.children.length > 0) {
+  apiData.children = sortBy(apiData.children, x => x.name);
+}
+
+// apiData.toggled = true;
 const data = processData(apiData);
 
 class Explorer extends React.Component {
@@ -195,11 +202,11 @@ class Explorer extends React.Component {
             />
           </section>
           */}
-          <NodeViewer onCursorChange={this.onCursorChange} cursor={this.state.cursor} flex="true" />
+          <NodeViewer onCursorChange={this.onCursorChange} onPlaylistChange={this.props.onPlaylistChange} cursor={this.state.cursor} flex="true" />
 
         </Grid>
       </Grid>
     );
   }
 }
-export default (Explorer);
+export default Explorer;

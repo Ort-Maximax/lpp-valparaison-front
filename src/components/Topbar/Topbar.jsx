@@ -120,7 +120,7 @@ class Topbar extends Component {
 
               {this.state.authenticated &&
                 <Fragment>
-                  <Link to="/protected">Protected</Link>
+                  <Link to="/browse">Mon Valparaiso</Link>
                   <a onClick={this.props.auth.logout} role="Link">Logout</a>
                 </Fragment>
                 /*
@@ -200,12 +200,12 @@ class Topbar extends Component {
 
                   {this.state.authenticated &&
                     <Fragment>
-                      <Link to="/protected">
+                      <Link to="/browse">
                         <ListItem>
                           <ListItemIcon>
                             <ProtectedIcon />
                           </ListItemIcon>
-                          <ListItemText primary="Protected" />
+                          <ListItemText primary="Mon Valparaiso" />
                         </ListItem>
                       </Link>
                       <Divider />

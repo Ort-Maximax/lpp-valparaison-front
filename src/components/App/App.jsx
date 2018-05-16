@@ -1,13 +1,13 @@
-/* eslint react/prefer-stateless-function: 0 */ // --> OFF
 /* global window */
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react';
 import Home from '../Home/Home';
 import Topbar from '../Topbar/Topbar';
+import AudioPlayer from '../AudioPlayer/AudioPlayer';
 import Login from '../Login/Login';
 /* import Signup from '../Signup/Signup'; */
-import Protected from '../Protected/Protected';
+import Explorer from '../Explorer/Explorer';
 
 import './styles/App.css';
 
@@ -16,6 +16,16 @@ function onAuthRequired({ history }) {
 }
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { musicPlaylist: [] };
+    this.onPlaylistChange = this.onPlaylistChange.bind(this);
+  }
+
+  onPlaylistChange(sound) {
+    this.setState({ musicPlaylist: [sound] });
+  }
+
   render() {
     return (
       <Fragment>
@@ -26,15 +36,17 @@ class App extends Component {
             redirect_uri={`${window.location.origin}/implicit/callback`}
             onAuthRequired={onAuthRequired}
           >
-            <Route path="/*" component={Topbar} />
+            <Route path="/" component={Topbar} />
             <Route path="/" exact component={Home} />
             {/* <Route path="/signup" exact component={Signup} /> */}
-            <SecureRoute path="/protected" component={Protected} />
-            <Route path="/login" render={() => <Login baseUrl="https://dev-438691.oktapreview.com" />} />
+            <SecureRoute path="/browse" exact render={() => <Explorer onPlaylistChange={this.onPlaylistChange} />} />
+            <Route path="/login" exact render={() => <Login baseUrl="https://dev-438691.oktapreview.com" />} />
             <Route path="/implicit/callback" component={ImplicitCallback} />
+            <Route path="/" render={() => <AudioPlayer playlist={this.state.musicPlaylist} />} />
           </Security>
         </Router>
       </Fragment>
+
     );
   }
 }
