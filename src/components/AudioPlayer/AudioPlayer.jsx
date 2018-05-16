@@ -19,6 +19,10 @@ class AudioPlayer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (this.audioComponent && this.audioComponent.props.playlist !== nextProps.playlist) {
+      console.log(this.audioComponent);
+      ReactDOM.findDOMNode(this.audioComponent).dispatchEvent(new Event('audio-skip-to-next'));
+    }
     if (nextProps.playlist !== this.state.playlist) {
       this.setState({ playlist: nextProps.playlist });
     }
@@ -27,10 +31,6 @@ class AudioPlayer extends Component {
   componentDidUpdate() {
     console.log('did update');
     this.checkAuthentication();
-    if (this.audioComponent && this.audioComponent.props.playlist !== this.state.playlist) {
-      console.log(this.audioComponent);
-      ReactDOM.findDOMNode(this.audioComponent).dispatchEvent(new Event('audio-skip-to-next'));
-    }
   }
 
 
