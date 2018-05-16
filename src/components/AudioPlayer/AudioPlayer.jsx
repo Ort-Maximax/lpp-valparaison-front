@@ -13,23 +13,24 @@ class AudioPlayer extends Component {
   constructor(props) {
     super(props);
     this.state = { authenticated: null, playlist: this.props.playlist };
+    this.shouldUpdate = false;
     this.audioComponent = undefined;
     this.checkAuthentication = this.checkAuthentication.bind(this);
     this.checkAuthentication();
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.audioComponent && this.audioComponent.props.playlist !== nextProps.playlist) {
-      console.log(this.audioComponent);
-      ReactDOM.findDOMNode(this.audioComponent).dispatchEvent(new Event('audio-skip-to-next'));
-    }
     if (nextProps.playlist !== this.state.playlist) {
+      this.shouldUpdate = true;
       this.setState({ playlist: nextProps.playlist });
     }
   }
 
   componentDidUpdate() {
-    console.log('did update');
+    if (this.audioComponent && this.shouldUpdate) {
+      this.shouldUpdate = false;
+      ReactDOM.findDOMNode(this.audioComponent).dispatchEvent(new Event('audio-skip-to-next'));
+    }
     this.checkAuthentication();
   }
 
