@@ -27,7 +27,8 @@ class AudioPlayer extends Component {
   componentDidUpdate() {
     console.log('did update');
     this.checkAuthentication();
-    if (this.audioComponent) {
+    if (this.audioComponent && this.audioComponent.props.playlist !== this.state.playlist) {
+      console.log(this.audioComponent);
       ReactDOM.findDOMNode(this.audioComponent).dispatchEvent(new Event('audio-skip-to-next'));
     }
   }
