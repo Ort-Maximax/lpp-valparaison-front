@@ -19,6 +19,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = { musicPlaylist: [] };
+    this.apiUrl = 'http://localhost:3009';
     this.onPlaylistChange = this.onPlaylistChange.bind(this);
   }
 
@@ -39,7 +40,7 @@ class App extends Component {
             <Route path="/" component={Topbar} />
             <Route path="/" exact component={Home} />
             {/* <Route path="/signup" exact component={Signup} /> */}
-            <SecureRoute path="/browse" exact render={() => <Explorer onPlaylistChange={this.onPlaylistChange} />} />
+            <SecureRoute path="/browse" exact render={() => <Explorer onPlaylistChange={this.onPlaylistChange} apiUrl={this.apiUrl} />} />
             <Route path="/login" exact render={() => <Login baseUrl="https://dev-438691.oktapreview.com" />} />
             <Route path="/implicit/callback" component={ImplicitCallback} />
             <Route path="/" render={() => <AudioPlayer playlist={this.state.musicPlaylist} />} />

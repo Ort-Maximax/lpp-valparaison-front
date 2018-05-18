@@ -79,7 +79,7 @@ class NodeViewer extends React.Component {
       } else {
         ext = node.name.substring(node.name.indexOf('.'));
       }
-      switch (ext) {
+      switch (ext.toLowerCase()) {
         case ('.avi'):
         case ('.mkv'):
         case ('.webm'):
@@ -88,17 +88,14 @@ class NodeViewer extends React.Component {
           console.log('clic video');
           this.setState({
             videoDialogVisible: true,
-            currentVideo: { name: node.name, src: node.path },
+            currentVideo: { name: node.name, src: `${this.props.apiUrl}/getFile?path=${node.path}` },
           });
           break;
         case ('.mp3'):
         case ('.oga'):
         case ('.flac'):
-          if (node.name === 'file.flac') {
-            this.props.onPlaylistChange({ name: node.name, src: 'http://www.terrillthompson.com/music/audio/smallf.mp3?id=blahblahblah' });
-          } else {
-            this.props.onPlaylistChange({ name: node.name, src: 'https://www.hrupin.com/wp-content/uploads/mp3/testsong_20_sec.mp3' });
-          }
+          this.props.onPlaylistChange({ name: node.name, src: `${this.props.apiUrl}/getFile?path=${node.path}` });
+
           break;
         case ('.jpg'):
         case ('.jpeg'):

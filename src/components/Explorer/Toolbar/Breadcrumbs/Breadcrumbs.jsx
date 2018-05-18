@@ -22,33 +22,38 @@ class Breadcrumbs extends React.Component {
   }
 
   buildBreadCrumbs(currentCursor) {
-    this.setState({ currentCursor });
-    // Cherche cursor dans le breadcrumbs du state precedent
-    const found = this.state.crumbs.find(element => element.key === currentCursor.key);
+    if (Object.keys(currentCursor).length > 0) {
+      this.setState({ currentCursor });
+      // Cherche cursor dans le breadcrumbs du state precedent
+      const found = this.state.crumbs.find(element => element.key === currentCursor.key);
 
-    // Si on ne trouve pas
-    if (!found) {
-      const crumbs = [<Crumb
-        key={currentCursor.key}
-        cursor={currentCursor}
-        onCursorChange={this.props.onCursorChange}
-        selected
-      />];
-      while (currentCursor.parent) {
-        // Build the breadcrumbs block
-        crumbs.unshift(<Crumb
-          key={currentCursor.parent.key}
-          cursor={currentCursor.parent}
+      // Si on ne trouve pas
+      if (!found) {
+        const crumbs = [<Crumb
+          key={currentCursor.key}
+          cursor={currentCursor}
           onCursorChange={this.props.onCursorChange}
-        />);
-        currentCursor = currentCursor.parent;
+          selected
+        />];
+        while (currentCursor.parent) {
+          // Build the breadcrumbs block
+          crumbs.unshift(<Crumb
+            key={currentCursor.parent.key}
+            cursor={currentCursor.parent}
+            onCursorChange={this.props.onCursorChange}
+          />);
+          currentCursor = currentCursor.parent;
+        }
+        this.setState({ crumbs });
+      } else {
+        // Change le crumb selectionné
+        const crumbs = this.state.crumbs.map(crumb =>
+          Object.assign(
+            {},
+            crumb, { props: { ...crumb.props, selected: crumb.key === found.key } },
+          ));
+        this.setState({ crumbs });
       }
-      this.setState({ crumbs });
-    } else {
-      // Change le crumb selectionné
-      const crumbs = this.state.crumbs.map(crumb =>
-        Object.assign({}, crumb, { props: { ...crumb.props, selected: crumb.key === found.key } }));
-      this.setState({ crumbs });
     }
   }
 

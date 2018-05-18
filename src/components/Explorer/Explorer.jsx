@@ -5,6 +5,7 @@ import Grid from 'material-ui/Grid';
 import sortBy from 'lodash.sortby';
 import uniqBy from 'lodash.uniqby';
 
+import axios from 'axios';
 import uuidv1 from 'uuid';
 
 import Toolbar from './Toolbar/Toolbar';
@@ -17,7 +18,7 @@ const processData = (data) => {
   // Iterate over all nodes
   data.children.forEach((el) => {
     // add its path
-    el.path = `${data.path}/${el.name.replace(' ', '\\ ')}`;
+    el.path = `${data.path}/${el.name}`;
     el.clicks = [];
     el.parent = data;
     // !!! Le backend devrais s'occuper de donner les clés !!!
@@ -31,90 +32,42 @@ const processData = (data) => {
   return data;
 };
 
-/* TODO: Get data from backend API */
-// Emulate getting datas from the API
-const apiData = {
-  name: 'Home',
-  path: 'path/to/user/folder',
-  children: [
-    {
-      name: 'Folder 1',
-      children: [
-        {
-          name: 'Folder 11',
-          children: [
-            { name: 'test1.tar.gz' },
-            { name: 'file1.rar' },
-          ],
-        },
-        {
-          name: 'Folder $^3ç#?&',
-          children: [
-            { name: 'test2.tar.gz' },
-            { name: 'file2.rar' },
-          ],
-        },
-        {
-          name: 'Folder qui a un nom qui, il se trouve, est très long et prend beaucoup d\'espace OMG ce nom est interminable',
-          children: [
-            { name: 'test3.tar.gz' },
-            { name: 'file3.rar' },
-          ],
-        },
-        { name: 'file.js', lastUpdated: '01/01/2001' },
-        { name: 'file.html', lastUpdated: '02/02/2002' },
-        { name: 'file.json', lastUpdated: '03/03/2003' },
-
-        { name: 'file.avi', lastUpdated: '04/04/2004' },
-        { name: 'file.mkv', lastUpdated: '05/05/2005' },
-        { name: 'file.mp4', lastUpdated: '06/06/2006' },
-
-        { name: 'file.mp3', lastUpdated: '07/07/2007' },
-        { name: 'file.ogg', lastUpdated: '08/08/2008' },
-        { name: 'file.flac', lastUpdated: '09/09/2009' },
-
-        { name: 'file.jpg', lastUpdated: '10/10/2010' },
-        { name: 'file.jpeg', lastUpdated: '11/11/2011' },
-        { name: 'file.png', lastUpdated: '12/12/2012' },
-
-      ],
-    },
-    {
-      name: 'Folder 2',
-      children: [
-        {
-          name: 'Folder 21',
-          children: [
-            { name: 'test4.tar.gz' },
-            { name: 'file4.rar' },
-          ],
-        },
-        { name: 'LoneFile.js' },
-      ],
-    },
-    {
-      name: 'Empty Folder',
-      children: [],
-    },
-  ],
-};
-
-apiData.key = uuidv1();
-apiData.root = true;
-if (apiData.children && apiData.children.length > 0) {
-  apiData.children = sortBy(apiData.children, x => x.name);
-}
-
-// apiData.toggled = true;
-const data = processData(apiData);
-
 class Explorer extends React.Component {
   constructor(props) {
     super(props);
     this.onSearchbarUpdate = this.onSearchbarUpdate.bind(this);
     this.onSearchQueryChange = this.onSearchQueryChange.bind(this);
     this.onCursorChange = this.onCursorChange.bind(this);
-    this.state = { cursor: data, storedCursor: undefined, searchbar: false };
+    this.state = { cursor: {}, storedCursor: undefined, searchbar: false };
+  }
+
+  componentWillMount() {
+    const axiosConfig = {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    };
+
+
+    /* TODO: Get data from backend API */
+    // Pour l'instant on appelle l'API de  mockup
+    axios(`${this.props.apiUrl}/getData`, axiosConfig)
+      .then((res) => {
+        console.log(res);
+        const apiData = res.data;
+        apiData.key = uuidv1();
+        apiData.root = true;
+        if (apiData.children && apiData.children.length > 0) {
+          apiData.children = sortBy(apiData.children, x => x.name);
+        }
+
+        // apiData.toggled = true;
+        this.setState({ cursor: processData(apiData) });
+      // console.log(res.data);
+      }, ((err) => {
+          console.log(err);
+        }));
   }
 
   onSearchbarUpdate() {
@@ -202,7 +155,13 @@ class Explorer extends React.Component {
             />
           </section>
           */}
-          <NodeViewer onCursorChange={this.onCursorChange} onPlaylistChange={this.props.onPlaylistChange} cursor={this.state.cursor} flex="true" />
+          <NodeViewer
+            onCursorChange={this.onCursorChange}
+            onPlaylistChange={this.props.onPlaylistChange}
+            apiUrl={this.props.apiUrl}
+            cursor={this.state.cursor}
+            flex="true"
+          />
 
         </Grid>
       </Grid>

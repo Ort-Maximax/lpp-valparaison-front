@@ -43,7 +43,7 @@ const Element = ({ name, isFolder, selected }) => {
       ext = name.substring(name.indexOf('.'));
     }
 
-    switch (ext) {
+    switch (ext.toLowerCase()) {
       case ('.avi'):
       case ('.mkv'):
       case ('.mp4'):
