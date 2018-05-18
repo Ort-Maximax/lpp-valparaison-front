@@ -38,6 +38,7 @@ class Toolbar extends React.Component {
   }
 
   render() {
+    if (Object.keys(this.props.cursor).length <= 0) return null;
     return (
       <Grid
         container

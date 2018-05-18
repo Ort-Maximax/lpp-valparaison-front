@@ -1,18 +1,14 @@
+/* global document */
 import React, { Fragment } from 'react';
 import Dropzone from 'react-dropzone';
 
 import Grid from 'material-ui/Grid';
-import Dialog from 'material-ui/Dialog';
-import IconButton from 'material-ui/IconButton';
-import Close from '@material-ui/icons/Close';
-
-import { Player } from 'video-react';
-import 'video-react/dist/video-react.css';
 
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
 import './styles/NodeViewer.css';
 import Element from './Element/Element';
+import VideoPlayer from './VideoPlayer/VideoPlayer';
 
 
 class NodeViewer extends React.Component {
@@ -27,8 +23,12 @@ class NodeViewer extends React.Component {
     this.onDragLeave = this.onDragLeave.bind(this);
     this.onDrop = this.onDrop.bind(this);
 
-    this.hideDragModal = this.hideDragModal.bind(this);
-    this.showDragModal = this.showDragModal.bind(this);
+    this.hideDragDialog = this.hideDragDialog.bind(this);
+    this.showDragDialog = this.showDragDialog.bind(this);
+
+    this.closeVideoDialog = this.closeVideoDialog.bind(this);
+
+    this.escFunction = this.escFunction.bind(this);
 
     this.state = {
       disabled: false,
@@ -40,7 +40,11 @@ class NodeViewer extends React.Component {
   }
 
   componentDidMount() {
+    document.addEventListener('keydown', this.escFunction, false);
+  }
 
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.escFunction, false);
   }
 
   onClick(e, node) {
@@ -85,7 +89,7 @@ class NodeViewer extends React.Component {
         case ('.webm'):
         case ('.ogv'):
         case ('.mp4'):
-          console.log('clic video');
+          /* TODO: pause audio */
           this.setState({
             videoDialogVisible: true,
             currentVideo: { name: node.name, src: `${this.props.apiUrl}/getFile?path=${node.path}` },
@@ -120,12 +124,12 @@ class NodeViewer extends React.Component {
   }
 
   onDragEnter() {
-    this.showDragModal();
+    this.showDragDialog();
     console.log('Drag Enter !');
   }
 
   onDragLeave() {
-    this.hideDragModal();
+    this.hideDragDialog();
     console.log('Drag Leave !');
   }
 
@@ -140,12 +144,20 @@ class NodeViewer extends React.Component {
     });
   }
 
-  showDragModal() {
+  escFunction(e) {
+    if (e.keyCode === 27) this.closeVideoDialog();
+  }
+
+  showDragDialog() {
     this.setState({ dragDialogVisible: true });
   }
 
-  hideDragModal() {
+  hideDragDialog() {
     this.setState({ dragDialogVisible: false });
+  }
+
+  closeVideoDialog() {
+    this.setState({ videoDialogVisible: false });
   }
 
   render() {
@@ -260,7 +272,7 @@ class NodeViewer extends React.Component {
               </Grid>
               }
 
-              <Rodal visible={this.state.dragDialogVisible} onClose={this.hideDragModal}>
+              <Rodal visible={this.state.dragDialogVisible} onClose={this.hideDragDialog}>
                 <div>On est en train de drag !!!!</div>
               </Rodal>
             </Grid>
@@ -268,19 +280,12 @@ class NodeViewer extends React.Component {
         }
         </Dropzone>
 
-        <Dialog
-          fullScreen
+        <VideoPlayer
+          video={this.state.currentVideo}
           open={this.state.videoDialogVisible}
-          onClose={this.handleClose}
-        >
-          <IconButton onClick={() => { this.setState({ videoDialogVisible: false }); }}>
-            <Close />
-          </IconButton>
-          <div className="video-player-container">
-            <Player playsInline autoPlay src="http://techslides.com/demos/sample-videos/small.mp4" />
-            {this.state.currentVideo.name}
-          </div>
-        </Dialog>
+          closeDialog={this.closeVideoDialog}
+        />
+
       </div>
     );
   }

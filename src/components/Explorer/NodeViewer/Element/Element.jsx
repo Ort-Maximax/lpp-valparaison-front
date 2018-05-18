@@ -47,10 +47,11 @@ const Element = ({ name, isFolder, selected }) => {
       case ('.avi'):
       case ('.mkv'):
       case ('.mp4'):
+      case ('.ogv'):
         icon = <Video />;
         break;
       case ('.mp3'):
-      case ('.ogg'):
+      case ('.oga'):
       case ('.flac'):
         icon = <Music />;
         break;
