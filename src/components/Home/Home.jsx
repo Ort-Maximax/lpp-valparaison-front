@@ -24,6 +24,8 @@ const Home = () => (
             {'C\'est plutot cool'}
           </h2>
         </Grid>
+
+
       </Grid>
     </Paper>
   </section>

@@ -27,7 +27,8 @@
     "react-treebeard": "^2.1.0",
     "rodal": "^1.6.3",
     "svgr": "^1.9.0",
-    "uuid": "^3.2.1"
+    "uuid": "^3.2.1",
+    "video-react": "^0.10.5"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -1,6 +1,14 @@
 import React, { Fragment } from 'react';
 import Dropzone from 'react-dropzone';
+
 import Grid from 'material-ui/Grid';
+import Dialog from 'material-ui/Dialog';
+import IconButton from 'material-ui/IconButton';
+import Close from '@material-ui/icons/Close';
+
+import { Player } from 'video-react';
+import 'video-react/dist/video-react.css';
+
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
 import './styles/NodeViewer.css';
@@ -22,7 +30,13 @@ class NodeViewer extends React.Component {
     this.hideDragModal = this.hideDragModal.bind(this);
     this.showDragModal = this.showDragModal.bind(this);
 
-    this.state = { disabled: false, dragModalVisible: false, selectedElements: [] };
+    this.state = {
+      disabled: false,
+      dragDialogVisible: false,
+      videoDialogVisible: false,
+      currentVideo: {},
+      selectedElements: [],
+    };
   }
 
   componentDidMount() {
@@ -68,10 +82,17 @@ class NodeViewer extends React.Component {
       switch (ext) {
         case ('.avi'):
         case ('.mkv'):
+        case ('.webm'):
+        case ('.ogv'):
         case ('.mp4'):
+          console.log('clic video');
+          this.setState({
+            videoDialogVisible: true,
+            currentVideo: { name: node.name, src: node.path },
+          });
           break;
         case ('.mp3'):
-        case ('.ogg'):
+        case ('.oga'):
         case ('.flac'):
           if (node.name === 'file.flac') {
             this.props.onPlaylistChange({ name: node.name, src: 'http://www.terrillthompson.com/music/audio/smallf.mp3?id=blahblahblah' });
@@ -123,11 +144,11 @@ class NodeViewer extends React.Component {
   }
 
   showDragModal() {
-    this.setState({ dragModalVisible: true });
+    this.setState({ dragDialogVisible: true });
   }
 
   hideDragModal() {
-    this.setState({ dragModalVisible: false });
+    this.setState({ dragDialogVisible: false });
   }
 
   render() {
@@ -242,13 +263,27 @@ class NodeViewer extends React.Component {
               </Grid>
               }
 
-              <Rodal visible={this.state.dragModalVisible} onClose={this.hideDragModal}>
+              <Rodal visible={this.state.dragDialogVisible} onClose={this.hideDragModal}>
                 <div>On est en train de drag !!!!</div>
               </Rodal>
             </Grid>
           </Fragment>
         }
         </Dropzone>
+
+        <Dialog
+          fullScreen
+          open={this.state.videoDialogVisible}
+          onClose={this.handleClose}
+        >
+          <IconButton onClick={() => { this.setState({ videoDialogVisible: false }); }}>
+            <Close />
+          </IconButton>
+          <div className="video-player-container">
+            <Player playsInline autoPlay src="http://techslides.com/demos/sample-videos/small.mp4" />
+            {this.state.currentVideo.name}
+          </div>
+        </Dialog>
       </div>
     );
   }
