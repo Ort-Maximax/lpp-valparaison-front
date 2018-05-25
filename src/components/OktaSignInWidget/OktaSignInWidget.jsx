@@ -22,7 +22,7 @@ class OktaSignInWidget extends Component {
         {type: 'FACEBOOK', id: '0oaefphiatHspHxEK0h7'},
         */
       ],
-      redirectUri: 'http://localhost:3000/implicit/callback',
+      redirectUri: 'http://valparaiso.fr/implicit/callback',
     });
     this.widget.renderEl({ el }, this.props.onSuccess, this.props.onError);
   }
