@@ -1,8 +1,8 @@
 {
-  "main.css": "static/css/main.a072b36c.css",
-  "main.css.map": "static/css/main.a072b36c.css.map",
-  "main.js": "static/js/main.4dd69beb.js",
-  "main.js.map": "static/js/main.4dd69beb.js.map",
+  "main.css": "static/css/main.169933cf.css",
+  "main.css.map": "static/css/main.169933cf.css.map",
+  "main.js": "static/js/main.14b6908b.js",
+  "main.js.map": "static/js/main.14b6908b.js.map",
   "static/media/checkbox-01.png": "static/media/checkbox-01.7e720020.png",
   "static/media/checkbox-01@2x.png": "static/media/checkbox-01@2x.d5554fe4.png",
   "static/media/checkbox-sign-in-widget@2x.png": "static/media/checkbox-sign-in-widget@2x.c8c02700.png",
@@ -28,5 +28,6 @@
   "static/media/radiobutton-01@2x.png": "static/media/radiobutton-01@2x.dc47af40.png",
   "static/media/sign-on-widget-spinner.gif": "static/media/sign-on-widget-spinner.eea28db2.gif",
   "static/media/u2f_usb.png": "static/media/u2f_usb.591cc98f.png",
+  "static/media/video-react.scss": "static/media/video-react.0890c262.scss",
   "static/media/yubikeyDemo.png": "static/media/yubikeyDemo.f10c9db1.png"
 }
