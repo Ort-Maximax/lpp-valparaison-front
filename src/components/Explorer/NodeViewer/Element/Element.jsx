@@ -31,19 +31,12 @@ String.prototype.nthIndexOf = function (pattern, n) {
   return i;
 };
 
-const Element = ({ name, isFolder, selected }) => {
+const Element = ({ node, isFolder, selected }) => {
   let icon = <File />;
   if (isFolder) {
     icon = <Folder />;
   } else {
-    let ext = '';
-    if (name.nthIndexOf('.', 2) !== -1) {
-      ext = name.substring(name.indexOf('.'), name.nthIndexOf('.', 2));
-    } else {
-      ext = name.substring(name.indexOf('.'));
-    }
-
-    switch (ext.toLowerCase()) {
+    switch (node.ext) {
       case ('.avi'):
       case ('.mkv'):
       case ('.mp4'):
@@ -84,7 +77,7 @@ const Element = ({ name, isFolder, selected }) => {
 
 
               <Typography component="p" align="center" className="text">
-                {name}
+                {node.name}
               </Typography>
               {/*
               <IconButton style={{ height: 30, width: 20 }}>
@@ -106,7 +99,7 @@ const Element = ({ name, isFolder, selected }) => {
                 </div>
               }
               <Typography component="p" align="center" className="text">
-                {name}
+                {node.name}
               </Typography>
               {/*
               <IconButton style={{ height: 30, width: 20 }}>

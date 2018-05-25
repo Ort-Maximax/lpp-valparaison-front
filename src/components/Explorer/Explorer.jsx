@@ -23,6 +23,12 @@ const processData = (data) => {
     el.parent = data;
     // !!! Le backend devrais s'occuper de donner les clés !!!
     el.key = uuidv1();
+
+    if (el.name.nthIndexOf('.', 2) !== -1) {
+      el.ext = el.name.substring(el.name.indexOf('.'), el.name.nthIndexOf('.', 2)).toLowerCase();
+    } else {
+      el.ext = el.name.substring(el.name.indexOf('.')).toLowerCase();
+    }
     if (el.children) {
       el.children = sortBy(el.children, x => x.name);
       // call the data processing function for its children

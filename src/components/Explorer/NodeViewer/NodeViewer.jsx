@@ -76,14 +76,7 @@ class NodeViewer extends React.Component {
     } else {
       /* TODO: En fonction de l'extension du fichier, ouvre la page adequat */
       console.log(node);
-      let ext = '';
-
-      if (node.name.nthIndexOf('.', 2) !== -1) {
-        ext = node.name.substring(node.name.indexOf('.'), node.name.nthIndexOf('.', 2));
-      } else {
-        ext = node.name.substring(node.name.indexOf('.'));
-      }
-      switch (ext.toLowerCase()) {
+      switch (node.ext) {
         case ('.avi'):
         case ('.mkv'):
         case ('.webm'):
@@ -193,7 +186,7 @@ class NodeViewer extends React.Component {
           role="button"
         >
           <Element
-            name={child.name}
+            node={child}
             isFolder={!!child.children}
             selected={this.state.selectedElements.includes(child)}
           />
@@ -214,7 +207,7 @@ class NodeViewer extends React.Component {
             role="button"
           >
             <Element
-              name={child.name}
+              node={child}
               isFolder={!!child.children}
               selected={this.state.selectedElements.includes(child)}
             />
