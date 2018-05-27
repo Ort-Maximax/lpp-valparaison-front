@@ -1,5 +1,6 @@
 .fileElementContainer {
   background-color: white !important;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -84,6 +85,9 @@
   line-height: 30px;
   user-select: none;
   text-align: left;
+}
+.folderContentContainer.larger {
+  width: 200px;
 }
 .selected {
   background: #4285f4;

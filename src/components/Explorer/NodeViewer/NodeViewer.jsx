@@ -54,7 +54,7 @@ class NodeViewer extends React.Component {
 
   onClick(e, node) {
     // Si la touche CTRL est pressé
-    if (e.ctrlKey) {
+    if (e.ctrlKey || this.props.toggleSelect) {
       // On ajoute l'element clické a la liste d'elements selectionné
       // Ou on le supprime si il est deja dans la liste
       console.log(this.selectedElements);
@@ -200,6 +200,7 @@ class NodeViewer extends React.Component {
             node={child}
             isFolder={!!child.children}
             selected={this.selectedElements.includes(child)}
+            toggleSelect={this.props.toggleSelect}
           />
         </span>
       )) : null;
@@ -221,6 +222,7 @@ class NodeViewer extends React.Component {
               node={child}
               isFolder={!!child.children}
               selected={this.selectedElements.includes(child)}
+              toggleSelect={this.props.toggleSelect}
             />
           </span>
       )) : null;

@@ -7,7 +7,9 @@ import React, { Fragment } from 'react';
 import Card, { CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 
-import Divider from 'material-ui/Divider';
+import Divider from '@material-ui/core/Divider';
+
+import Checkbox from '@material-ui/core/Checkbox';
 /*
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -31,7 +33,9 @@ String.prototype.nthIndexOf = function (pattern, n) {
   return i;
 };
 
-const Element = ({ node, isFolder, selected }) => {
+const Element = ({
+  node, isFolder, selected, toggleSelect,
+}) => {
   let icon = <File />;
   if (isFolder) {
     icon = <Folder />;
@@ -69,7 +73,7 @@ const Element = ({ node, isFolder, selected }) => {
       {
         isFolder ?
           <Card raised={selected}>
-            <CardContent className={`folderContentContainer ${selected ? 'selected' : ''}`}>
+            <CardContent className={`folderContentContainer ${toggleSelect ? 'larger' : ''} ${selected ? 'selected' : ''}`}>
 
               <div className="folderContentIconContainer">
                 {icon}
@@ -79,15 +83,41 @@ const Element = ({ node, isFolder, selected }) => {
               <Typography component="p" align="center" className="text">
                 {node.name}
               </Typography>
-              {/*
-              <IconButton style={{ height: 30, width: 20 }}>
-                <MoreVertIcon />
-              </IconButton>
-              */}
+
+              {
+                toggleSelect &&
+                <Checkbox
+                  style={{
+                    width: 'auto',
+                    height: 'auto',
+                    backgroundColor: 'white',
+                    borderRadius: '0',
+                  }}
+                  checked={selected}
+                  color="primary"
+                />
+              }
+
             </CardContent>
           </Card>
       :
-          <Card className="fileElementContainer" raised={selected}>
+          <Card className={`fileElementContainer ${toggleSelect ? 'larger' : ''}`} raised={selected}>
+            {
+              toggleSelect &&
+              <Checkbox
+                style={{
+                  width: 'auto',
+                  height: 'auto',
+                  position: 'absolute',
+                  top: 1,
+                  right: 1,
+                }}
+                checked={selected}
+                value="checkedB"
+                color="primary"
+              />
+            }
+
             <div className="filePreviewContainer">
               {icon}
             </div>

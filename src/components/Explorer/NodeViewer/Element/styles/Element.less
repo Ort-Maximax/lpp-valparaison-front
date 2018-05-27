@@ -1,5 +1,6 @@
 .fileElementContainer {
     background-color: white !important;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -43,6 +44,7 @@
             user-select: none;
             text-align: left;
         }
+
     }
     &:focus,
     &:active {
@@ -85,6 +87,10 @@
         user-select: none;
         text-align: left;
     }
+
+    &.larger {
+        width : 200px;
+    }
 }
 
 .selected {
@@ -97,6 +103,8 @@
         color: white;
     }
 }
+
+
 
 @media all and (max-width: 760px) {
     .fileElementContainer {

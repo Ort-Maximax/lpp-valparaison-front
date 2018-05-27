@@ -41,12 +41,13 @@ const processData = (data) => {
 class Explorer extends React.Component {
   constructor(props) {
     super(props);
-    this.onSearchbarUpdate = this.onSearchbarUpdate.bind(this);
-    this.onSearchQueryChange = this.onSearchQueryChange.bind(this);
-    this.onCursorChange = this.onCursorChange.bind(this);
     this.onSelectedElementsChange = this.onSelectedElementsChange.bind(this);
     this.state = {
-      cursor: {}, storedCursor: undefined, searchbar: false, selectedElements: [],
+      cursor: {},
+      storedCursor: undefined,
+      searchbar: false,
+      toggleSelect: false,
+      selectedElements: [],
     };
   }
 
@@ -71,20 +72,18 @@ class Explorer extends React.Component {
           apiData.children = sortBy(apiData.children, x => x.name);
         }
 
-        // apiData.toggled = true;
         this.setState({ cursor: processData(apiData) });
-      // console.log(res.data);
       }, ((err) => {
           console.log(err);
         }));
   }
 
-  onSearchbarUpdate() {
+  onSearchbarUpdate = () => {
     this.setState({ searchbar: !this.state.searchbar });
     this.setState({ storedCursor: undefined });
   }
 
-  onSearchQueryChange(query) {
+  onSearchQueryChange = (query) => {
     if (query) {
       // Create a temporary cursor, container the filtered children of current folder
       if (!this.state.storedCursor) {
@@ -113,7 +112,11 @@ class Explorer extends React.Component {
     }
   }
 
-  onCursorChange(cursor) {
+  onToggleSelect = () => {
+    this.setState({ toggleSelect: !this.state.toggleSelect });
+  }
+
+  onCursorChange = (cursor) => {
     this.setState({
       selectedElements: [],
       storedCursor: undefined,
@@ -122,7 +125,7 @@ class Explorer extends React.Component {
     });
   }
 
-  onSelectedElementsChange(elements) {
+  onSelectedElementsChange = (elements) => {
     console.log(elements);
     this.setState({ selectedElements: [...elements] });
   }
@@ -145,10 +148,12 @@ class Explorer extends React.Component {
           <Toolbar
             onSearchbarUpdate={this.onSearchbarUpdate}
             onSearchQueryChange={this.onSearchQueryChange}
+            onToggleSelect={this.onToggleSelect}
             onCursorChange={this.onCursorChange}
             cursor={this.state.cursor}
             searchbar={this.state.searchbar}
             selectedElements={this.state.selectedElements}
+            toggleSelect={this.state.toggleSelect}
           />
         </Grid>
         <Grid
@@ -159,16 +164,6 @@ class Explorer extends React.Component {
           direction="row"
         >
 
-          {/*
-          <section flex="true" className="tree-resize">
-            <TreeViewer
-              onCursorChange={this.onCursorChange}
-              cursor={this.state.cursor}
-              data={data}
-            />
-          </section>
-          */}
-
           <NodeViewer
             onCursorChange={this.onCursorChange}
             onPlaylistChange={this.props.onPlaylistChange}
@@ -176,6 +171,7 @@ class Explorer extends React.Component {
             apiUrl={this.props.apiUrl}
             cursor={this.state.cursor}
             selectedElements={this.state.selectedElements}
+            toggleSelect={this.state.toggleSelect}
             flex="true"
           />
 

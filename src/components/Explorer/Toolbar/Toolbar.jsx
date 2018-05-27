@@ -119,7 +119,7 @@ class Toolbar extends React.Component {
                 <IconButton className={`toolbar-button ${this.props.searchbar && 'active'}`} onClick={() => this.toggleSearchbar()}>
                   <Search />
                 </IconButton>
-                <IconButton className="toolbar-button">
+                <IconButton className={`toolbar-button ${this.props.toggleSelect && 'active'}`} onClick={this.props.onToggleSelect}>
                   <SelectAll />
                 </IconButton>
                 <IconButton className="toolbar-button">
