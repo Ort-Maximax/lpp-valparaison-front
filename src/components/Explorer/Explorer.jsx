@@ -44,7 +44,10 @@ class Explorer extends React.Component {
     this.onSearchbarUpdate = this.onSearchbarUpdate.bind(this);
     this.onSearchQueryChange = this.onSearchQueryChange.bind(this);
     this.onCursorChange = this.onCursorChange.bind(this);
-    this.state = { cursor: {}, storedCursor: undefined, searchbar: false };
+    this.onSelectedElementsChange = this.onSelectedElementsChange.bind(this);
+    this.state = {
+      cursor: {}, storedCursor: undefined, searchbar: false, selectedElements: [],
+    };
   }
 
   componentWillMount() {
@@ -119,6 +122,11 @@ class Explorer extends React.Component {
     });
   }
 
+  onSelectedElementsChange(elements) {
+    console.log(elements);
+    this.setState({ selectedElements: [...elements] });
+  }
+
   render() {
     /* TODO: Composant Toolbar */
     return (
@@ -164,8 +172,10 @@ class Explorer extends React.Component {
           <NodeViewer
             onCursorChange={this.onCursorChange}
             onPlaylistChange={this.props.onPlaylistChange}
+            onSelectedElementsChange={this.onSelectedElementsChange}
             apiUrl={this.props.apiUrl}
             cursor={this.state.cursor}
+            selectedElements={this.state.selectedElements}
             flex="true"
           />
 

@@ -12,6 +12,23 @@
   background-color: yellow;
   border-radius: 20%;
 }
+.toolbar-container .action-menu {
+  position: absolute;
+  top: 33px;
+  right: 5px;
+  z-index: 999;
+  transition: linear 100ms;
+}
+.toolbar-container .action-menu ul {
+  padding: 0px;
+}
+.toolbar-container .action-menu svg {
+  padding-right: 5px;
+}
+.toolbar-container .action-menu.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
 .searchbar-container {
   display: flex;
   align-items: center;

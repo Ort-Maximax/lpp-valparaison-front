@@ -119,6 +119,9 @@ a:hover {
   z-index: 999;
   transition: linear 100ms;
 }
+.user-menu ul {
+  padding: 0px;
+}
 .user-menu.hidden {
   visibility: hidden;
   opacity: 0;

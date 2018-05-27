@@ -74,7 +74,8 @@ class Topbar extends Component {
   }
 
   handleCloseUserMenu = (event) => {
-    if (this.target1.contains(event.target)) {
+    console.log(this.userMenu, this.userMenu.contains(event.target), event.target);
+    if (this.userMenu.contains(event.target)) {
       return;
     }
 
@@ -138,7 +139,7 @@ class Topbar extends Component {
             <ClickOutside onClickOutside={this.closeUserMenu}>
               <div
                 ref={(node) => {
-                    this.target1 = node;
+                    this.userMenu = node;
                   }}
               >
                 { clientMail &&
@@ -151,14 +152,11 @@ class Topbar extends Component {
                 </Button>
                   }
               </div>
-              {/* Bug : la position intial est incorrect.
-              Surement car le popper est crée avant que le target soit crée */}
-
 
               <Paper className={userMenuOpen ? 'user-menu visible' : 'user-menu hidden'}>
                 <div className="user-menu-header">
                   <Typography variant="title" className="noselect">
-                          Bonjour {clientFirstName} !
+                    Bonjour {clientFirstName} !
                   </Typography>
                 </div>
                 <MenuList role="menu">

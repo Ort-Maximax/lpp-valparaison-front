@@ -7,6 +7,12 @@ import IconButton from 'material-ui/IconButton';
 import Search from '@material-ui/icons/Search';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import SelectAll from '@material-ui/icons/SelectAll';
+import CloudDownload from '@material-ui/icons/CloudDownload';
+import DeleteForever from '@material-ui/icons/DeleteForever';
+import Transform from '@material-ui/icons/Transform';
+
+import ClickOutside from 'react-click-outside';
+import { MenuItem, MenuList } from 'material-ui/Menu';
 
 import Input from 'material-ui/Input';
 
@@ -37,7 +43,35 @@ class Toolbar extends React.Component {
     this.props.onSearchbarUpdate(!this.props.searchbar);
   }
 
+  toggleActionMenu = () => {
+    this.setState({
+      actionMenuOpen: !this.state.actionMenuOpen,
+    });
+  };
+
+  closeActionMenu = () => {
+    this.setState({
+      actionMenuOpen: false,
+    });
+  }
+
+  handleDownloadClick = () => {
+    console.log('Download !');
+    this.closeActionMenu();
+  }
+
+  handleDeleteClick = () => {
+    console.log('Delete !');
+    this.closeActionMenu();
+  }
+
+  handleConvertClick = () => {
+    console.log('Convert !');
+    this.closeActionMenu();
+  }
+
   render() {
+    const { actionMenuOpen } = this.state;
     if (Object.keys(this.props.cursor).length <= 0) return null;
     return (
       <Grid
@@ -65,7 +99,40 @@ class Toolbar extends React.Component {
                 <SelectAll />
               </IconButton>
               <IconButton className="toolbar-button">
-                <MoreVertIcon />
+
+                <ClickOutside
+                  onClickOutside={this.closeActionMenu}
+                >
+
+                  <div
+                    ref={(node) => {
+                    this.actionMenu = node;
+                  }}
+                  >
+
+                    <MoreVertIcon onClick={this.toggleActionMenu} />
+
+
+                    <Paper className={actionMenuOpen ? 'action-menu visible' : 'action-menu hidden'}>
+                      <MenuList role="menu">
+                        {/* TODO: Bind les actions */}
+                        <MenuItem onClick={this.handleDownloadClick}>
+                          <CloudDownload />
+                          Telecharger
+                        </MenuItem>
+                        <MenuItem onClick={this.handleDeleteClick}>
+                          <DeleteForever />
+                          Supprimer
+                        </MenuItem>
+
+                        <MenuItem onClick={this.handleConvertClick}>
+                          <Transform />
+                          Convert
+                        </MenuItem>
+                      </MenuList>
+                    </Paper>
+                  </div>
+                </ClickOutside>
               </IconButton>
             </Grid>
           </Grid>

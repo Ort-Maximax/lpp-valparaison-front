@@ -11,6 +11,24 @@
       border-radius: 20%;
     }
   }
+
+  .action-menu {
+    position: absolute;
+    top: 33px;
+    right: 5px;
+    z-index: 999;
+    transition: linear 100ms;
+    ul {
+      padding: 0px;
+    }
+    svg {
+      padding-right: 5px;
+    }
+    &.hidden {
+      visibility: hidden;
+      opacity:0;    
+    }
+  }
 }
 
 .searchbar-container {

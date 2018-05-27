@@ -35,12 +35,17 @@ class NodeViewer extends React.Component {
       dragDialogVisible: false,
       videoDialogVisible: false,
       currentVideo: {},
-      selectedElements: [],
     };
+
+    this.selectedElements = this.props.selectedElements;
   }
 
   componentDidMount() {
     document.addEventListener('keydown', this.escFunction, false);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.selectedElements = nextProps.selectedElements;
   }
 
   componentWillUnmount() {
@@ -52,16 +57,21 @@ class NodeViewer extends React.Component {
     if (e.ctrlKey) {
       // On ajoute l'element clické a la liste d'elements selectionné
       // Ou on le supprime si il est deja dans la liste
-      if (this.state.selectedElements.includes(node)) {
-        const index = this.state.selectedElements.indexOf(node);
-        this.state.selectedElements.splice(index, 1);
-        this.setState({ selectedElements: this.state.selectedElements });
+      console.log(this.selectedElements);
+      if (this.selectedElements.includes(node)) {
+        const index = this.selectedElements.indexOf(node);
+        this.selectedElements.splice(index, 1);
+        this.props.onSelectedElementsChange(this.selectedElements);
+        // this.setState({ selectedElements: this.state.selectedElements });
       } else {
-        this.setState({ selectedElements: [...this.state.selectedElements, node] });
+        this.selectedElements.push(node);
+        this.props.onSelectedElementsChange(this.selectedElements);
+        // this.setState({ selectedElements: [...this.state.selectedElements, node] });
       }
     } else {
       // Sinon, on clear la liste, et on ajoute l'element clické
-      this.setState({ selectedElements: [node] });
+      // this.setState({ selectedElements: [node] });
+      this.props.onSelectedElementsChange([node]);
     }
     console.log('click');
   }
@@ -112,7 +122,8 @@ class NodeViewer extends React.Component {
   onOffClick(e) {
     console.log('off click');
     if (!e.ctrlKey) {
-      this.setState({ selectedElements: [] });
+      // this.setState({ selectedElements: [] });
+      this.props.onSelectedElementsChange([]);
     }
   }
 
@@ -188,7 +199,7 @@ class NodeViewer extends React.Component {
           <Element
             node={child}
             isFolder={!!child.children}
-            selected={this.state.selectedElements.includes(child)}
+            selected={this.selectedElements.includes(child)}
           />
         </span>
       )) : null;
@@ -209,7 +220,7 @@ class NodeViewer extends React.Component {
             <Element
               node={child}
               isFolder={!!child.children}
-              selected={this.state.selectedElements.includes(child)}
+              selected={this.selectedElements.includes(child)}
             />
           </span>
       )) : null;
