@@ -114,8 +114,8 @@ class Explorer extends React.Component {
   }
 
   onCursorChange(cursor) {
-    /* TODO: Clear la recherche au changement de curseur */
     this.setState({
+      selectedElements: [],
       storedCursor: undefined,
       searchbar: false,
       cursor,
@@ -128,7 +128,6 @@ class Explorer extends React.Component {
   }
 
   render() {
-    /* TODO: Composant Toolbar */
     return (
       <Grid
         style={{ margin: 0, width: '100%' }}
@@ -149,6 +148,7 @@ class Explorer extends React.Component {
             onCursorChange={this.onCursorChange}
             cursor={this.state.cursor}
             searchbar={this.state.searchbar}
+            selectedElements={this.state.selectedElements}
           />
         </Grid>
         <Grid
@@ -159,7 +159,6 @@ class Explorer extends React.Component {
           direction="row"
         >
 
-
           {/*
           <section flex="true" className="tree-resize">
             <TreeViewer
@@ -169,6 +168,7 @@ class Explorer extends React.Component {
             />
           </section>
           */}
+
           <NodeViewer
             onCursorChange={this.onCursorChange}
             onPlaylistChange={this.props.onPlaylistChange}
