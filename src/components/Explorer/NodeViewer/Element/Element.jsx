@@ -131,11 +131,6 @@ const Element = ({
               <Typography component="p" align="center" className="text">
                 {node.name}
               </Typography>
-              {/*
-              <IconButton style={{ height: 30, width: 20 }}>
-                <MoreVertIcon />
-              </IconButton>
-              */}
 
             </CardContent>
           </Card>

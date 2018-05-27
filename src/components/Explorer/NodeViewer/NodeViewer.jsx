@@ -232,7 +232,7 @@ class NodeViewer extends React.Component {
           { cursor &&
           <Fragment>
             <Grid
-              style={{ margin: 0, width: '100%', minHeight: '100vh' }}
+              style={{ margin: 0, width: '100%' }}
               container
               direction="column"
             >
