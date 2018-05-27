@@ -11,6 +11,8 @@ import CloudDownload from '@material-ui/icons/CloudDownload';
 import DeleteForever from '@material-ui/icons/DeleteForever';
 import Transform from '@material-ui/icons/Transform';
 
+import Divider from '@material-ui/core/Divider';
+
 import ClickOutside from 'react-click-outside';
 import { MenuItem, MenuList } from 'material-ui/Menu';
 
@@ -20,14 +22,21 @@ import 'rodal/lib/rodal.css';
 
 import Input from '@material-ui/core/Input';
 
+import Snackbar from '@material-ui/core/Snackbar';
+import CloseIcon from '@material-ui/icons/Close';
+
 import Breadcrumbs from './Breadcrumbs/Breadcrumbs';
 import './styles/Toolbar.css';
+
+import Add from '../../../img/components/Add';
 
 
 class Toolbar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { searchQuery: '', deleteDialog: false };
+    this.state = {
+      searchQuery: '', deleteDialog: false, snackOpen: false, snackText: '',
+    };
   }
   handleSearch = (event) => {
     this.setState({ searchQuery: event.target.value });
@@ -59,18 +68,25 @@ class Toolbar extends React.Component {
   }
 
   handleDownloadClick = () => {
-    console.log('Download  : ');
-    // TODO: Telecharge chaque selectedElements
-    this.props.selectedElements.forEach((el) => {
-      console.log(el.name);
-    });
+    if (this.props.selectedElements.length > 0) {
+      console.log('Download  : ');
+      // TODO: Telecharge chaque selectedElements
+      this.props.selectedElements.forEach((el) => {
+        console.log(el.name);
+      });
+      // Affiche ensuite la progression des telechargement en bas a droite
+      // Et envoi une notification
+    }
+
     this.closeActionMenu();
   }
 
   handleDeleteClick = () => {
-    console.log('Delete !');
-    this.setState({ deleteDialog: true });
-    // TODO: Demande confirmation, puis supprime chaque selectedElements
+    if (this.props.selectedElements.length > 0) {
+      console.log('Delete !');
+      // Ouvre la modal de confirmation de suppression
+      this.setState({ deleteDialog: true });
+    }
     this.closeActionMenu();
   }
 
@@ -79,6 +95,9 @@ class Toolbar extends React.Component {
   }
 
   confirmDelete = () => {
+    // TODO: Delete
+    this.setState({ snackOpen: true, snackText: 'Supression effectuée' });
+
     this.closeDeleteDialog();
   }
 
@@ -87,10 +106,26 @@ class Toolbar extends React.Component {
   }
 
   handleConvertClick = () => {
-    console.log('Convert !');
-    // TODO: Ouvre un dialog de conversion,
-    // qui propose les  conversions possible pour chaque selectedElements
+    if (this.props.selectedElements.length > 0) {
+      console.log('Convert !');
+      // TODO: Ouvre un dialog de conversion,
+      // qui propose les  conversions possible pour chaque selectedElements
+      // Affiche ensuite la progression des conversions en bas a droite
+      // Et envoi une notification
+    }
     this.closeActionMenu();
+  }
+
+  handleAddClick = () => {
+    console.log('Add !');
+    // TODO: Ouvre l'explorer
+    this.props.dropzone.open();
+    // Envoi les  fichier selectionner au backend
+    // l'API retourne les data updaté, rafraichis les datas
+  }
+
+  closeSnack = () => {
+    this.setState({ snackOpen: false });
   }
 
   render() {
@@ -123,11 +158,9 @@ class Toolbar extends React.Component {
                   <SelectAll />
                 </IconButton>
                 <IconButton className="toolbar-button">
-
                   <ClickOutside
                     onClickOutside={this.closeActionMenu}
                   >
-
                     <div
                       ref={(node) => {
                         this.actionMenu = node;
@@ -135,22 +168,33 @@ class Toolbar extends React.Component {
                     >
                       <MoreVertIcon onClick={this.toggleActionMenu} />
 
-
                       <Paper className={actionMenuOpen ? 'action-menu visible' : 'action-menu hidden'}>
                         <MenuList role="menu">
                           {/* TODO: Bind les actions */}
-                          <MenuItem onClick={this.handleDownloadClick}>
-                            <CloudDownload />
-                          Telecharger
-                          </MenuItem>
-                          <MenuItem onClick={this.handleDeleteClick}>
-                            <DeleteForever />
-                          Supprimer
+                          <MenuItem onClick={this.handleAddClick}>
+                            <Add style={{ width: 24, height: 24 }} />
+                            <b>Nouveau</b>
                           </MenuItem>
 
-                          <MenuItem onClick={this.handleConvertClick}>
+                          <Divider />
+
+                          <MenuItem onClick={this.handleDownloadClick} className={this.props.selectedElements.length === 0 ? 'disabled' : ''}>
+                            <CloudDownload />
+                            Telecharger
+                          </MenuItem>
+
+                          <Divider />
+
+                          <MenuItem onClick={this.handleDeleteClick} className={this.props.selectedElements.length === 0 ? 'disabled' : ''}>
+                            <DeleteForever />
+                            Supprimer
+                          </MenuItem>
+
+                          <Divider />
+
+                          <MenuItem onClick={this.handleConvertClick} className={this.props.selectedElements.length === 0 ? 'disabled' : ''}>
                             <Transform />
-                          Convert
+                            Convertir
                           </MenuItem>
                         </MenuList>
                       </Paper>
@@ -202,7 +246,7 @@ class Toolbar extends React.Component {
           animatiton="slideUp"
         >
           <Grid container direction="column" justify="space-between" alignItems="center" style={{ height: '100%' }}>
-            <h3>Êtes vous sur de vouloir supprimer ces elements ?</h3>
+            <h3>Confimer la suppression ?</h3>
             <Grid container item direction="row" justify="flex-end" alignItems="center">
               <Button onClick={this.confirmDelete} color="primary">
                 Oui, supprimer
@@ -216,6 +260,30 @@ class Toolbar extends React.Component {
 
 
         </Rodal>
+
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={this.state.snackOpen}
+          autoHideDuration={6000}
+          onClose={this.closeSnack}
+          ContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">{this.state.snackText}</span>}
+          action={
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              onClick={this.closeSnack}
+            >
+              <CloseIcon />
+            </IconButton>
+          }
+        />
       </Fragment>
     );
   }

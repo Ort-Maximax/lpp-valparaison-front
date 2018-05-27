@@ -29,6 +29,10 @@
   visibility: hidden;
   opacity: 0;
 }
+.toolbar-container .action-menu .disabled {
+  background-color: #cbcbcb;
+  color: #666666;
+}
 .searchbar-container {
   display: flex;
   align-items: center;

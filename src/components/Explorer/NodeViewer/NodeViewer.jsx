@@ -15,27 +15,13 @@ class NodeViewer extends React.Component {
   constructor(props) {
     super(props);
 
-    this.onClick = this.onClick.bind(this);
-    this.onDoubleClick = this.onDoubleClick.bind(this);
-    this.onOffClick = this.onOffClick.bind(this);
-
-    this.onDragEnter = this.onDragEnter.bind(this);
-    this.onDragLeave = this.onDragLeave.bind(this);
-    this.onDrop = this.onDrop.bind(this);
-
-    this.hideDragDialog = this.hideDragDialog.bind(this);
-    this.showDragDialog = this.showDragDialog.bind(this);
-
-    this.closeVideoDialog = this.closeVideoDialog.bind(this);
-
-    this.escFunction = this.escFunction.bind(this);
-
     this.state = {
-      disabled: false,
       dragDialogVisible: false,
       videoDialogVisible: false,
       currentVideo: {},
+      uploadQueue: [],
     };
+    this.onDrop = this.onDrop.bind(this);
 
     this.selectedElements = this.props.selectedElements;
   }
@@ -52,8 +38,8 @@ class NodeViewer extends React.Component {
     document.removeEventListener('keydown', this.escFunction, false);
   }
 
-  onClick(e, node) {
-    // Si la touche CTRL est pressé
+  onClick = (e, node) => {
+    // Si la touche CTRL est pressé, ou si on est en mode eselection
     if (e.ctrlKey || this.props.toggleSelect) {
       // On ajoute l'element clické a la liste d'elements selectionné
       // Ou on le supprime si il est deja dans la liste
@@ -75,7 +61,7 @@ class NodeViewer extends React.Component {
     console.log('click');
   }
 
-  onDoubleClick(e, node) {
+  onDoubleClick = (e, node) => {
     /* TODO: check si pointer est toujours au dessus de l'element cible */
     console.log('double click');
     // Quand on doubleclick sur un dossier,
@@ -123,7 +109,7 @@ class NodeViewer extends React.Component {
     }
   }
 
-  onOffClick(e) {
+  onOffClick = (e) => {
     console.log('off click');
     if (!e.ctrlKey) {
       // this.setState({ selectedElements: [] });
@@ -131,40 +117,42 @@ class NodeViewer extends React.Component {
     }
   }
 
-  onDragEnter() {
+  onDragEnter = () => {
     this.showDragDialog();
     console.log('Drag Enter !');
   }
 
-  onDragLeave() {
+  onDragLeave = () => {
     this.hideDragDialog();
     console.log('Drag Leave !');
   }
 
   onDrop(files) {
-    // TODO
-    // Upload les fichiers (demande confirmation?)
+    this.hideDragDialog();
+    // TODO:
+    // Upload les fichiers
     // Affiche la boite de dialogue d'upload ala gdrive
-    console.log(files);
+    if (this.state.uploadQueue && this.state.uploadQueue.length > 0) {
+      this.setState({ uploadQueue: this.state.uploadQueue.concat(files) });
+    } else {
+      this.setState({ uploadQueue: files });
+    }
     // Disable jusqu'a ce que le fichier soit uploadé
-    this.setState({
-      disabled: false,
-    });
   }
 
-  escFunction(e) {
+  escFunction = (e) => {
     if (e.keyCode === 27) this.closeVideoDialog();
   }
 
-  showDragDialog() {
+  showDragDialog = () => {
     this.setState({ dragDialogVisible: true });
   }
 
-  hideDragDialog() {
+  hideDragDialog = () => {
     this.setState({ dragDialogVisible: false });
   }
 
-  closeVideoDialog() {
+  closeVideoDialog = () => {
     this.setState({ videoDialogVisible: false });
   }
 
@@ -235,16 +223,16 @@ class NodeViewer extends React.Component {
       <div className="nv-container" onClick={e => this.onOffClick(e)} role="button">
         <Dropzone
           onDrop={this.onDrop}
-          disabled={this.state.disabled}
           disableClick
           className="dropzone"
           onDragEnter={this.onDragEnter}
           onDragLeave={this.onDragLeave}
+          ref={(node) => { this.props.setDropzoneRef(node); }}
         >
           { cursor &&
           <Fragment>
             <Grid
-              style={{ margin: 0, width: '100%' }}
+              style={{ margin: 0, width: '100%', minHeight: '100vh' }}
               container
               direction="column"
             >

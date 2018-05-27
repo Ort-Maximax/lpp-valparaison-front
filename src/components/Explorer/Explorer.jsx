@@ -129,6 +129,12 @@ class Explorer extends React.Component {
     this.setState({ selectedElements: [...elements] });
   }
 
+  setDropzoneRef = (node) => {
+    if (!this.state.dropzone) {
+      this.setState({ dropzone: node });
+    }
+  }
+
   render() {
     return (
       <Grid
@@ -153,6 +159,7 @@ class Explorer extends React.Component {
             searchbar={this.state.searchbar}
             selectedElements={this.state.selectedElements}
             toggleSelect={this.state.toggleSelect}
+            dropzone={this.state.dropzone}
           />
         </Grid>
         <Grid
@@ -171,6 +178,7 @@ class Explorer extends React.Component {
             cursor={this.state.cursor}
             selectedElements={this.state.selectedElements}
             toggleSelect={this.state.toggleSelect}
+            setDropzoneRef={this.setDropzoneRef}
             flex="true"
           />
 
