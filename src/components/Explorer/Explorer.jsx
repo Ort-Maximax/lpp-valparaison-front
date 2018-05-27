@@ -126,7 +126,6 @@ class Explorer extends React.Component {
   }
 
   onSelectedElementsChange = (elements) => {
-    console.log(elements);
     this.setState({ selectedElements: [...elements] });
   }
 

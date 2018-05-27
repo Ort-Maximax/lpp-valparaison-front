@@ -57,7 +57,6 @@ class NodeViewer extends React.Component {
     if (e.ctrlKey || this.props.toggleSelect) {
       // On ajoute l'element clické a la liste d'elements selectionné
       // Ou on le supprime si il est deja dans la liste
-      console.log(this.selectedElements);
       if (this.selectedElements.includes(node)) {
         const index = this.selectedElements.indexOf(node);
         this.selectedElements.splice(index, 1);
@@ -81,6 +80,11 @@ class NodeViewer extends React.Component {
     console.log('double click');
     // Quand on doubleclick sur un dossier,
     // cursor = ses children
+    if (this.props.toggleSelect) {
+      this.onClick(e, node);
+      return;
+    }
+
     if (node.children) {
       this.props.onCursorChange(node);
     } else {
