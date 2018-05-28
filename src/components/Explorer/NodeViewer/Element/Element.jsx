@@ -1,4 +1,3 @@
-/* global window */
 /* eslint no-extend-native: 0 */
 /* eslint no-param-reassign: 0 */
 /* eslint no-plusplus: 0 */
@@ -66,7 +65,7 @@ const Element = ({
         icon = <File />;
     }
   }
-  const width = window.innerWidth;
+  // const width = window.innerWidth;
   /* TODO: voir comment recuperer un thumbnail du fichier */
   return (
     <Fragment>
@@ -123,10 +122,10 @@ const Element = ({
             </div>
             <Divider />
             <CardContent className={`fileContentContainer ${selected ? 'selected' : ''}`}>
-              {width > 400 &&
+              {/* width > 400 &&
                 <div className="fileContentIconContainer">
                   {icon}
-                </div>
+                </div> */
               }
               <Typography component="p" align="center" className="text">
                 {node.name}

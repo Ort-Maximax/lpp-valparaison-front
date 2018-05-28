@@ -163,7 +163,12 @@ class Explorer extends React.Component {
           />
         </Grid>
         <Grid
-          style={{ margin: 0, width: '100%' }}
+          style={{
+            marginTop: 10,
+            width: '100.5%',
+            overflowY: 'auto',
+            maxHeight: '90vh',
+          }}
           className="explorer"
           container
           wrap="nowrap"
