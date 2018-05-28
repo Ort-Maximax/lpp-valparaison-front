@@ -8,8 +8,8 @@
   user-select: none;
 }
 .nv-container .dropzone {
-  height: 100vw;
-  width: 100vh;
+  height: 100vh;
+  width: 100vw;
 }
 .nv-container .dropzone .node {
   padding: 10px;
