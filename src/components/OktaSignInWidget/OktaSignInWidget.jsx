@@ -1,3 +1,4 @@
+/* global window */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
@@ -22,7 +23,7 @@ class OktaSignInWidget extends Component {
         {type: 'FACEBOOK', id: '0oaefphiatHspHxEK0h7'},
         */
       ],
-      redirectUri: 'http://valparaiso.fr/implicit/callback',
+      redirectUri: `${window.location.hostname}/implicit/callback`,
     });
     this.widget.renderEl({ el }, this.props.onSuccess, this.props.onError);
   }
