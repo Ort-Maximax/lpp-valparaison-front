@@ -7,9 +7,9 @@ import React, { Fragment } from 'react';
 import Card, { CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 
-import Divider from '@material-ui/core/Divider';
+import Divider from 'material-ui/Divider';
 
-import Checkbox from '@material-ui/core/Checkbox';
+import Checkbox from 'material-ui/Checkbox';
 /*
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';

@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^1.1.0",
     "@material-ui/icons": "^1.0.0-beta.43",
     "@okta/okta-react": "^0.0.13",
     "@okta/okta-signin-widget": "^2.7.0",

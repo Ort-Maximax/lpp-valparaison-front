@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import IconButton from '@material-ui/core/IconButton';
+import Grid from 'material-ui/Grid';
+import Paper from 'material-ui/Paper';
+import IconButton from 'material-ui/IconButton';
 
 import Search from '@material-ui/icons/Search';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -11,18 +11,18 @@ import CloudDownload from '@material-ui/icons/CloudDownload';
 import DeleteForever from '@material-ui/icons/DeleteForever';
 import Transform from '@material-ui/icons/Transform';
 
-import Divider from '@material-ui/core/Divider';
+import Divider from 'material-ui/Divider';
 
 import ClickOutside from 'react-click-outside';
 import { MenuItem, MenuList } from 'material-ui/Menu';
 
-import Button from '@material-ui/core/Button';
+import Button from 'material-ui/Button';
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
 
-import Input from '@material-ui/core/Input';
+import Input from 'material-ui/Input';
 
-import Snackbar from '@material-ui/core/Snackbar';
+import Snackbar from 'material-ui/Snackbar';
 import CloseIcon from '@material-ui/icons/Close';
 
 import Breadcrumbs from './Breadcrumbs/Breadcrumbs';
