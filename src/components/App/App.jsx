@@ -19,7 +19,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = { musicPlaylist: [] };
-    this.apiUrl = 'http://api-mockup:3009';
+    this.apiUrl = 'https://still-reef-61170.herokuapp.com/';
     this.onPlaylistChange = this.onPlaylistChange.bind(this);
   }
 
