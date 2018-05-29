@@ -1,0 +1,18 @@
+.dl-header {
+  background-color: #353535;
+  color: white;
+  padding: 10px;
+}
+.dl-header .header-text {
+  display: flex;
+  align-items: center;
+}
+.dl-header .header-icons .button {
+  color: #9e9e9e;
+}
+.dl-header .header-icons .button:hover {
+  color: white;
+}
+.dl-item {
+  padding: 10px;
+}

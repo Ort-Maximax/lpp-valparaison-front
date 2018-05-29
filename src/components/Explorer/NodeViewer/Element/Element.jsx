@@ -78,7 +78,6 @@ const Element = ({
                 {icon}
               </div>
 
-
               <Typography component="p" align="center" className="text">
                 {node.name}
               </Typography>

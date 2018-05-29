@@ -14,6 +14,8 @@ import NodeViewer from './NodeViewer/NodeViewer';
 
 import './styles/Explorer.css';
 
+import DownloadView from '../DownloadView/DownloadView';
+
 const processData = (data) => {
   // Iterate over all nodes
   data.children.forEach((el) => {
@@ -186,8 +188,12 @@ class Explorer extends React.Component {
             setDropzoneRef={this.setDropzoneRef}
             flex="true"
           />
-
         </Grid>
+
+        <section className="dl-view" >
+          <DownloadView />
+        </section>
+
       </Grid>
     );
   }
