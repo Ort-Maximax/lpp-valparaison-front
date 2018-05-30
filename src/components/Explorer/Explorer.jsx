@@ -1,3 +1,4 @@
+/* global FormData */
 /* eslint no-param-reassign: 0 */
 import React, { Fragment } from 'react';
 import Grid from 'material-ui/Grid';
@@ -139,14 +140,20 @@ class Explorer extends React.Component {
   onDrop = (files) => {
     console.log(files);
 
-    /*
+
     if (this.state.uploadQueue && this.state.uploadQueue.length > 0) {
       this.setState({ uploadQueue: this.state.uploadQueue.concat(files) });
     } else {
       this.setState({ uploadQueue: files });
-    } */
+    }
 
-    axios.post('http://valparaiso.fr:3009/upload', files).then((res) => {
+    const data = new FormData();
+    data.append('path', `${this.state.cursor.path}/${files[0].name}`);
+    data.append('data', files[0]);
+
+    console.log(this.state.cursor);
+
+    axios.put('http://valparaiso.fr:3009/uploadFile', data).then((res) => {
       console.log(res);
     });
   }

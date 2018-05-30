@@ -64,8 +64,8 @@ class DownloadView extends React.Component {
             <Grid>
               {
                 this.props.uploadQueue && this.props.uploadQueue.map(file => (
-                  <Fragment>
-                    <div className="dl-item">
+                  <Fragment key={file.lastModified}>
+                    <div className="dl-item" >
                       {file.name}
                     </div>
                     <Divider />

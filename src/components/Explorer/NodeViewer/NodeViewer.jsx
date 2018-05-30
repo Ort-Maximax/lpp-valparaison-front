@@ -19,9 +19,7 @@ class NodeViewer extends React.Component {
       dragDialogVisible: false,
       videoDialogVisible: false,
       currentVideo: {},
-      uploadQueue: [],
     };
-    this.onDrop = this.onDrop.bind(this);
 
     this.selectedElements = this.props.selectedElements;
   }
@@ -127,16 +125,12 @@ class NodeViewer extends React.Component {
     console.log('Drag Leave !');
   }
 
-  onDrop(files) {
+  onDrop = (files) => {
     this.hideDragDialog();
     // TODO:
     // Upload les fichiers
     // Affiche la boite de dialogue d'upload ala gdrive
-    if (this.state.uploadQueue && this.state.uploadQueue.length > 0) {
-      this.setState({ uploadQueue: this.state.uploadQueue.concat(files) });
-    } else {
-      this.setState({ uploadQueue: files });
-    }
+    this.props.onDrop(files);
     // Disable jusqu'a ce que le fichier soit uploadé
   }
 
