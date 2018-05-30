@@ -1,5 +1,5 @@
 /* eslint no-param-reassign: 0 */
-import React from 'react';
+import React, { Fragment } from 'react';
 import Grid from 'material-ui/Grid';
 
 import sortBy from 'lodash.sortby';
@@ -9,6 +9,7 @@ import axios from 'axios';
 import uuidv1 from 'uuid';
 
 import Toolbar from './Toolbar/Toolbar';
+
 // import TreeViewer from './TreeViewer/TreeViewer';
 import NodeViewer from './NodeViewer/NodeViewer';
 
@@ -45,6 +46,7 @@ class Explorer extends React.Component {
     super(props);
     this.onSelectedElementsChange = this.onSelectedElementsChange.bind(this);
     this.state = {
+      loading: true,
       cursor: {},
       storedCursor: undefined,
       searchbar: false,
@@ -64,8 +66,10 @@ class Explorer extends React.Component {
 
     /* TODO: Get data from backend API */
     // Pour l'instant on appelle l'API de  mockup
+    this.setState({ loading: true });
     axios(`${this.props.apiUrl}/getData`, axiosConfig)
       .then((res) => {
+        this.setState({ loading: false });
         console.log(res);
         const apiData = res.data;
         apiData.key = uuidv1();
@@ -77,6 +81,7 @@ class Explorer extends React.Component {
         this.setState({ cursor: processData(apiData) });
       }, ((err) => {
           console.log(err);
+          this.setState({ loading: false });
         }));
   }
 
@@ -131,11 +136,27 @@ class Explorer extends React.Component {
     this.setState({ selectedElements: [...elements] });
   }
 
+  onDrop = (files) => {
+    console.log(files);
+
+    /*
+    if (this.state.uploadQueue && this.state.uploadQueue.length > 0) {
+      this.setState({ uploadQueue: this.state.uploadQueue.concat(files) });
+    } else {
+      this.setState({ uploadQueue: files });
+    } */
+
+    axios.post('http://valparaiso.fr:3009/upload', files).then((res) => {
+      console.log(res);
+    });
+  }
+
   setDropzoneRef = (node) => {
     if (!this.state.dropzone) {
       this.setState({ dropzone: node });
     }
   }
+
 
   render() {
     return (
@@ -146,55 +167,68 @@ class Explorer extends React.Component {
         wrap="nowrap"
         direction="column"
       >
-        <Grid
-          style={{ margin: 0, width: '100%' }}
-          container
-          wrap="nowrap"
-          direction="row"
-        >
-          <Toolbar
-            onSearchbarUpdate={this.onSearchbarUpdate}
-            onSearchQueryChange={this.onSearchQueryChange}
-            onToggleSelect={this.onToggleSelect}
-            onCursorChange={this.onCursorChange}
-            cursor={this.state.cursor}
-            searchbar={this.state.searchbar}
-            selectedElements={this.state.selectedElements}
-            toggleSelect={this.state.toggleSelect}
-            dropzone={this.state.dropzone}
-          />
-        </Grid>
-        <Grid
-          style={{
-            marginTop: 10,
-            width: '100.5%',
-            overflowY: 'auto',
-            maxHeight: '90vh',
-          }}
-          className="explorer"
-          container
-          wrap="nowrap"
-          direction="row"
-        >
+        { this.state.loading ?
+          <div />
 
-          <NodeViewer
-            onCursorChange={this.onCursorChange}
-            onPlaylistChange={this.props.onPlaylistChange}
-            onSelectedElementsChange={this.onSelectedElementsChange}
-            apiUrl={this.props.apiUrl}
-            cursor={this.state.cursor}
-            selectedElements={this.state.selectedElements}
-            toggleSelect={this.state.toggleSelect}
-            setDropzoneRef={this.setDropzoneRef}
-            flex="true"
-          />
-        </Grid>
 
-        <section className="dl-view" >
-          <DownloadView />
-        </section>
+          :
+
+          <Fragment>
+            <Grid
+              style={{ margin: 0, width: '100%' }}
+              container
+              wrap="nowrap"
+              direction="row"
+            >
+              <Toolbar
+                onSearchbarUpdate={this.onSearchbarUpdate}
+                onSearchQueryChange={this.onSearchQueryChange}
+                onToggleSelect={this.onToggleSelect}
+                onCursorChange={this.onCursorChange}
+                cursor={this.state.cursor}
+                searchbar={this.state.searchbar}
+                selectedElements={this.state.selectedElements}
+                toggleSelect={this.state.toggleSelect}
+                dropzone={this.state.dropzone}
+              />
+            </Grid>
+            <Grid
+              style={{
+              marginTop: 10,
+              width: '100.5%',
+              overflowY: 'auto',
+              maxHeight: '90vh',
+            }}
+              className="explorer"
+              container
+              wrap="nowrap"
+              direction="row"
+            >
+              <NodeViewer
+                onCursorChange={this.onCursorChange}
+                onPlaylistChange={this.props.onPlaylistChange}
+                onSelectedElementsChange={this.onSelectedElementsChange}
+                apiUrl={this.props.apiUrl}
+                cursor={this.state.cursor}
+                selectedElements={this.state.selectedElements}
+                toggleSelect={this.state.toggleSelect}
+                setDropzoneRef={this.setDropzoneRef}
+                onDrop={this.onDrop}
+                flex="true"
+              />
+            </Grid>
+
+            <section className="dl-view" >
+              <DownloadView
+                uploadQueue={this.state.uploadQueue}
+              />
+            </section>
+          </Fragment>
+      }
+
 
       </Grid>
+
     );
   }
 }
