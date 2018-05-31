@@ -130,7 +130,7 @@ class Toolbar extends React.Component {
 
   render() {
     const { actionMenuOpen } = this.state;
-    if (Object.keys(this.props.cursor).length <= 0) return null;
+    if (this.props.cursor && Object.keys(this.props.cursor).length <= 0) return null;
     return (
       <Fragment>
         <Grid

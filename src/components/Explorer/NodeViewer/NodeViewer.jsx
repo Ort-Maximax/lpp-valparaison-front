@@ -236,7 +236,7 @@ class NodeViewer extends React.Component {
                   container
                   direction="column"
                 >
-                  <div>  Dossiers </div>
+                  <div> Dossiers </div>
                   <Grid
                     style={{ margin: 0, width: '100%' }}
                     container

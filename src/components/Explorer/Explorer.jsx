@@ -57,33 +57,7 @@ class Explorer extends React.Component {
   }
 
   componentWillMount() {
-    const axiosConfig = {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    };
-
-
-    /* TODO: Get data from backend API */
-    // Pour l'instant on appelle l'API de  mockup
-    this.setState({ loading: true });
-    axios(`${this.props.apiUrl}/getData`, axiosConfig)
-      .then((res) => {
-        this.setState({ loading: false });
-        console.log(res);
-        const apiData = res.data;
-        apiData.key = uuidv1();
-        apiData.root = true;
-        if (apiData.children && apiData.children.length > 0) {
-          apiData.children = sortBy(apiData.children, x => x.name);
-        }
-
-        this.setState({ cursor: processData(apiData) });
-      }, ((err) => {
-          console.log(err);
-          this.setState({ loading: false });
-        }));
+    this.getData();
   }
 
   onSearchbarUpdate = () => {
@@ -147,14 +121,22 @@ class Explorer extends React.Component {
       this.setState({ uploadQueue: files });
     }
 
-    const data = new FormData();
-    data.append('path', `${this.state.cursor.path}/${files[0].name}`);
-    data.append('data', files[0]);
+    files.forEach((file) => {
+      const data = new FormData();
+      data.append('path', `${this.state.cursor.path}/${file.name}`);
+      data.append('data', file);
 
-    console.log(this.state.cursor);
+      console.log(this.state.cursor);
 
-    axios.put('http://valparaiso.fr:3009/uploadFile', data).then((res) => {
-      console.log(res);
+      axios.put('http://valparaiso.fr:3009/uploadFile', data).then((res, index) => {
+        // TODO: Flag le fichier comme uploadé
+        file.uploaded = true;
+        files[index] = file;
+        this.setState({ uploadQueue: files });
+        this.getData();
+
+        console.log(res);
+      });
     });
   }
 
@@ -162,6 +144,57 @@ class Explorer extends React.Component {
     if (!this.state.dropzone) {
       this.setState({ dropzone: node });
     }
+  }
+
+  getData = () => {
+    const axiosConfig = {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    };
+    /* TODO: Get data from backend API */
+    // Pour l'instant on appelle l'API de  mockup
+    if (this.state.cursor) {
+      this.setState({ lastDir: this.state.cursor.name });
+    }
+
+    this.setState({ loading: true });
+    axios(`${this.props.apiUrl}/getData`, axiosConfig)
+      .then((res) => {
+        this.setState({ loading: false });
+        console.log(res);
+        const apiData = res.data;
+        apiData.key = uuidv1();
+        apiData.root = true;
+        apiData.path = apiData.name;
+        if (apiData.children && apiData.children.length > 0) {
+          apiData.children = sortBy(apiData.children, x => x.name);
+        }
+
+        const newCursor = processData(apiData);
+
+
+        if (this.state.lastDir) {
+          const getLastDir = (cursor) => {
+            if (cursor.name === this.state.lastDir) {
+              this.setState({ matchedLastDir: cursor });
+            }
+            if (cursor.children) {
+              cursor.children.forEach(child => getLastDir(child));
+            }
+          };
+          getLastDir(newCursor);
+        }
+
+
+        this.setState({
+          cursor: this.state.matchedLastDir ? this.state.matchedLastDir : newCursor,
+        });
+      }, ((err) => {
+          console.log(err);
+          this.setState({ loading: false });
+        }));
   }
 
 

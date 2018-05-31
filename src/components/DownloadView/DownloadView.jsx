@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import Paper from 'material-ui/Paper';
 import Grid from 'material-ui/Grid';
 
@@ -8,6 +8,7 @@ import IconButton from 'material-ui/IconButton';
 import Close from '@material-ui/icons/Close';
 import Collapse from '@material-ui/icons/KeyboardArrowDown';
 import Expand from '@material-ui/icons/KeyboardArrowUp';
+import Done from '@material-ui/icons/Done';
 
 import './styles/DownloadView.css';
 
@@ -61,17 +62,27 @@ class DownloadView extends React.Component {
         {
           !this.state.collapsed &&
           <Paper>
-            <Grid>
               {
                 this.props.uploadQueue && this.props.uploadQueue.map(file => (
-                  <Fragment key={file.lastModified}>
+                  <Grid
+                    container
+                    direction="row"
+                    justify="space-between"
+                    alignItems="center"
+                    key={file.lastModified}
+                    style={{ width: '100%', margin: 0 }}
+                  >
                     <div className="dl-item" >
                       {file.name}
                     </div>
+                    { file.uploaded &&
+                      <IconButton style={{ height: 'auto', color: 'green' }}>
+                        <Done />
+                      </IconButton>
+                    }
                     <Divider />
-                  </Fragment>))
+                  </Grid>))
               }
-            </Grid>
           </Paper>
         }
 

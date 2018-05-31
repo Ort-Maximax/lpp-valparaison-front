@@ -22,7 +22,7 @@ class Breadcrumbs extends React.Component {
   }
 
   buildBreadCrumbs(currentCursor) {
-    if (Object.keys(currentCursor).length > 0) {
+    if (currentCursor && Object.keys(currentCursor).length > 0) {
       this.setState({ currentCursor });
       // Cherche cursor dans le breadcrumbs du state precedent
       const found = this.state.crumbs.find(element => element.key === currentCursor.key);
