@@ -32,6 +32,15 @@
   background-color: #cbcbcb;
   color: #666666;
 }
+.react-contextmenu-item.react-contextmenu-item--disabled:hover {
+  cursor: auto;
+  background-color: #cbcbcb;
+}
+.react-contextmenu-item:hover {
+  cursor: pointer;
+  transition: 0.1s ease-out;
+  background-color: rgba(0, 0, 0, 0.08);
+}
 /* width */
 ::-webkit-scrollbar {
   width: 7px;

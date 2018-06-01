@@ -300,7 +300,7 @@ class NodeViewer extends React.Component {
         </ContextMenuTrigger>
 
         <ContextMenu id="nv-context-menu">
-          <Paper>
+          <Paper className="noselect">
             {/* TODO: Bind les actions */}
             <MenuItem onClick={this.props.handleAddClick}>
               <Add style={{ width: 24, height: 24 }} />

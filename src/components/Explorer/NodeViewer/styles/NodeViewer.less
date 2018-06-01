@@ -32,6 +32,15 @@
     &.react-contextmenu-item--disabled {
         background-color : #cbcbcb;
         color: #666666;
+        &:hover {
+            cursor: auto;
+            background-color : #cbcbcb;
+        }
+    }
+    &:hover {
+        cursor : pointer;
+        transition: .1s ease-out;
+        background-color: rgba(0, 0, 0, 0.08);
     }
 }
 

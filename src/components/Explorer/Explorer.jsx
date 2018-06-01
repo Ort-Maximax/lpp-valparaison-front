@@ -169,7 +169,7 @@ class Explorer extends React.Component {
     }
 
     this.setState({ loading: true });
-    axios(`${this.props.apiUrl}/getData`, axiosConfig)
+    axios.get(`${this.props.apiUrl}/getData`, axiosConfig)
       .then((res) => {
         this.setState({ loading: false });
         console.log(res);
@@ -232,7 +232,14 @@ class Explorer extends React.Component {
 
   confirmDelete = () => {
     // TODO: Delete
+    this.state.selectedElements.forEach((el) => {
+      axios.get(`${this.props.apiUrl}/removeFile?path=${el.path}`).then(() => {
+        console.log(`Succes delete de ${el.path}`);
+      });
+    });
+
     this.setState({ snackOpen: true, snackText: 'Supression effectuée' });
+    this.getData();
 
     this.closeDeleteDialog();
   }
