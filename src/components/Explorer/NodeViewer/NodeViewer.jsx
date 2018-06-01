@@ -3,12 +3,23 @@ import React, { Fragment } from 'react';
 import Dropzone from 'react-dropzone';
 
 import Grid from 'material-ui/Grid';
+import Paper from 'material-ui/Paper';
 
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
+
+import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
+import CloudDownload from '@material-ui/icons/CloudDownload';
+import DeleteForever from '@material-ui/icons/DeleteForever';
+import Transform from '@material-ui/icons/Transform';
+
+import Divider from 'material-ui/Divider';
+
 import './styles/NodeViewer.css';
 import Element from './Element/Element';
 import VideoPlayer from './VideoPlayer/VideoPlayer';
+
+import Add from '../../../img/components/Add';
 
 
 class NodeViewer extends React.Component {
@@ -214,71 +225,121 @@ class NodeViewer extends React.Component {
       )) : null;
 
     return (
-      <div className="nv-container" onClick={e => this.onOffClick(e)} role="button">
-        <Dropzone
-          onDrop={this.onDrop}
-          disableClick
-          className="dropzone"
-          onDragEnter={this.onDragEnter}
-          onDragLeave={this.onDragLeave}
-          ref={(node) => { this.props.setDropzoneRef(node); }}
-        >
-          { cursor &&
-          <Fragment>
-            <Grid
-              style={{ margin: 0, width: '100%' }}
-              container
-              direction="column"
+      <Fragment>
+        <ContextMenuTrigger id="nv-context-menu">
+          <div
+            className="nv-container"
+            onClick={e => this.onOffClick(e)}
+            role="button"
+          >
+            <Dropzone
+              onDrop={this.onDrop}
+              disableClick
+              className="dropzone"
+              onDragEnter={this.onDragEnter}
+              onDragLeave={this.onDragLeave}
+              ref={(node) => { this.props.setDropzoneRef(node); }}
             >
-              { foldersElem && foldersElem.length > 0 &&
+              { cursor &&
+              <Fragment>
                 <Grid
                   style={{ margin: 0, width: '100%' }}
                   container
                   direction="column"
                 >
-                  <div> Dossiers </div>
+                  { foldersElem && foldersElem.length > 0 &&
                   <Grid
                     style={{ margin: 0, width: '100%' }}
                     container
-                    direction="row"
+                    direction="column"
                   >
-                    {foldersElem}
+                    <div> Dossiers </div>
+                    <Grid
+                      style={{ margin: 0, width: '100%' }}
+                      container
+                      direction="row"
+                    >
+                      {foldersElem}
+                    </Grid>
                   </Grid>
+                  }
+
+                  { filesElem && filesElem.length > 0 &&
+                  <Grid
+                    style={{ margin: 0, width: '100%' }}
+                    container
+                    direction="column"
+                  >
+                    <div>  Fichiers </div>
+                    <Grid
+                      style={{ margin: 0, width: '100%' }}
+                      container
+                      direction="row"
+                    >
+                      {filesElem}
+                    </Grid>
+                  </Grid>
+                  }
+
+                  <Rodal visible={this.state.dragDialogVisible} onClose={this.hideDragDialog}>
+                    <div>On est en train de drag !!!!</div>
+                  </Rodal>
                 </Grid>
+              </Fragment>
+
               }
 
-              { filesElem && filesElem.length > 0 &&
-              <Grid
-                style={{ margin: 0, width: '100%' }}
-                container
-                direction="column"
-              >
-                <div>  Fichiers </div>
-                <Grid
-                  style={{ margin: 0, width: '100%' }}
-                  container
-                  direction="row"
-                >
-                  {filesElem}
-                </Grid>
-              </Grid>
-              }
+            </Dropzone>
 
-              <Rodal visible={this.state.dragDialogVisible} onClose={this.hideDragDialog}>
-                <div>On est en train de drag !!!!</div>
-              </Rodal>
-            </Grid>
-          </Fragment>
-        }
-        </Dropzone>
+            <VideoPlayer
+              video={this.state.currentVideo}
+              open={this.state.videoDialogVisible}
+              closeDialog={this.closeVideoDialog}
+            />
+          </div>
+        </ContextMenuTrigger>
 
-        <VideoPlayer
-          video={this.state.currentVideo}
-          open={this.state.videoDialogVisible}
-          closeDialog={this.closeVideoDialog}
-        />
+        <ContextMenu id="nv-context-menu">
+          <Paper>
+            {/* TODO: Bind les actions */}
+            <MenuItem onClick={this.props.handleAddClick}>
+              <Add style={{ width: 24, height: 24 }} />
+              <b>Nouveau</b>
+            </MenuItem>
 
-      </div>
+            <Divider />
+
+            <MenuItem
+              onClick={this.props.handleDownloadClick}
+              disabled={this.props.selectedElements.length === 0}
+            >
+              <CloudDownload />
+              <div>Telecharger</div>
+            </MenuItem>
+
+            <Divider />
+
+            <MenuItem
+              onClick={this.props.handleDeleteClick}
+              disabled={this.props.selectedElements.length === 0}
+            >
+              <DeleteForever />
+              <div>Supprimer</div>
+            </MenuItem>
+
+            <Divider />
+            <MenuItem
+              onClick={this.props.handleConvertClick}
+              disabled={this.props.selectedElements.length === 0}
+            >
+              <Transform />
+              <div>Convertir</div>
+            </MenuItem>
+          </Paper>
+        </ContextMenu>
+
+
+      </Fragment>
     );
   }
 }

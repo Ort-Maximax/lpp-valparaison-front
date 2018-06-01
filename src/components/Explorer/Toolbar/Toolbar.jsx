@@ -16,14 +16,8 @@ import Divider from 'material-ui/Divider';
 import ClickOutside from 'react-click-outside';
 import { MenuItem, MenuList } from 'material-ui/Menu';
 
-import Button from 'material-ui/Button';
-import Rodal from 'rodal';
-import 'rodal/lib/rodal.css';
-
 import Input from 'material-ui/Input';
 
-import Snackbar from 'material-ui/Snackbar';
-import CloseIcon from '@material-ui/icons/Close';
 
 import Breadcrumbs from './Breadcrumbs/Breadcrumbs';
 import './styles/Toolbar.css';
@@ -35,7 +29,7 @@ class Toolbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchQuery: '', deleteDialog: false, snackOpen: false, snackText: '',
+      searchQuery: '',
     };
   }
   handleSearch = (event) => {
@@ -67,66 +61,21 @@ class Toolbar extends React.Component {
     });
   }
 
-  handleDownloadClick = () => {
-    if (this.props.selectedElements.length > 0) {
-      console.log('Download  : ');
-      // TODO: Telecharge chaque selectedElements
-      this.props.selectedElements.forEach((el) => {
-        console.log(el.name);
-      });
-      // Affiche ensuite la progression des telechargement en bas a droite
-      // Et envoi une notification
-    }
-
+  handleConvert = () => {
     this.closeActionMenu();
+    this.props.handleConvertClick();
   }
 
-  handleDeleteClick = () => {
-    if (this.props.selectedElements.length > 0) {
-      console.log('Delete !');
-      // Ouvre la modal de confirmation de suppression
-      this.setState({ deleteDialog: true });
-    }
+  handleDelete = () => {
     this.closeActionMenu();
+    this.props.handleDeleteClick();
   }
 
-  closeDeleteDialog = () => {
-    this.setState({ deleteDialog: false });
-  }
-
-  confirmDelete = () => {
-    // TODO: Delete
-    this.setState({ snackOpen: true, snackText: 'Supression effectuée' });
-
-    this.closeDeleteDialog();
-  }
-
-  cancelDelete = () => {
-    this.closeDeleteDialog();
-  }
-
-  handleConvertClick = () => {
-    if (this.props.selectedElements.length > 0) {
-      console.log('Convert !');
-      // TODO: Ouvre un dialog de conversion,
-      // qui propose les  conversions possible pour chaque selectedElements
-      // Affiche ensuite la progression des conversions en bas a droite
-      // Et envoi une notification
-    }
+  handleDownload = () => {
     this.closeActionMenu();
+    this.props.handleDownloadClick();
   }
 
-  handleAddClick = () => {
-    console.log('Add !');
-    // TODO: Ouvre l'explorer
-    this.props.dropzone.open();
-    // Envoi les  fichier selectionner au backend
-    // l'API retourne les data updaté, rafraichis les datas
-  }
-
-  closeSnack = () => {
-    this.setState({ snackOpen: false });
-  }
 
   render() {
     const { actionMenuOpen } = this.state;
@@ -171,28 +120,28 @@ class Toolbar extends React.Component {
                       <Paper className={actionMenuOpen ? 'action-menu visible' : 'action-menu hidden'}>
                         <MenuList role="menu">
                           {/* TODO: Bind les actions */}
-                          <MenuItem onClick={this.handleAddClick}>
+                          <MenuItem onClick={this.props.handleAddClick}>
                             <Add style={{ width: 24, height: 24 }} />
                             <b>Nouveau</b>
                           </MenuItem>
 
                           <Divider />
 
-                          <MenuItem onClick={this.handleDownloadClick} className={this.props.selectedElements.length === 0 ? 'disabled' : ''}>
+                          <MenuItem onClick={this.handleDownload} className={this.props.selectedElements.length === 0 ? 'disabled' : ''}>
                             <CloudDownload />
                             Telecharger
                           </MenuItem>
 
                           <Divider />
 
-                          <MenuItem onClick={this.handleDeleteClick} className={this.props.selectedElements.length === 0 ? 'disabled' : ''}>
+                          <MenuItem onClick={this.handleDelete} className={this.props.selectedElements.length === 0 ? 'disabled' : ''}>
                             <DeleteForever />
                             Supprimer
                           </MenuItem>
 
                           <Divider />
 
-                          <MenuItem onClick={this.handleConvertClick} className={this.props.selectedElements.length === 0 ? 'disabled' : ''}>
+                          <MenuItem onClick={this.handleConvert} className={this.props.selectedElements.length === 0 ? 'disabled' : ''}>
                             <Transform />
                             Convertir
                           </MenuItem>
@@ -235,55 +184,6 @@ class Toolbar extends React.Component {
           </section>
 
         </Grid>
-
-        <Rodal
-          visible={this.state.deleteDialog}
-          onClose={this.closeDeleteDialog}
-          closeOnEsc
-          showCloseButton={false}
-          width={460}
-          height={120}
-          animatiton="slideUp"
-        >
-          <Grid container direction="column" justify="space-between" alignItems="center" style={{ height: '100%' }}>
-            <h3>Confimer la suppression ?</h3>
-            <Grid container item direction="row" justify="flex-end" alignItems="center">
-              <Button onClick={this.confirmDelete} color="primary">
-                Oui, supprimer
-              </Button>
-              <Button onClick={this.cancelDelete} color="primary" autoFocus>
-                Non, annuler
-              </Button>
-            </Grid>
-
-          </Grid>
-
-
-        </Rodal>
-
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-          open={this.state.snackOpen}
-          autoHideDuration={6000}
-          onClose={this.closeSnack}
-          ContentProps={{
-            'aria-describedby': 'message-id',
-          }}
-          message={<span id="message-id">{this.state.snackText}</span>}
-          action={
-            <IconButton
-              key="close"
-              aria-label="Close"
-              color="inherit"
-              onClick={this.closeSnack}
-            >
-              <CloseIcon />
-            </IconButton>
-          }
-        />
       </Fragment>
     );
   }

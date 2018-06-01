@@ -19,11 +19,13 @@ class DownloadView extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    // TODO: toggle le hidden seulement si de nouveau fichier dans la queue
     console.log(nextProps);
     this.setState({ hidden: false });
   }
 
   onCloseClick = () => {
+    // TODO: Clear les fichiers uploaded = true
     this.setState({ hidden: true });
   }
 
@@ -76,7 +78,13 @@ class DownloadView extends React.Component {
                       {file.name}
                     </div>
                     { file.uploaded &&
-                      <IconButton style={{ height: 'auto', color: 'green' }}>
+                      <IconButton style={{
+                          height: 'auto',
+                          color: 'green',
+                          position: 'absolute',
+                          right: 10,
+                        }}
+                      >
                         <Done />
                       </IconButton>
                     }

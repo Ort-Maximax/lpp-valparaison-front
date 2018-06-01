@@ -9,6 +9,14 @@ import uniqBy from 'lodash.uniqby';
 import axios from 'axios';
 import uuidv1 from 'uuid';
 
+import IconButton from 'material-ui/IconButton';
+import Button from 'material-ui/Button';
+import Rodal from 'rodal';
+import 'rodal/lib/rodal.css';
+
+import Snackbar from 'material-ui/Snackbar';
+import CloseIcon from '@material-ui/icons/Close';
+
 import Toolbar from './Toolbar/Toolbar';
 
 // import TreeViewer from './TreeViewer/TreeViewer';
@@ -53,6 +61,9 @@ class Explorer extends React.Component {
       searchbar: false,
       toggleSelect: false,
       selectedElements: [],
+      deleteDialog: false,
+      snackOpen: false,
+      snackText: '',
     };
   }
 
@@ -114,7 +125,6 @@ class Explorer extends React.Component {
   onDrop = (files) => {
     console.log(files);
 
-
     if (this.state.uploadQueue && this.state.uploadQueue.length > 0) {
       this.setState({ uploadQueue: this.state.uploadQueue.concat(files) });
     } else {
@@ -132,7 +142,6 @@ class Explorer extends React.Component {
         // TODO: Flag le fichier comme uploadé
         file.uploaded = true;
         files[index] = file;
-        this.setState({ uploadQueue: files });
         this.getData();
 
         console.log(res);
@@ -176,6 +185,7 @@ class Explorer extends React.Component {
 
 
         if (this.state.lastDir) {
+          // TODO: a revoir
           const getLastDir = (cursor) => {
             if (cursor.name === this.state.lastDir) {
               this.setState({ matchedLastDir: cursor });
@@ -186,8 +196,7 @@ class Explorer extends React.Component {
           };
           getLastDir(newCursor);
         }
-
-
+        // TODO: a revoir
         this.setState({
           cursor: this.state.matchedLastDir ? this.state.matchedLastDir : newCursor,
         });
@@ -197,77 +206,194 @@ class Explorer extends React.Component {
         }));
   }
 
+  handleDownloadClick = () => {
+    if (this.state.selectedElements.length > 0) {
+      console.log('Download  : ');
+      // TODO: Telecharge chaque selectedElements
+      this.state.selectedElements.forEach((el) => {
+        console.log(el.name);
+      });
+      // Affiche ensuite la progression des telechargement en bas a droite
+      // Et envoi une notification
+    }
+  }
+
+  handleDeleteClick = () => {
+    if (this.state.selectedElements.length > 0) {
+      console.log('Delete !');
+      // Ouvre la modal de confirmation de suppression
+      this.setState({ deleteDialog: true });
+    }
+  }
+
+  closeDeleteDialog = () => {
+    this.setState({ deleteDialog: false });
+  }
+
+  confirmDelete = () => {
+    // TODO: Delete
+    this.setState({ snackOpen: true, snackText: 'Supression effectuée' });
+
+    this.closeDeleteDialog();
+  }
+
+  cancelDelete = () => {
+    this.closeDeleteDialog();
+  }
+
+  handleConvertClick = () => {
+    if (this.state.selectedElements.length > 0) {
+      console.log('Convert !');
+      // TODO: Ouvre un dialog de conversion,
+      // qui propose les  conversions possible pour chaque selectedElements
+      // Affiche ensuite la progression des conversions en bas a droite
+      // Et envoi une notification
+    }
+  }
+
+  handleAddClick = () => {
+    console.log('Add !');
+    // TODO: Ouvre l'explorer
+    this.state.dropzone.open();
+    // Envoi les  fichier selectionner au backend
+    // l'API retourne les data updaté, rafraichis les datas
+  }
+
+  closeSnack = () => {
+    this.setState({ snackOpen: false });
+  }
+
 
   render() {
     return (
-      <Grid
-        style={{ margin: 0, width: '100%' }}
-        className="explorer"
-        container
-        wrap="nowrap"
-        direction="column"
-      >
-        { this.state.loading ?
-          <div />
-
+      <Fragment>
+        <Grid
+          style={{ margin: 0, width: '100%' }}
+          className="explorer"
+          container
+          wrap="nowrap"
+          direction="column"
+        >
+          { this.state.loading ?
+            <div />
 
           :
 
-          <Fragment>
-            <Grid
-              style={{ margin: 0, width: '100%' }}
-              container
-              wrap="nowrap"
-              direction="row"
-            >
-              <Toolbar
-                onSearchbarUpdate={this.onSearchbarUpdate}
-                onSearchQueryChange={this.onSearchQueryChange}
-                onToggleSelect={this.onToggleSelect}
-                onCursorChange={this.onCursorChange}
-                cursor={this.state.cursor}
-                searchbar={this.state.searchbar}
-                selectedElements={this.state.selectedElements}
-                toggleSelect={this.state.toggleSelect}
-                dropzone={this.state.dropzone}
-              />
-            </Grid>
-            <Grid
-              style={{
-              marginTop: 10,
-              width: '100.5%',
-              overflowY: 'auto',
-              maxHeight: '90vh',
-            }}
-              className="explorer"
-              container
-              wrap="nowrap"
-              direction="row"
-            >
-              <NodeViewer
-                onCursorChange={this.onCursorChange}
-                onPlaylistChange={this.props.onPlaylistChange}
-                onSelectedElementsChange={this.onSelectedElementsChange}
-                apiUrl={this.props.apiUrl}
-                cursor={this.state.cursor}
-                selectedElements={this.state.selectedElements}
-                toggleSelect={this.state.toggleSelect}
-                setDropzoneRef={this.setDropzoneRef}
-                onDrop={this.onDrop}
-                flex="true"
-              />
-            </Grid>
+            <Fragment>
+              <Grid
+                style={{ margin: 0, width: '100%' }}
+                container
+                wrap="nowrap"
+                direction="row"
+              >
+                <Toolbar
+                  cursor={this.state.cursor}
+                  searchbar={this.state.searchbar}
+                  selectedElements={this.state.selectedElements}
+                  onSearchbarUpdate={this.onSearchbarUpdate}
+                  onSearchQueryChange={this.onSearchQueryChange}
+                  onToggleSelect={this.onToggleSelect}
+                  onCursorChange={this.onCursorChange}
+                  handleAddClick={this.handleAddClick}
+                  handleDownloadClick={this.handleDownloadClick}
+                  handleDeleteClick={this.handleDeleteClick}
+                  handleConvertClick={this.handleConvertClick}
+                  toggleSelect={this.state.toggleSelect}
+                />
+              </Grid>
+              <Grid
+                style={{
+                  marginTop: 10,
+                  width: '100.5%',
+                  overflowY: 'auto',
+                  maxHeight: '90vh',
+                }}
+                className="explorer"
+                container
+                wrap="nowrap"
+                direction="row"
+              >
+                <NodeViewer
+                  apiUrl={this.props.apiUrl}
+                  cursor={this.state.cursor}
+                  selectedElements={this.state.selectedElements}
+                  toggleSelect={this.state.toggleSelect}
 
-            <section className="dl-view" >
-              <DownloadView
-                uploadQueue={this.state.uploadQueue}
-              />
-            </section>
-          </Fragment>
+                  onCursorChange={this.onCursorChange}
+                  onPlaylistChange={this.props.onPlaylistChange}
+                  onSelectedElementsChange={this.onSelectedElementsChange}
+
+                  handleAddClick={this.handleAddClick}
+                  handleDownloadClick={this.handleDownloadClick}
+                  handleDeleteClick={this.handleDeleteClick}
+                  handleConvertClick={this.handleConvertClick}
+
+                  setDropzoneRef={this.setDropzoneRef}
+                  onDrop={this.onDrop}
+                  flex="true"
+                />
+              </Grid>
+
+              <section className="dl-view" >
+                <DownloadView
+                  uploadQueue={this.state.uploadQueue}
+                />
+              </section>
+            </Fragment>
       }
 
 
-      </Grid>
+        </Grid>
+
+        <Rodal
+          visible={this.state.deleteDialog}
+          onClose={this.closeDeleteDialog}
+          closeOnEsc
+          showCloseButton={false}
+          width={460}
+          height={120}
+          animatiton="slideUp"
+        >
+          <Grid container direction="column" justify="space-between" alignItems="center">
+            <h3>Confimer la suppression ?</h3>
+            <Grid container item direction="row" justify="flex-end" alignItems="center">
+              <Button onClick={this.confirmDelete} color="primary">
+                Oui, supprimer
+              </Button>
+              <Button onClick={this.cancelDelete} color="primary" autoFocus>
+                Non, annuler
+              </Button>
+            </Grid>
+
+          </Grid>
+
+
+        </Rodal>
+
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={this.state.snackOpen}
+          autoHideDuration={1000}
+          onClose={this.closeSnack}
+          contentprops={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">{this.state.snackText}</span>}
+          action={
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              onClick={this.closeSnack}
+            >
+              <CloseIcon />
+            </IconButton>
+          }
+        />
+      </Fragment>
 
     );
   }
