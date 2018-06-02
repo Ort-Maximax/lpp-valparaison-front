@@ -94,13 +94,13 @@ class NodeViewer extends React.Component {
           /* TODO: pause audio */
           this.setState({
             videoDialogVisible: true,
-            currentVideo: { name: node.name, src: `${this.props.apiUrl}/getFile?path=${node.path}` },
+            currentVideo: { name: node.name, src: `${this.props.apiUrl}/streamFile?path=${node.path}` },
           });
           break;
         case ('.mp3'):
         case ('.oga'):
         case ('.flac'):
-          this.props.onPlaylistChange({ name: node.name, src: `${this.props.apiUrl}/getFile?path=${node.path}` });
+          this.props.onPlaylistChange({ name: node.name, src: `${this.props.apiUrl}/streamFile?path=${node.path}` });
 
           break;
         case ('.jpg'):

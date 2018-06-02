@@ -211,7 +211,10 @@ class Explorer extends React.Component {
       console.log('Download  : ');
       // TODO: Telecharge chaque selectedElements
       this.state.selectedElements.forEach((el) => {
-        console.log(el.name);
+        window.open(`${this.props.apiUrl}/downloadFile?path=${el.path}`);
+        /* axios.get(`${this.props.apiUrl}/downloadFile?path=${el.path}`).then((res) => {
+          console.log(res);
+        }); */
       });
       // Affiche ensuite la progression des telechargement en bas a droite
       // Et envoi une notification
