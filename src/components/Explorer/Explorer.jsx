@@ -1,4 +1,4 @@
-/* global FormData */
+/* global FormData, window */
 /* eslint no-param-reassign: 0 */
 import React, { Fragment } from 'react';
 import Grid from 'material-ui/Grid';
@@ -126,9 +126,9 @@ class Explorer extends React.Component {
     console.log(files);
 
     if (this.state.uploadQueue && this.state.uploadQueue.length > 0) {
-      this.setState({ uploadQueue: this.state.uploadQueue.concat(files) });
+      this.setState({ uploadQueue: [...this.state.uploadQueue, ...files] });
     } else {
-      this.setState({ uploadQueue: files });
+      this.setState({ uploadQueue: [...files] });
     }
 
     files.forEach((file) => {
@@ -150,7 +150,8 @@ class Explorer extends React.Component {
   }
 
   setDropzoneRef = (node) => {
-    if (!this.state.dropzone) {
+    if (node &&
+       (!this.state.dropzone || (this.state.dropzone && this.state.dropzone.node !== node.node))) {
       this.setState({ dropzone: node });
     }
   }
@@ -172,7 +173,6 @@ class Explorer extends React.Component {
     axios.get(`${this.props.apiUrl}/getData`, axiosConfig)
       .then((res) => {
         this.setState({ loading: false });
-        console.log(res);
         const apiData = res.data;
         apiData.key = uuidv1();
         apiData.root = true;
@@ -182,7 +182,6 @@ class Explorer extends React.Component {
         }
 
         const newCursor = processData(apiData);
-
 
         if (this.state.lastDir) {
           // TODO: a revoir
@@ -196,7 +195,7 @@ class Explorer extends React.Component {
           };
           getLastDir(newCursor);
         }
-        // TODO: a revoir
+        // TODO: a revoir, ne pas muter l'objet
         this.setState({
           cursor: this.state.matchedLastDir ? this.state.matchedLastDir : newCursor,
         });
@@ -211,13 +210,9 @@ class Explorer extends React.Component {
       console.log('Download  : ');
       // TODO: Telecharge chaque selectedElements
       this.state.selectedElements.forEach((el) => {
-        window.open(`${this.props.apiUrl}/downloadFile?path=${el.path}`);
-        /* axios.get(`${this.props.apiUrl}/downloadFile?path=${el.path}`).then((res) => {
-          console.log(res);
-        }); */
+        console.log(el.name);
+        window.open(`${this.props.apiUrl}/downloadFile?path=${encodeURIComponent(el.path)}`);
       });
-      // Affiche ensuite la progression des telechargement en bas a droite
-      // Et envoi une notification
     }
   }
 
@@ -236,7 +231,8 @@ class Explorer extends React.Component {
   confirmDelete = () => {
     // TODO: Delete
     this.state.selectedElements.forEach((el) => {
-      axios.get(`${this.props.apiUrl}/removeFile?path=${el.path}`).then(() => {
+      console.log(el.path);
+      axios.get(`${this.props.apiUrl}/removeFile?path=${encodeURIComponent(el.path)}`).then(() => {
         console.log(`Succes delete de ${el.path}`);
       });
     });
@@ -264,7 +260,11 @@ class Explorer extends React.Component {
   handleAddClick = () => {
     console.log('Add !');
     // TODO: Ouvre l'explorer
-    this.state.dropzone.open();
+    if (this.state.dropzone) {
+      console.log(this.state.dropzone);
+      this.state.dropzone.open();
+    }
+
     // Envoi les  fichier selectionner au backend
     // l'API retourne les data updaté, rafraichis les datas
   }

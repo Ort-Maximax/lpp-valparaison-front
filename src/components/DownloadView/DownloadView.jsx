@@ -2,8 +2,6 @@ import React from 'react';
 import Paper from 'material-ui/Paper';
 import Grid from 'material-ui/Grid';
 
-import Divider from 'material-ui/Divider';
-
 import IconButton from 'material-ui/IconButton';
 import Close from '@material-ui/icons/Close';
 import Collapse from '@material-ui/icons/KeyboardArrowDown';
@@ -21,7 +19,12 @@ class DownloadView extends React.Component {
   componentWillReceiveProps(nextProps) {
     // TODO: toggle le hidden seulement si de nouveau fichier dans la queue
     console.log(nextProps);
-    this.setState({ hidden: false });
+    /*
+    console.log(this.props, nextProps);
+    if (this.props !== nextProps) {
+      this.setState({ hidden: false });
+    }
+    */
   }
 
   onCloseClick = () => {
@@ -77,7 +80,7 @@ class DownloadView extends React.Component {
                     <div className="dl-item" >
                       {file.name}
                     </div>
-                    { file.uploaded &&
+                    { file.uploaded ?
                       <IconButton style={{
                           height: 'auto',
                           color: 'green',
@@ -87,8 +90,9 @@ class DownloadView extends React.Component {
                       >
                         <Done />
                       </IconButton>
+                      :
+                      <div className="loader" />
                     }
-                    <Divider />
                   </Grid>))
               }
           </Paper>

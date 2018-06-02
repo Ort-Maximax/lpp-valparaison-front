@@ -1,5 +1,6 @@
 /* global document */
 import React, { Fragment } from 'react';
+
 import Dropzone from 'react-dropzone';
 
 import Grid from 'material-ui/Grid';
@@ -20,6 +21,7 @@ import Element from './Element/Element';
 import VideoPlayer from './VideoPlayer/VideoPlayer';
 
 import Add from '../../../img/components/Add';
+// import Dropzone from '../../../libs/react-dropzone/dist/es/index';
 
 
 class NodeViewer extends React.Component {
