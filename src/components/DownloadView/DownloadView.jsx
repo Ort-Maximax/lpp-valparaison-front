@@ -16,16 +16,16 @@ class DownloadView extends React.Component {
     this.state = { collapsed: false, hidden: false };
   }
 
-  componentWillReceiveProps(nextProps) {
+  /* componentWillReceiveProps(nextProps) {
     // TODO: toggle le hidden seulement si de nouveau fichier dans la queue
-    console.log(nextProps);
-    /*
+     console.log(nextProps);
+
     console.log(this.props, nextProps);
     if (this.props !== nextProps) {
       this.setState({ hidden: false });
     }
-    */
-  }
+
+    } */
 
   onCloseClick = () => {
     // TODO: Clear les fichiers uploaded = true

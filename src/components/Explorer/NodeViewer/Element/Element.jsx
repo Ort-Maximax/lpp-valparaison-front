@@ -42,12 +42,15 @@ const Element = ({
     switch (node.ext) {
       case ('.avi'):
       case ('.mkv'):
+      case ('.webm'):
       case ('.mp4'):
       case ('.ogv'):
         icon = <Video />;
         break;
       case ('.mp3'):
       case ('.oga'):
+      case ('.ogg'):
+      case ('.wav'):
       case ('.flac'):
         icon = <Music />;
         break;

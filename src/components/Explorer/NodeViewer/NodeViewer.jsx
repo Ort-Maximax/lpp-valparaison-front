@@ -29,6 +29,7 @@ class NodeViewer extends React.Component {
     super(props);
 
     this.state = {
+      dragging: false,
       dragDialogVisible: false,
       videoDialogVisible: false,
       currentVideo: {},
@@ -50,6 +51,7 @@ class NodeViewer extends React.Component {
   }
 
   onClick = (e, node) => {
+    this.setState({ dragging: false });
     // Si la touche CTRL est pressé, ou si on est en mode eselection
     if (e.ctrlKey || this.props.toggleSelect) {
       // On ajoute l'element clické a la liste d'elements selectionné
@@ -73,6 +75,9 @@ class NodeViewer extends React.Component {
   }
 
   onDoubleClick = (e, node) => {
+    if (this.state.dragging) {
+      return;
+    }
     /* TODO: check si pointer est toujours au dessus de l'element cible */
     console.log('double click');
     // Quand on doubleclick sur un dossier,
@@ -83,24 +88,30 @@ class NodeViewer extends React.Component {
     }
 
     if (node.children) {
+      console.log(node);
       this.props.onCursorChange(node);
     } else {
       /* TODO: En fonction de l'extension du fichier, ouvre la page adequat */
       console.log(node);
       switch (node.ext) {
-        case ('.avi'):
         case ('.mkv'):
         case ('.webm'):
         case ('.ogv'):
         case ('.mp4'):
+        case ('.mov'):
           /* TODO: pause audio */
           this.setState({
             videoDialogVisible: true,
             currentVideo: { name: node.name, src: `${this.props.apiUrl}/streamFile?path=${node.path}` },
           });
           break;
+        case ('.avi'):
+          // TODO: Propose la conversion vers un format video streamable
+          break;
         case ('.mp3'):
         case ('.oga'):
+        case ('.ogg'):
+        case ('.wav'):
         case ('.flac'):
           this.props.onPlaylistChange({ name: node.name, src: `${this.props.apiUrl}/streamFile?path=${node.path}` });
 
@@ -114,6 +125,7 @@ class NodeViewer extends React.Component {
         case ('.tar'):
           break;
         default:
+          // TODO: Ouvre une modal qui demande comment ouvrir le fichier
           break;
       }
       // Si l'element est streamable, on lance le streaming
@@ -145,6 +157,10 @@ class NodeViewer extends React.Component {
     // Affiche la boite de dialogue d'upload ala gdrive
     this.props.onDrop(files);
     // Disable jusqu'a ce que le fichier soit uploadé
+  }
+
+  onTouchmove = () => {
+    this.setState({ dragging: true });
   }
 
   escFunction = (e) => {
@@ -248,6 +264,7 @@ class NodeViewer extends React.Component {
                   style={{ margin: 0, width: '100%' }}
                   container
                   direction="column"
+                  onTouchMove={this.onTouchmove}
                 >
                   { foldersElem && foldersElem.length > 0 &&
                   <Grid
@@ -284,7 +301,7 @@ class NodeViewer extends React.Component {
                   }
 
                   <Rodal visible={this.state.dragDialogVisible} onClose={this.hideDragDialog}>
-                    <div>On est en train de drag !!!!</div>
+                    <div>Drop your files here to upload</div>
                   </Rodal>
                 </Grid>
               </Fragment>

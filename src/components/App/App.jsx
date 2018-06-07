@@ -20,7 +20,8 @@ class App extends Component {
     super(props);
     this.state = { musicPlaylist: [] };
     // this.apiUrl = 'https://still-reef-61170.herokuapp.com';
-    this.apiUrl = 'http://valparaiso.fr:3009';
+    // this.apiUrl = 'http://valparaiso.fr:3009';
+    this.apiUrl = 'http://api.valparaiso.fr';
     this.onPlaylistChange = this.onPlaylistChange.bind(this);
   }
 
@@ -40,7 +41,6 @@ class App extends Component {
           >
             <Route path="/" component={Topbar} />
             <Route path="/" exact component={Home} />
-            {/* <Route path="/signup" exact component={Signup} /> */}
             <SecureRoute path="/browse" exact render={() => <Explorer onPlaylistChange={this.onPlaylistChange} apiUrl={this.apiUrl} />} />
             <Route path="/login" exact render={() => <Login baseUrl="https://dev-438691.oktapreview.com" />} />
             <Route path="/implicit/callback" component={ImplicitCallback} />

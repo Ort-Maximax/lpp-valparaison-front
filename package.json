@@ -9,6 +9,7 @@
     "axios": "^0.18.0",
     "classnames": "^2.2.5",
     "font-awesome": "^4.7.0",
+    "history": "^4.7.2",
     "lodash.sortby": "^4.7.0",
     "lodash.uniqby": "^4.7.0",
     "material-ui": "^1.0.0-beta.38",

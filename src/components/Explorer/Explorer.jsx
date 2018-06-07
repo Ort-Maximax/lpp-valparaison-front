@@ -71,6 +71,10 @@ class Explorer extends React.Component {
     this.getData();
   }
 
+  componentWillUnmount() {
+    // this.unlisten();
+  }
+
   onSearchbarUpdate = () => {
     this.setState({ searchbar: !this.state.searchbar });
     this.setState({ storedCursor: undefined });
@@ -138,8 +142,7 @@ class Explorer extends React.Component {
 
       console.log(this.state.cursor);
 
-      axios.put('http://valparaiso.fr:3009/uploadFile', data).then((res, index) => {
-        // TODO: Flag le fichier comme uploadé
+      axios.put(`${this.props.apiUrl}/uploadFile`, data).then((res, index) => {
         file.uploaded = true;
         files[index] = file;
         this.getData();
@@ -208,7 +211,6 @@ class Explorer extends React.Component {
   handleDownloadClick = () => {
     if (this.state.selectedElements.length > 0) {
       console.log('Download  : ');
-      // TODO: Telecharge chaque selectedElements
       this.state.selectedElements.forEach((el) => {
         console.log(el.name);
         window.open(`${this.props.apiUrl}/downloadFile?path=${encodeURIComponent(el.path)}`);
@@ -229,7 +231,6 @@ class Explorer extends React.Component {
   }
 
   confirmDelete = () => {
-    // TODO: Delete
     this.state.selectedElements.forEach((el) => {
       console.log(el.path);
       axios.get(`${this.props.apiUrl}/removeFile?path=${encodeURIComponent(el.path)}`).then(() => {

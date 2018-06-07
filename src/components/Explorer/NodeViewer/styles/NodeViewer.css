@@ -20,6 +20,7 @@
   color: #666666;
 }
 .react-contextmenu-item {
+  z-index: 999;
   display: flex;
   align-content: center;
   padding: 10px;
