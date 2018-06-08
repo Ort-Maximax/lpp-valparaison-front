@@ -6,6 +6,8 @@ import Grid from 'material-ui/Grid';
 import sortBy from 'lodash.sortby';
 import uniqBy from 'lodash.uniqby';
 
+import fileDownload from 'js-file-download';
+
 import axios from 'axios';
 import uuidv1 from 'uuid';
 
@@ -49,6 +51,11 @@ const processData = (data) => {
   });
   return data;
 };
+
+if (window.localStorage.getItem('okta-token-storage')) {
+  const jwt = JSON.parse(window.localStorage.getItem('okta-token-storage')).idToken.idToken;
+  axios.defaults.headers.common.Authorization = `Bearer ${jwt}`;
+}
 
 class Explorer extends React.Component {
   constructor(props) {
@@ -148,6 +155,10 @@ class Explorer extends React.Component {
         this.getData();
 
         console.log(res);
+      }, (err) => {
+        console.log(err);
+        file.uploaded = true;
+        this.getData();
       });
     });
   }
@@ -213,7 +224,12 @@ class Explorer extends React.Component {
       console.log('Download  : ');
       this.state.selectedElements.forEach((el) => {
         console.log(el.name);
-        window.open(`${this.props.apiUrl}/downloadFile?path=${encodeURIComponent(el.path)}`);
+        axios.get(`${this.props.apiUrl}/downloadFile?path=${encodeURIComponent(el.path)}`)
+          .then((response) => {
+            fileDownload(response.data, el.name);
+          });
+
+        // window.open(`${this.props.apiUrl}/downloadFile?path=${encodeURIComponent(el.path)}`);
       });
     }
   }

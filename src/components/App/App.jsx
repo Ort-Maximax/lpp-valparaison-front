@@ -20,8 +20,8 @@ class App extends Component {
     super(props);
     this.state = { musicPlaylist: [] };
     // this.apiUrl = 'https://still-reef-61170.herokuapp.com';
-    // this.apiUrl = 'http://valparaiso.fr:3009';
-    this.apiUrl = 'http://api.valparaiso.fr';
+    this.apiUrl = 'http://valparaiso.fr:3009';
+    // this.apiUrl = 'http://api.valparaiso.fr';
     this.onPlaylistChange = this.onPlaylistChange.bind(this);
   }
 
