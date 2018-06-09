@@ -52,10 +52,16 @@ const processData = (data) => {
   return data;
 };
 
-if (window.localStorage.getItem('okta-token-storage') && window.localStorage.getItem('okta-token-storage') !== '{}') {
-  const jwt = JSON.parse(window.localStorage.getItem('okta-token-storage')).idToken.idToken;
-  axios.defaults.headers.common.Authorization = `Bearer ${jwt}`;
-}
+const setBearer = () => {
+  if (window.localStorage.getItem('okta-token-storage') && window.localStorage.getItem('okta-token-storage') !== '{}') {
+    const jwt = JSON.parse(window.localStorage.getItem('okta-token-storage')).idToken.idToken;
+    axios.defaults.headers.common.Authorization = `Bearer ${jwt}`;
+  } else {
+    window.setTimeout(setBearer, 1000);
+  }
+};
+setBearer();
+
 
 class Explorer extends React.Component {
   constructor(props) {
@@ -182,41 +188,43 @@ class Explorer extends React.Component {
     if (this.state.cursor) {
       this.setState({ lastDir: this.state.cursor.name });
     }
-
+    const retryTimer = 5000;
     this.setState({ loading: true });
-    axios.get(`${this.props.apiUrl}/getData`, axiosConfig)
-      .then((res) => {
-        this.setState({ loading: false });
-        const apiData = res.data;
-        apiData.key = uuidv1();
-        apiData.root = true;
-        apiData.path = apiData.name;
-        if (apiData.children && apiData.children.length > 0) {
-          apiData.children = sortBy(apiData.children, x => x.name);
-        }
-
-        const newCursor = processData(apiData);
-
-        if (this.state.lastDir) {
-          // TODO: a revoir
-          const getLastDir = (cursor) => {
-            if (cursor.name === this.state.lastDir) {
-              this.setState({ matchedLastDir: cursor });
-            }
-            if (cursor.children) {
-              cursor.children.forEach(child => getLastDir(child));
-            }
-          };
-          getLastDir(newCursor);
-        }
-        // TODO: a revoir, ne pas muter l'objet
-        this.setState({
-          cursor: this.state.matchedLastDir ? this.state.matchedLastDir : newCursor,
-        });
-      }, ((err) => {
-          console.log(err);
+    const tryFecth = () => {
+      axios.get(`${this.props.apiUrl}/getData`, axiosConfig)
+        .then((res) => {
           this.setState({ loading: false });
-        }));
+          const apiData = res.data;
+          apiData.key = uuidv1();
+          apiData.root = true;
+          apiData.path = apiData.name;
+          if (apiData.children && apiData.children.length > 0) {
+            apiData.children = sortBy(apiData.children, x => x.name);
+          }
+
+          const newCursor = processData(apiData);
+
+          if (this.state.lastDir) {
+          // TODO: a revoir
+            const getLastDir = (cursor) => {
+              if (cursor.name === this.state.lastDir) {
+                this.setState({ matchedLastDir: cursor });
+              }
+              if (cursor.children) {
+                cursor.children.forEach(child => getLastDir(child));
+              }
+            };
+            getLastDir(newCursor);
+          }
+          // TODO: a revoir, ne pas muter l'objet
+          this.setState({
+            cursor: this.state.matchedLastDir ? this.state.matchedLastDir : newCursor,
+          });
+        }, ((err) => {
+            console.log(err);
+            window.setTimeout(tryFecth, retryTimer);
+          }));
+    };
   }
 
   handleDownloadClick = () => {
