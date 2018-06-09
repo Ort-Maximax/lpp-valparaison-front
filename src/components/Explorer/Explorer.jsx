@@ -52,7 +52,7 @@ const processData = (data) => {
   return data;
 };
 
-if (window.localStorage.getItem('okta-token-storage')) {
+if (window.localStorage.getItem('okta-token-storage') && window.localStorage.getItem('okta-token-storage') !== '{}') {
   const jwt = JSON.parse(window.localStorage.getItem('okta-token-storage')).idToken.idToken;
   axios.defaults.headers.common.Authorization = `Bearer ${jwt}`;
 }
