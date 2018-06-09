@@ -15,6 +15,9 @@
 .nv-container .dropzone .node {
   padding: 10px;
 }
+.nv-container .dropzone .dnd-dialog .rodal-dialog svg {
+  width: 110px;
+}
 .disabled {
   background-color: #cbcbcb;
   color: #666666;

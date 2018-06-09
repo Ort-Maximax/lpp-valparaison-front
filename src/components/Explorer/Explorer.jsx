@@ -400,10 +400,7 @@ class Explorer extends React.Component {
                 Non, annuler
               </Button>
             </Grid>
-
           </Grid>
-
-
         </Rodal>
 
         <Snackbar

@@ -18,7 +18,7 @@ const VideoPlayer = props => (
     <IconButton onClick={props.closeDialog}>
       <Close />
     </IconButton>
-    <Grid container direction="row" justify="center">
+    <Grid container direction="row" justify="center" style={{ width: '100%', margin: 0 }}>
       <div className="video-player-container">
         <Player
           playsInline

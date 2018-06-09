@@ -21,6 +21,7 @@ import Element from './Element/Element';
 import VideoPlayer from './VideoPlayer/VideoPlayer';
 
 import Add from '../../../img/components/Add';
+import CloudDown from '../../../img/components/CloudDown';
 // import Dropzone from '../../../libs/react-dropzone/dist/es/index';
 
 
@@ -300,8 +301,12 @@ class NodeViewer extends React.Component {
                   </Grid>
                   }
 
-                  <Rodal visible={this.state.dragDialogVisible} onClose={this.hideDragDialog}>
-                    <div>Drop your files here to upload</div>
+                  <Rodal visible={this.state.dragDialogVisible} onClose={this.hideDragDialog} className="dnd-dialog" height={190}>
+                    <Grid container layout="column" alignItems="center" justify="center">
+                      <CloudDown />
+                      <h2>Drop your files here to upload</h2>
+                    </Grid>
+
                   </Rodal>
                 </Grid>
               </Fragment>
