@@ -5,6 +5,7 @@
 # client
 
 > Web client for Valparaison project
+> https://valparaiso.netlify.com/
 
 ## Build Setup
 
