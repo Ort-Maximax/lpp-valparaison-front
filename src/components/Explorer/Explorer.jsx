@@ -60,7 +60,6 @@ const setBearer = () => {
     window.setTimeout(setBearer, 1000);
   }
 };
-setBearer();
 
 
 class Explorer extends React.Component {
@@ -81,6 +80,7 @@ class Explorer extends React.Component {
   }
 
   componentWillMount() {
+    setBearer();
     this.getData();
   }
 
@@ -190,7 +190,7 @@ class Explorer extends React.Component {
     }
     const retryTimer = 5000;
     this.setState({ loading: true });
-    const tryFecth = () => {
+    const tryFetch = () => {
       axios.get(`${this.props.apiUrl}/getData`, axiosConfig)
         .then((res) => {
           this.setState({ loading: false });
@@ -222,9 +222,10 @@ class Explorer extends React.Component {
           });
         }, ((err) => {
             console.log(err);
-            window.setTimeout(tryFecth, retryTimer);
+            window.setTimeout(tryFetch, retryTimer);
           }));
     };
+    tryFetch();
   }
 
   handleDownloadClick = () => {
