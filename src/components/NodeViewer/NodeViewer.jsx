@@ -17,10 +17,10 @@ import Transform from '@material-ui/icons/Transform';
 import Divider from 'material-ui/Divider';
 
 import './styles/NodeViewer.css';
-import Element from './Element/Element';
-import VideoPlayer from './VideoPlayer/VideoPlayer';
+import Element from '../Element/Element';
+import VideoPlayer from '../VideoPlayer/VideoPlayer';
 
-import CloudDown from '../../../img/components/CloudDown';
+import CloudDown from '../../img/components/CloudDown';
 
 class NodeViewer extends React.Component {
   constructor(props) {

@@ -20,10 +20,10 @@ import Input from 'material-ui/Input';
 import Snackbar from 'material-ui/Snackbar';
 import CloseIcon from '@material-ui/icons/Close';
 
-import Toolbar from './Toolbar/Toolbar';
+import Toolbar from '../Toolbar/Toolbar';
 
 // import TreeViewer from './TreeViewer/TreeViewer';
-import NodeViewer from './NodeViewer/NodeViewer';
+import NodeViewer from '../NodeViewer/NodeViewer';
 
 import './styles/Explorer.css';
 

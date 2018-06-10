@@ -22,7 +22,7 @@ import Input from 'material-ui/Input';
 import Breadcrumbs from './Breadcrumbs/Breadcrumbs';
 import './styles/Toolbar.css';
 
-import Add from '../../../img/components/Add';
+import Add from '../../img/components/Add';
 
 
 class Toolbar extends React.Component {

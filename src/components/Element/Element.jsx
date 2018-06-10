@@ -14,12 +14,12 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 */
 
-import File from '../../../../img/components/File';
-import Folder from '../../../../img/components/Folder';
-import Archive from '../../../../img/components/Archive';
-import Picture from '../../../../img/components/Picture';
-import Video from '../../../../img/components/Video';
-import Music from '../../../../img/components/Music';
+import File from '../../img/components/File';
+import Folder from '../../img/components/Folder';
+import Archive from '../../img/components/Archive';
+import Picture from '../../img/components/Picture';
+import Video from '../../img/components/Video';
+import Music from '../../img/components/Music';
 
 import './styles/Element.css';
 
