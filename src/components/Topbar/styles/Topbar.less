@@ -23,12 +23,15 @@ a {
   }
 
   .brand {
-    flex: 1;
-    color: white;
-    font-family: 'Lobster', cursive;
-    font-size : 1.6rem;
-    line-height: 1.16667em;
-  }
+    min-width: 180px;
+    .title {
+      flex: 1;
+      color: white;
+      font-family: 'Lobster', cursive;
+      font-size : 1.6rem;
+      line-height: 1.16667em;
+    }
+  }  
 
   .topBarMenuButton {
     display: none;
@@ -75,15 +78,6 @@ a {
             transform: scaleX(1);
           }
         }
-
-        /*
-        &:focus {
-          &:before {
-            visibility: visible;
-            transform: scaleX(1);
-          }
-        }
-        */
       }
     }
   }
@@ -103,8 +97,6 @@ a {
   svg {
     color:white;
   }
-
-
 
   .topbarLoggedUser {
     background-color: aliceblue;
@@ -161,12 +153,6 @@ a {
   }
 }
 
-@media all and (min-width: 600px) {
-  .user-menu {
-    top : 66px
-  }
-}
-
 .list {
   max-width: 25%;
   min-width : 250px;
@@ -182,6 +168,12 @@ a {
   }
 }
 
+@media all and (min-width: 600px) {
+  .user-menu {
+    top : 66px
+  }
+}
+
 @media all and (max-width: 760px){
   .topBarLinks {
     display: none !important;
@@ -189,6 +181,19 @@ a {
   .topBarMenuButton {
     display: block !important;
   }
+}
+
+@media all and (max-width: 450px){
+  .topBarContainer {
+    .brand {
+      min-width: 0;
+      .title {
+        display: none
+      }
+    }
+  }
+
+
 }
 
 

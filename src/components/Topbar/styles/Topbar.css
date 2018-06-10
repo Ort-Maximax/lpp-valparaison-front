@@ -21,6 +21,9 @@ a:hover {
   height: 30px;
 }
 .topBarContainer .brand {
+  min-width: 180px;
+}
+.topBarContainer .brand .title {
   flex: 1;
   color: white;
   font-family: 'Lobster', cursive;
@@ -51,14 +54,6 @@ a:hover {
   color: #bcd8f1;
   font-weight: 600;
   text-decoration: none;
-  /*
-        &:focus {
-          &:before {
-            visibility: visible;
-            transform: scaleX(1);
-          }
-        }
-        */
 }
 .topBarContainer .clickable .topBarLinks a:before {
   content: "";
@@ -142,11 +137,6 @@ a:hover {
   color: rgba(0, 0, 0, 0.87);
   border-bottom: solid 1px #ddd;
 }
-@media all and (min-width: 600px) {
-  .user-menu {
-    top: 66px;
-  }
-}
 .list {
   max-width: 25%;
   min-width: 250px;
@@ -160,11 +150,24 @@ a:hover {
   height: 100%;
   width: 90%;
 }
+@media all and (min-width: 600px) {
+  .user-menu {
+    top: 66px;
+  }
+}
 @media all and (max-width: 760px) {
   .topBarLinks {
     display: none !important;
   }
   .topBarMenuButton {
     display: block !important;
+  }
+}
+@media all and (max-width: 450px) {
+  .topBarContainer .brand {
+    min-width: 0;
+  }
+  .topBarContainer .brand .title {
+    display: none;
   }
 }

@@ -102,12 +102,12 @@ class Topbar extends Component {
       <section className="topBarContainer">
         <AppBar position="static" color="primary">
           <Toolbar>
-            <Link to="/" style={{ minWidth: 180 }}>
+            <Link to="/" className="brand">
               <Grid container direction="row" alignItems="center">
                 <IconButton color="inherit" className="logoContainer" aria-label="Logo">
                   <Logo className="logoIcon" />
                 </IconButton>
-                <Typography color="inherit" className="brand">
+                <Typography color="inherit" className="title">
                   Valparaiso
                 </Typography>
               </Grid>

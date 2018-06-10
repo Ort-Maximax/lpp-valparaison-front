@@ -24,10 +24,8 @@ const Home = () => (
       >
         <Grid container spacing={24} style={{ width: '100%', margin: 0 }}>
           <Grid item xs={12} style={{ width: '100%', margin: 0 }}>
-            <h1>
-              {'Bienvenue à Valparaiso !'}
-            </h1>
-            <h3> Tous vos médias, sur tous vos écrans</h3>
+            <h1>Bienvenu à <span className="brand">Valparaiso !</span></h1>
+            <h3> Tous vos médias, sur tous vos écrans.</h3>
             <h5 id="hostname"> Hostname inconnu ...</h5>
           </Grid>
 
