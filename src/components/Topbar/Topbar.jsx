@@ -44,14 +44,8 @@ class Topbar extends Component {
     this.checkAuthentication();
   }
 
-  componentDidMount() {
-  }
-
   componentDidUpdate() {
     this.checkAuthentication();
-  }
-
-  componentWillUnmount() {
   }
 
   async checkAuthentication() {

@@ -20,10 +20,7 @@ import './styles/NodeViewer.css';
 import Element from './Element/Element';
 import VideoPlayer from './VideoPlayer/VideoPlayer';
 
-import Add from '../../../img/components/Add';
 import CloudDown from '../../../img/components/CloudDown';
-// import Dropzone from '../../../libs/react-dropzone/dist/es/index';
-
 
 class NodeViewer extends React.Component {
   constructor(props) {
@@ -129,7 +126,6 @@ class NodeViewer extends React.Component {
           // TODO: Ouvre une modal qui demande comment ouvrir le fichier
           break;
       }
-      // Si l'element est streamable, on lance le streaming
     }
   }
 
@@ -327,8 +323,34 @@ class NodeViewer extends React.Component {
           <Paper className="noselect">
             {/* TODO: Bind les actions */}
             <MenuItem onClick={this.props.handleAddClick}>
-              <Add style={{ width: 24, height: 24 }} />
-              <b>Nouveau</b>
+              <b>Nouveau fichier</b>
+            </MenuItem>
+            <Divider />
+
+            <MenuItem
+              onClick={this.props.handleNewFolderClick}
+              disabled={this.props.selectedElements.length !== 0}
+            >
+              <div>Nouveau Dossier</div>
+            </MenuItem>
+
+            <Divider />
+
+            <MenuItem
+              onClick={this.props.handleRenameClick}
+              disabled={this.props.selectedElements.length !== 1}
+            >
+              <div>Renommer</div>
+            </MenuItem>
+
+            <Divider />
+
+            <MenuItem
+              onClick={this.props.handleDeleteClick}
+              disabled={this.props.selectedElements.length === 0}
+            >
+              <DeleteForever />
+              <div>Supprimer</div>
             </MenuItem>
 
             <Divider />
@@ -343,15 +365,6 @@ class NodeViewer extends React.Component {
 
             <Divider />
 
-            <MenuItem
-              onClick={this.props.handleDeleteClick}
-              disabled={this.props.selectedElements.length === 0}
-            >
-              <DeleteForever />
-              <div>Supprimer</div>
-            </MenuItem>
-
-            <Divider />
             <MenuItem
               onClick={this.props.handleConvertClick}
               disabled={this.props.selectedElements.length === 0}

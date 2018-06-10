@@ -16,6 +16,7 @@ import Button from 'material-ui/Button';
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
 
+import Input from 'material-ui/Input';
 import Snackbar from 'material-ui/Snackbar';
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -73,7 +74,9 @@ class Explorer extends React.Component {
       searchbar: false,
       toggleSelect: false,
       selectedElements: [],
+      renameDialog: false,
       deleteDialog: false,
+      newFileName: '',
       snackOpen: false,
       snackText: '',
     };
@@ -228,19 +231,69 @@ class Explorer extends React.Component {
     tryFetch();
   }
 
-  handleDownloadClick = () => {
-    if (this.state.selectedElements.length > 0) {
-      console.log('Download  : ');
-      this.state.selectedElements.forEach((el) => {
-        console.log(el.name);
-        axios.get(`${this.props.apiUrl}/downloadFile?path=${encodeURIComponent(el.path)}`)
-          .then((response) => {
-            fileDownload(response.data, el.name);
-          });
-
-        // window.open(`${this.props.apiUrl}/downloadFile?path=${encodeURIComponent(el.path)}`);
-      });
+  handleAddClick = () => {
+    console.log('Add !');
+    // TODO: Ouvre l'explorer
+    if (this.state.dropzone) {
+      console.log(this.state.dropzone);
+      this.state.dropzone.open();
     }
+  }
+
+  handleNewFolderClick = () => {
+    const postData = {
+      path: this.state.cursor.path,
+    };
+    axios.post(`${this.props.apiUrl}/createDirectory`, postData)
+      .then((res) => {
+        console.log(res);
+        this.getData();
+      }, (err) => {
+        console.log(err);
+      });
+  }
+
+  handleRenameClick = () => {
+    if (this.state.selectedElements.length === 1) {
+      this.setState({ renameDialog: true, newFileName: this.state.selectedElements[0].name });
+    }
+  }
+
+  closeRenameDialog = () => {
+    this.setState({ renameError: '', newFileName: '', renameDialog: false });
+  }
+
+  newFilenameChange = (e) => {
+    this.setState({ newFileName: e.target.value });
+    if (e.target.value.includes('/') || e.target.value.includes('\\')) {
+      this.setState({ renameError: 'Interdiction d\'utiliser "/" et "\\"' });
+    } else {
+      this.setState({ renameError: '' });
+    }
+  }
+
+  confirmRename = () => {
+    if (this.state.newFileName.includes('/') || this.state.newFileName.includes('\\')) {
+      this.setState({ renameError: 'Interdiction d\'utiliser "/" et "\\"' });
+    } else {
+      const postData = {
+        path: this.state.selectedElements[0].path,
+        newName: this.state.newFileName,
+      };
+
+      axios.post(`${this.props.apiUrl}/renameElement`, postData)
+        .then(() => {
+          this.getData();
+        }, (err) => {
+          console.log(err);
+        });
+
+      this.closeRenameDialog();
+    }
+  }
+
+  cancelRename = () => {
+    this.closeRenameDialog();
   }
 
   handleDeleteClick = () => {
@@ -258,7 +311,7 @@ class Explorer extends React.Component {
   confirmDelete = () => {
     this.state.selectedElements.forEach((el) => {
       console.log(el.path);
-      axios.get(`${this.props.apiUrl}/removeFile?path=${encodeURIComponent(el.path)}`).then(() => {
+      axios.get(`${this.props.apiUrl}/removeElement?path=${encodeURIComponent(el.path)}`).then(() => {
         console.log(`Succes delete de ${el.path}`);
       });
     });
@@ -273,6 +326,21 @@ class Explorer extends React.Component {
     this.closeDeleteDialog();
   }
 
+  handleDownloadClick = () => {
+    if (this.state.selectedElements.length > 0) {
+      console.log('Download  : ');
+      this.state.selectedElements.forEach((el) => {
+        console.log(el.name);
+        axios.get(`${this.props.apiUrl}/downloadFile?path=${encodeURIComponent(el.path)}`)
+          .then((response) => {
+            fileDownload(response.data, el.name);
+          });
+
+        // window.open(`${this.props.apiUrl}/downloadFile?path=${encodeURIComponent(el.path)}`);
+      });
+    }
+  }
+
   handleConvertClick = () => {
     if (this.state.selectedElements.length > 0) {
       console.log('Convert !');
@@ -281,18 +349,6 @@ class Explorer extends React.Component {
       // Affiche ensuite la progression des conversions en bas a droite
       // Et envoi une notification
     }
-  }
-
-  handleAddClick = () => {
-    console.log('Add !');
-    // TODO: Ouvre l'explorer
-    if (this.state.dropzone) {
-      console.log(this.state.dropzone);
-      this.state.dropzone.open();
-    }
-
-    // Envoi les  fichier selectionner au backend
-    // l'API retourne les data updaté, rafraichis les datas
   }
 
   closeSnack = () => {
@@ -330,9 +386,12 @@ class Explorer extends React.Component {
                   onSearchQueryChange={this.onSearchQueryChange}
                   onToggleSelect={this.onToggleSelect}
                   onCursorChange={this.onCursorChange}
+
                   handleAddClick={this.handleAddClick}
-                  handleDownloadClick={this.handleDownloadClick}
+                  handleNewFolderClick={this.handleNewFolderClick}
+                  handleRenameClick={this.handleRenameClick}
                   handleDeleteClick={this.handleDeleteClick}
+                  handleDownloadClick={this.handleDownloadClick}
                   handleConvertClick={this.handleConvertClick}
                   toggleSelect={this.state.toggleSelect}
                 />
@@ -360,8 +419,10 @@ class Explorer extends React.Component {
                   onSelectedElementsChange={this.onSelectedElementsChange}
 
                   handleAddClick={this.handleAddClick}
-                  handleDownloadClick={this.handleDownloadClick}
+                  handleNewFolderClick={this.handleNewFolderClick}
+                  handleRenameClick={this.handleRenameClick}
                   handleDeleteClick={this.handleDeleteClick}
+                  handleDownloadClick={this.handleDownloadClick}
                   handleConvertClick={this.handleConvertClick}
 
                   setDropzoneRef={this.setDropzoneRef}
@@ -377,7 +438,6 @@ class Explorer extends React.Component {
               </section>
             </Fragment>
       }
-
 
         </Grid>
 
@@ -398,6 +458,38 @@ class Explorer extends React.Component {
               </Button>
               <Button onClick={this.cancelDelete} color="primary" autoFocus>
                 Non, annuler
+              </Button>
+            </Grid>
+          </Grid>
+        </Rodal>
+
+        <Rodal
+          visible={this.state.renameDialog}
+          onClose={this.closeRenameDialog}
+          closeOnEsc
+          showCloseButton={false}
+          width={410}
+          height={160}
+          customStyles={{ padding: 0 }}
+          animatiton="slideUp"
+        >
+          <Grid container direction="column" justify="space-between" alignItems="center" style={{ height: '100%' }}>
+            <h3>Saisissez le nouveau nom</h3>
+            <Input
+              autoFocus
+              value={this.state.newFileName}
+              onChange={this.newFilenameChange}
+              id="new-element-name"
+            />
+
+            <div style={{ color: 'red' }}> {this.state.renameError} </div>
+
+            <Grid container item direction="row" justify="flex-end" alignItems="center">
+              <Button onClick={this.cancelRename} color="primary">
+                Annuler
+              </Button>
+              <Button onClick={this.confirmRename} color="primary" autoFocus>
+                OK
               </Button>
             </Grid>
           </Grid>

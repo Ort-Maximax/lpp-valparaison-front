@@ -127,9 +127,20 @@ class Toolbar extends React.Component {
 
                           <Divider />
 
-                          <MenuItem onClick={this.handleDownload} className={this.props.selectedElements.length === 0 ? 'disabled' : ''}>
-                            <CloudDownload />
-                            Telecharger
+                          <MenuItem
+                            onClick={this.props.handleNewFolderClick}
+                            disabled={this.props.selectedElements.length !== 0}
+                          >
+                            <div>Nouveau Dossier</div>
+                          </MenuItem>
+
+                          <Divider />
+
+                          <MenuItem
+                            onClick={this.props.handleRenameClick}
+                            disabled={this.props.selectedElements.length !== 1}
+                          >
+                            <div>Renommer</div>
                           </MenuItem>
 
                           <Divider />
@@ -137,6 +148,13 @@ class Toolbar extends React.Component {
                           <MenuItem onClick={this.handleDelete} className={this.props.selectedElements.length === 0 ? 'disabled' : ''}>
                             <DeleteForever />
                             Supprimer
+                          </MenuItem>
+
+                          <Divider />
+
+                          <MenuItem onClick={this.handleDownload} className={this.props.selectedElements.length === 0 ? 'disabled' : ''}>
+                            <CloudDownload />
+                            Telecharger
                           </MenuItem>
 
                           <Divider />
