@@ -22,6 +22,7 @@ a:hover {
 }
 .topBarContainer .brand {
   flex: 1;
+  color: white;
   font-family: 'Lobster', cursive;
   font-size: 1.6rem;
   line-height: 1.16667em;
@@ -29,31 +30,37 @@ a:hover {
 .topBarContainer .topBarMenuButton {
   display: none;
 }
-.topBarContainer .topBarLinks * {
+.topBarContainer .clickable {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.topBarContainer .clickable .topBarLinks * {
   position: relative;
   outline: none;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
 }
-.topBarContainer .topBarLinks *:after,
-.topBarContainer .topBarLinks *:before {
+.topBarContainer .clickable .topBarLinks *:after,
+.topBarContainer .clickable .topBarLinks *:before {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
 }
-.topBarContainer .topBarLinks a {
+.topBarContainer .clickable .topBarLinks a {
   color: #bcd8f1;
   font-weight: 600;
   text-decoration: none;
   /*
-      &:focus {
-        &:before {
-          visibility: visible;
-          transform: scaleX(1);
+        &:focus {
+          &:before {
+            visibility: visible;
+            transform: scaleX(1);
+          }
         }
-      }
-      */
+        */
 }
-.topBarContainer .topBarLinks a:before {
+.topBarContainer .clickable .topBarLinks a:before {
   content: "";
   position: absolute;
   width: 100%;
@@ -66,11 +73,11 @@ a:hover {
   transform: scaleX(0);
   transition: .15s linear;
 }
-.topBarContainer .topBarLinks a:hover {
+.topBarContainer .clickable .topBarLinks a:hover {
   transition: .5s linear;
   color: #fff;
 }
-.topBarContainer .topBarLinks a:hover:before {
+.topBarContainer .clickable .topBarLinks a:hover:before {
   visibility: visible;
   transform: scaleX(1);
 }

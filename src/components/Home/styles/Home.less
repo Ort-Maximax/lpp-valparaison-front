@@ -1,22 +1,26 @@
 .mainPaper {
-  width : 600px;
+  overflow-y: auto;
+  width : 100%;
   height : 90%; 
   color: aliceblue;
 
   margin: 20px auto 10px auto;
   h1, h2, h3, h4, h5 {
+    width: 100%;
     text-align : center;
   }
   h4, h5 {
     color: grey;
+    padding: 0 5px;
   }
   .cards {
     .paper {
-      width: 150px;
-      max-width : 28vw;
+      background-color: aliceblue;
+      width : 28vw;
       min-width: 100px;
       height: 200px;
       h3 {
+        font-size : 22px;
         color: black;
         margin-top: 3px;
       }
@@ -55,5 +59,35 @@
   .mainPaper {
     margin : 0;
     width : 100%;
+    .cards {
+      .paper {
+        height : 180px;
+        h3 {
+          font-size: 14px;
+        }
+        h5 {
+          font-size : 10px
+        }
+      }
+    }
+  }
+}
+
+@media all and (max-width: 400px){
+  .mainPaper {
+    .cards {
+      .paper {
+        margin: 10px;
+        width: 100%;
+        max-width: 100%;
+        height: 200px;
+        h3 {
+          font-size: 22px;
+        }
+        h5 {
+          font-size : 15px
+        }     
+      }
+    }
   }
 }

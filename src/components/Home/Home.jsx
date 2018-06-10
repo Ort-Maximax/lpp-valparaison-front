@@ -22,8 +22,8 @@ const Home = () => (
         alignItems="center"
         style={{ width: '100%', height: '100%', margin: 0 }}
       >
-        <Grid container spacing={24}>
-          <Grid item xs={12}>
+        <Grid container spacing={24} style={{ width: '100%', margin: 0 }}>
+          <Grid item xs={12} style={{ width: '100%', margin: 0 }}>
             <h1>
               {'Bienvenue à Valparaiso !'}
             </h1>
@@ -39,6 +39,7 @@ const Home = () => (
             direction="row"
             alignItems="center"
             justify="space-around"
+            style={{ width: '100%', margin: 0 }}
           >
             <Paper className="paper">
               <Grid
@@ -84,14 +85,14 @@ const Home = () => (
               </Grid>
 
             </Paper>
-            <h1 style={{ marginTop: '10vh' }}> Découvrez nos offres et tarifs !</h1>
-
           </Grid>
-          <div className="footer" >
+          <h1 style={{ marginTop: '10vh' }}> Découvrez nos offres et tarifs</h1>
 
-          Made with <span role="img" aria-label="heart">❤️</span> by Clément S.
-          </div>
         </Grid>
+
+        <div className="footer" >
+          Made with <span role="img" aria-label="heart">❤️</span> by Clément S.
+        </div>
 
 
       </Grid>

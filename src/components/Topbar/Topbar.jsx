@@ -8,6 +8,7 @@ import { withAuth } from '@okta/okta-react';
 
 /* Appbar */
 import AppBar from 'material-ui/AppBar';
+import Grid from 'material-ui/Grid';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
@@ -25,7 +26,6 @@ import { MenuItem, MenuList } from 'material-ui/Menu';
 
 /* Icons */
 import MenuIcon from 'material-ui-icons/Menu';
-import HomeIcon from 'material-ui-icons/Home';
 import ProtectedIcon from 'material-ui-icons/LockOutline';
 import LoginIcon from 'material-ui-icons/Person';
 import LogoutIcon from 'material-ui-icons/Close';
@@ -102,18 +102,21 @@ class Topbar extends Component {
       <section className="topBarContainer">
         <AppBar position="static" color="primary">
           <Toolbar>
-            <IconButton color="inherit" className="logoContainer" aria-label="Logo">
-              <Logo className="logoIcon" />
-            </IconButton>
-            <Typography color="inherit" className="brand">
-              Valparaiso
-            </Typography>
+            <Link to="/" style={{ minWidth: 180 }}>
+              <Grid container direction="row" alignItems="center">
+                <IconButton color="inherit" className="logoContainer" aria-label="Logo">
+                  <Logo className="logoIcon" />
+                </IconButton>
+                <Typography color="inherit" className="brand">
+                  Valparaiso
+                </Typography>
+              </Grid>
 
-            <section className="topBarLinks">
+            </Link>
 
-              <Link to="/">Home</Link>
-
-              {this.state.authenticated &&
+            <section className="clickable">
+              <section className="topBarLinks">
+                {this.state.authenticated &&
                 <Fragment>
                   <Link to="/browse">Mon Valparaiso</Link>
                   <a onClick={this.props.auth.logout} role="Link">Logout</a>
@@ -124,73 +127,63 @@ class Topbar extends Component {
                 </Fragment>
                 */
               }
-            </section>
+              </section>
 
-            <IconButton onClick={this.toggleDrawer('left', true)} className="topBarMenuButton">
-              <MenuIcon />
-            </IconButton>
+              <IconButton onClick={this.toggleDrawer('left', true)} className="topBarMenuButton">
+                <MenuIcon />
+              </IconButton>
 
-            <ClickOutside onClickOutside={this.closeUserMenu}>
-              <div
-                ref={(node) => {
+              <ClickOutside onClickOutside={this.closeUserMenu}>
+                <div
+                  ref={(node) => {
                     this.userMenu = node;
                   }}
-              >
-                { clientMail &&
-                <Button
-                  variant="fab"
-                  className="topbarLoggedUser"
-                  onClick={this.toggleUserMenu}
                 >
-                  <Identicons id={clientMail} width={20} size={3} />
-                </Button>
+                  { clientMail &&
+                  <Button
+                    variant="fab"
+                    className="topbarLoggedUser"
+                    onClick={this.toggleUserMenu}
+                  >
+                    <Identicons id={clientMail} width={20} size={3} />
+                  </Button>
                   }
-              </div>
-
-              <Paper className={userMenuOpen ? 'user-menu visible' : 'user-menu hidden'}>
-                <div className="user-menu-header">
-                  <Typography variant="title" className="noselect">
-                    Bonjour {clientFirstName} !
-                  </Typography>
                 </div>
-                <MenuList role="menu">
-                  {/* TODO: mettre les links */}
-                  <MenuItem onClick={this.handleCloseUserMenu}>Profile</MenuItem>
-                  <MenuItem onClick={this.handleCloseUserMenu}>My account</MenuItem>
-                  <a onClick={this.props.auth.logout} role="Link">
-                    <MenuItem onClick={this.handleCloseUserMenu}>Logout</MenuItem>
-                  </a>
-                </MenuList>
-              </Paper>
-            </ClickOutside>
-            {!this.state.authenticated &&
-            <Fragment>
-              <Button variant="fab" onClick={this.props.auth.login} className="loginButton">
-                <LoginIcon />
-              </Button>
-            </Fragment>
+
+                <Paper className={userMenuOpen ? 'user-menu visible' : 'user-menu hidden'}>
+                  <div className="user-menu-header">
+                    <Typography variant="title" className="noselect">
+                    Bonjour {clientFirstName} !
+                    </Typography>
+                  </div>
+                  <MenuList role="menu">
+                    {/* TODO: mettre les links */}
+                    <MenuItem onClick={this.handleCloseUserMenu}>Profile</MenuItem>
+                    <MenuItem onClick={this.handleCloseUserMenu}>My account</MenuItem>
+                    <a onClick={this.props.auth.logout} role="Link">
+                      <MenuItem onClick={this.handleCloseUserMenu}>Logout</MenuItem>
+                    </a>
+                  </MenuList>
+                </Paper>
+              </ClickOutside>
+              {!this.state.authenticated &&
+              <Fragment>
+                <Button variant="fab" onClick={this.props.auth.login} className="loginButton">
+                  <LoginIcon />
+                </Button>
+              </Fragment>
             }
 
-            <Drawer anchor="left" open={this.state.left} onClose={this.toggleDrawer('left', false)}>
-              <section
-                tabIndex={0}
-                role="button"
-                onClick={this.toggleDrawer('left', false)}
-                onKeyDown={this.toggleDrawer('left', false)}
-                className="list"
-              >
-                <List>
-                  <Link to="/">
-                    <ListItem>
-                      <ListItemIcon>
-                        <HomeIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="Home" />
-                    </ListItem>
-                  </Link>
-                  <Divider />
-
-                  {this.state.authenticated &&
+              <Drawer anchor="left" open={this.state.left} onClose={this.toggleDrawer('left', false)}>
+                <section
+                  tabIndex={0}
+                  role="button"
+                  onClick={this.toggleDrawer('left', false)}
+                  onKeyDown={this.toggleDrawer('left', false)}
+                  className="list"
+                >
+                  <List>
+                    {this.state.authenticated &&
                     <Fragment>
                       <Link to="/browse">
                         <ListItem>
@@ -211,9 +204,10 @@ class Topbar extends Component {
                       </a>
                     </Fragment>
                   }
-                </List>
-              </section>
-            </Drawer>
+                  </List>
+                </section>
+              </Drawer>
+            </section>
           </Toolbar>
         </AppBar>
       </section>
