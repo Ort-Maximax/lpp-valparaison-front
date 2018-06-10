@@ -119,7 +119,7 @@ class Topbar extends Component {
                 {this.state.authenticated &&
                 <Fragment>
                   <Link to="/browse">Mon Valparaiso</Link>
-                  <a onClick={this.props.auth.logout} role="Link">Logout</a>
+                  <a onClick={this.props.auth.logout} role="Link" style={{ color: 'red' }}>Déconnexion</a>
                 </Fragment>
                 /*
                 <Fragment>
@@ -159,9 +159,9 @@ class Topbar extends Component {
                   <MenuList role="menu">
                     {/* TODO: mettre les links */}
                     <MenuItem onClick={this.handleCloseUserMenu}>Profile</MenuItem>
-                    <MenuItem onClick={this.handleCloseUserMenu}>My account</MenuItem>
-                    <a onClick={this.props.auth.logout} role="Link">
-                      <MenuItem onClick={this.handleCloseUserMenu}>Logout</MenuItem>
+                    <MenuItem onClick={this.handleCloseUserMenu}>Mon compte</MenuItem>
+                    <a onClick={this.props.auth.logout} role="Link" style={{ padding: 0 }}>
+                      <MenuItem onClick={this.handleCloseUserMenu} style={{ color: 'red' }}>Déconnexion</MenuItem>
                     </a>
                   </MenuList>
                 </Paper>
@@ -197,9 +197,9 @@ class Topbar extends Component {
                       <a onClick={this.props.auth.logout} role="Link">
                         <ListItem>
                           <ListItemIcon>
-                            <LogoutIcon />
+                            <LogoutIcon style={{ color: 'red' }} />
                           </ListItemIcon>
-                          <ListItemText primary="Logout" />
+                          <ListItemText primary="Déconnexion" />
                         </ListItem>
                       </a>
                     </Fragment>

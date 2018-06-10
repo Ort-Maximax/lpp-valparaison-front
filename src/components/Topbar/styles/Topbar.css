@@ -75,7 +75,7 @@ a:hover {
 }
 .topBarContainer .clickable .topBarLinks a:hover {
   transition: .5s linear;
-  color: #fff;
+  color: inherit;
 }
 .topBarContainer .clickable .topBarLinks a:hover:before {
   visibility: visible;

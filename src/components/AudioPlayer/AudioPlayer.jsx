@@ -1,18 +1,24 @@
 /* global Event */
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import Paper from 'material-ui/Paper';
 import Audio from 'react-audioplayer';
+
+import Grid from 'material-ui/Grid';
+import Paper from 'material-ui/Paper';
+import IconButton from 'material-ui/IconButton';
+import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
+import MusicNote from '@material-ui/icons/MusicNote';
+
 
 import { withAuth } from '@okta/okta-react';
 
 
 import './styles/AudioPlayer.css';
 
-class AudioPlayer extends Component {
+class AudioPlayer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { authenticated: null, playlist: this.props.playlist };
+    this.state = { authenticated: null, playlist: this.props.playlist, playerCollapsed: false };
     this.shouldUpdate = false;
     this.audioComponent = undefined;
     this.checkAuthentication = this.checkAuthentication.bind(this);
@@ -29,7 +35,6 @@ class AudioPlayer extends Component {
   componentDidUpdate() {
     if (this.audioComponent && this.shouldUpdate) {
       this.shouldUpdate = false;
-      console.log('skip');
       ReactDOM.findDOMNode(this.audioComponent).dispatchEvent(new Event('audio-skip-to-next'));
     }
     this.checkAuthentication();
@@ -42,13 +47,29 @@ class AudioPlayer extends Component {
       this.setState({ authenticated });
     }
   }
+
+  togglePlayer = () => {
+    this.setState({ playerCollapsed: !this.state.playerCollapsed });
+  }
   render() {
     // Only show player if authenticated
     if (this.state.authenticated !== true || this.props.playlist.length <= 0) return null;
-    console.log(this.state);
     return (
       <Paper className="player-container">
+        <Grid container layout="row" alignItems="flex-end" justify="flex-end">
+          <IconButton onClick={this.togglePlayer}>
+            {
+            this.state.playerCollapsed ?
+              <MusicNote />
+              :
+              <KeyboardArrowDown />
+
+            }
+          </IconButton>
+
+        </Grid>
         <Audio
+          style={{ display: this.state.playerCollapsed ? 'none' : 'block' }}
           color="#2aa6ea"
           width={300}
           height={100}

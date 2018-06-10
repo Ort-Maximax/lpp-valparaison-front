@@ -25,7 +25,10 @@ const VideoPlayer = props => (
           autoPlay
           src={props.video && props.video.src ? props.video.src : null}
         />
-        {props.video && props.video.name ? props.video.name : null}
+        <h3 className="video-title">
+          {props.video && props.video.name ? props.video.name : null}
+        </h3>
+
       </div>
     </Grid>
   </Dialog>
