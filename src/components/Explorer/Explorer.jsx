@@ -28,6 +28,7 @@ import NodeViewer from './NodeViewer/NodeViewer';
 import './styles/Explorer.css';
 
 import DownloadView from '../DownloadView/DownloadView';
+import Spinner from '../../img/components/Spinner';
 
 const processData = (data) => {
   // Iterate over all nodes
@@ -367,8 +368,10 @@ class Explorer extends React.Component {
           direction="column"
         >
           { this.state.loading ?
-            <div />
 
+            <div className="spinner">
+              <Spinner />
+            </div>
           :
 
             <Fragment>
@@ -468,7 +471,7 @@ class Explorer extends React.Component {
           onClose={this.closeRenameDialog}
           closeOnEsc
           showCloseButton={false}
-          width={410}
+          width={350}
           height={160}
           customStyles={{ padding: 0 }}
           animatiton="slideUp"

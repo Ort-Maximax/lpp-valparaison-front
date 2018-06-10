@@ -9,6 +9,11 @@
 .explorer {
   height: 100%;
 }
+.explorer .spinner {
+  position: fixed;
+  top: calc(50vh - 100px);
+  left: calc(50vw - 100px);
+}
 .content {
   padding-left: 10px;
   width: 100%;

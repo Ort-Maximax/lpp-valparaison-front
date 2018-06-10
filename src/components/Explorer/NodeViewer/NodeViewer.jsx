@@ -28,6 +28,7 @@ class NodeViewer extends React.Component {
 
     this.state = {
       dragging: false,
+      contextMenu: false,
       dragDialogVisible: false,
       videoDialogVisible: false,
       currentVideo: {},
@@ -49,7 +50,7 @@ class NodeViewer extends React.Component {
   }
 
   onClick = (e, node) => {
-    this.setState({ dragging: false });
+    this.setState({ dragging: false, contextMenu: false });
     // Si la touche CTRL est pressé, ou si on est en mode eselection
     if (e.ctrlKey || this.props.toggleSelect) {
       // On ajoute l'element clické a la liste d'elements selectionné
@@ -69,15 +70,12 @@ class NodeViewer extends React.Component {
       // this.setState({ selectedElements: [node] });
       this.props.onSelectedElementsChange([node]);
     }
-    console.log('click');
   }
 
   onDoubleClick = (e, node) => {
-    if (this.state.dragging) {
+    if (this.state.dragging || this.state.contextMenu) {
       return;
     }
-    /* TODO: check si pointer est toujours au dessus de l'element cible */
-    console.log('double click');
     // Quand on doubleclick sur un dossier,
     // cursor = ses children
     if (this.props.toggleSelect) {
@@ -86,11 +84,9 @@ class NodeViewer extends React.Component {
     }
 
     if (node.children) {
-      console.log(node);
       this.props.onCursorChange(node);
     } else {
       /* TODO: En fonction de l'extension du fichier, ouvre la page adequat */
-      console.log(node);
       switch (node.ext) {
         case ('.mkv'):
         case ('.webm'):
@@ -130,7 +126,7 @@ class NodeViewer extends React.Component {
   }
 
   onOffClick = (e) => {
-    console.log('off click');
+    this.setState({ dragging: false, contextMenu: false });
     if (!e.ctrlKey) {
       // this.setState({ selectedElements: [] });
       this.props.onSelectedElementsChange([]);
@@ -139,12 +135,10 @@ class NodeViewer extends React.Component {
 
   onDragEnter = () => {
     this.showDragDialog();
-    console.log('Drag Enter !');
   }
 
   onDragLeave = () => {
     this.hideDragDialog();
-    console.log('Drag Leave !');
   }
 
   onDrop = (files) => {
@@ -245,6 +239,7 @@ class NodeViewer extends React.Component {
           <div
             className="nv-container"
             onClick={e => this.onOffClick(e)}
+            onContextMenu={() => this.setState({ contextMenu: true })}
             role="button"
           >
             <Dropzone
