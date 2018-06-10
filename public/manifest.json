@@ -8,8 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "favicon-196x196.png",
-      "sizes": "196x196"
+      "src": "favicon-192x192.png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "favicon-512x512.png",
+      "sizes": "512x512"
     }
   ],
   "start_url": "./index.html",
