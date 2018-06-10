@@ -1,10 +1,52 @@
 .mainPaper {
   width: 600px;
   height: 90%;
+  color: aliceblue;
   margin: 20px auto 10px auto;
 }
 .mainPaper h1,
-.mainPaper h2 {
+.mainPaper h2,
+.mainPaper h3,
+.mainPaper h4,
+.mainPaper h5 {
+  text-align: center;
+}
+.mainPaper h4,
+.mainPaper h5 {
+  color: grey;
+}
+.mainPaper .cards .paper {
+  width: 150px;
+  max-width: 28vw;
+  min-width: 100px;
+  height: 200px;
+}
+.mainPaper .cards .paper h3 {
+  color: black;
+  margin-top: 3px;
+}
+.mainPaper .cards .paper h5 {
+  margin-top: 0;
+}
+.mainPaper .cards .paper #cross-platform {
+  width: 100px;
+  height: 100px;
+}
+.mainPaper .cards .paper #cheap {
+  width: 50px;
+  height: 100px;
+}
+.mainPaper .cards .paper #fast {
+  width: 50px;
+  height: 100px;
+}
+.footer {
+  color: grey;
+  font-size: 12px;
+  position: fixed;
+  bottom: 40px;
+  left: 0;
+  width: 100%;
   text-align: center;
 }
 @media all and (max-width: 760px) {

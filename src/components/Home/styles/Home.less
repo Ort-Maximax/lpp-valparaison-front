@@ -1,11 +1,54 @@
 .mainPaper {
   width : 600px;
   height : 90%; 
+  color: aliceblue;
 
   margin: 20px auto 10px auto;
-  h1, h2 {
+  h1, h2, h3, h4, h5 {
     text-align : center;
   }
+  h4, h5 {
+    color: grey;
+  }
+  .cards {
+    .paper {
+      width: 150px;
+      max-width : 28vw;
+      min-width: 100px;
+      height: 200px;
+      h3 {
+        color: black;
+        margin-top: 3px;
+      }
+      h5 {
+        margin-top : 0;
+      }
+
+      #cross-platform {
+        width: 100px;
+        height: 100px;
+      }
+      #cheap {
+        width: 50px;
+        height: 100px;
+      }
+      #fast {
+        width: 50px;
+        height: 100px;
+      }
+    }
+
+  }
+}
+
+.footer {
+  color: grey;
+  font-size: 12px;
+  position : fixed;
+  bottom:40px;
+  left: 0;
+  width: 100%;
+  text-align: center;
 }
 
 @media all and (max-width: 760px){
