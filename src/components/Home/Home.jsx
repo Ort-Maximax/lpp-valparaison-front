@@ -48,7 +48,7 @@ const Home = () => (
                 style={{ width: '100%', margin: 0 }}
               >
                 <CrossPlatform id="cross-platform" />
-                <h3> Crossplatform</h3>
+                <h3> Cross-platform</h3>
                 <h5>Uploadez une fois, regardez partout !</h5>
               </Grid>
 
@@ -79,7 +79,7 @@ const Home = () => (
               >
                 <Fast id="fast" />
                 <h3> Super rapide</h3>
-                <h5>Pas de limite, tout le monde a pleine vitesse !</h5>
+                <h5>Pas de limite, tout le monde à pleine vitesse !</h5>
               </Grid>
 
             </Paper>

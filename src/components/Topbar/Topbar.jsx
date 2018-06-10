@@ -119,13 +119,11 @@ class Topbar extends Component {
                 {this.state.authenticated &&
                 <Fragment>
                   <Link to="/browse">Mon Valparaiso</Link>
-                  <a onClick={this.props.auth.logout} role="Link" style={{ color: 'red' }}>Déconnexion</a>
+                  {/*
+            <a onClick={this.props.auth.logout} role="Link" style={{ color: 'red' }}>Déconnexion</a>
+                  */}
+
                 </Fragment>
-                /*
-                <Fragment>
-                  <a onClick={this.props.auth.login} role="Link">Login</a>
-                </Fragment>
-                */
               }
               </section>
 

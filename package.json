@@ -38,7 +38,7 @@
     "start": "PORT=80 react-scripts start",
     "build": "react-scripts build",
     "build:svg": "svgr --single-quote --ext jsx ./src/img/svg/ -d ./src/img/components/",
-    "serve-build": "sudo serve --port 80 -os build",
+    "serve:build": "sudo serve --port 80 -s build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },

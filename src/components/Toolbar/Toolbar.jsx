@@ -91,15 +91,17 @@ class Toolbar extends React.Component {
               style={{ margin: 0, width: '100%' }}
               container
               direction="row"
+              justify="space-between"
+              alignItems="center"
             >
-              <Grid item style={{ width: 'calc(100% - 160px)', padding: 0 }}>
+              <Grid item id="breadcrumbs-container" style={{ width: 'calc(100% - 125px)', padding: 0 }}>
                 <Breadcrumbs
                   onCursorChange={this.props.onCursorChange}
                   cursor={this.props.cursor}
                 />
               </Grid>
 
-              <Grid item style={{ width: 160 }} container direction="row" justify="flex-end" alignItems="center">
+              <Grid item style={{ width: 135, paddingLeft: 0 }} container direction="row" justify="flex-end" alignItems="center">
                 <IconButton className={`toolbar-button ${this.props.searchbar && 'active'}`} onClick={() => this.toggleSearchbar()}>
                   <Search />
                 </IconButton>

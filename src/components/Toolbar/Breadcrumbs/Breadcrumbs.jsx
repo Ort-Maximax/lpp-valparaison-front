@@ -4,7 +4,6 @@ import Grid from 'material-ui/Grid';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 
-
 import Crumb from './Crumb/Crumb';
 import './styles/Breadcrumbs.css';
 
@@ -23,13 +22,14 @@ class Breadcrumbs extends React.Component {
 
   buildBreadCrumbs(currentCursor) {
     if (currentCursor && Object.keys(currentCursor).length > 0) {
+      console.log('build');
       this.setState({ currentCursor });
       // Cherche cursor dans le breadcrumbs du state precedent
       const found = this.state.crumbs.find(element => element.key === currentCursor.key);
-
+      let crumbs = [];
       // Si on ne trouve pas
       if (!found) {
-        const crumbs = [<Crumb
+        crumbs = [<Crumb
           key={currentCursor.key}
           cursor={currentCursor}
           onCursorChange={this.props.onCursorChange}
@@ -44,16 +44,15 @@ class Breadcrumbs extends React.Component {
           />);
           currentCursor = currentCursor.parent;
         }
-        this.setState({ crumbs });
       } else {
         // Change le crumb selectionné
-        const crumbs = this.state.crumbs.map(crumb =>
+        crumbs = this.state.crumbs.map(crumb =>
           Object.assign(
             {},
             crumb, { props: { ...crumb.props, selected: crumb.key === found.key } },
           ));
-        this.setState({ crumbs });
       }
+      this.setState({ crumbs });
     }
   }
 
@@ -87,9 +86,9 @@ class Breadcrumbs extends React.Component {
         container
         direction="row"
       >
-        <div className="arrow left" onClick={() => arrowClick('<')} role="button"> <KeyboardArrowLeft /> </div>
+        <div className="arrow left crumbEl" onClick={() => arrowClick('<')} role="button"> <KeyboardArrowLeft /> </div>
         {this.state.crumbs}
-        <div className="arrow right" onClick={() => arrowClick('>')} role="button"> <KeyboardArrowRight /> </div>
+        <div className="arrow right crumbEl" onClick={() => arrowClick('>')} role="button"> <KeyboardArrowRight /> </div>
       </Grid>
     );
   }

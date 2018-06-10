@@ -5,7 +5,7 @@ import './styles/Crumb.css';
 
 const Crumb = props => (
   <div
-    className={`crumb ${props.selected ? 'selected' : ''}`}
+    className={`crumb ${props.selected ? 'selected' : ''} crumbEl`}
     onClick={() => props.onCursorChange(props.cursor)}
     role="button"
   >
