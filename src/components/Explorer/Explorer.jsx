@@ -434,7 +434,7 @@ class Explorer extends React.Component {
                 />
               </Grid>
 
-              <section className="dl-view" >
+              <section className="dl-view" style={{ bottom: this.props.audioPlayer ? 50 : 100 }} >
                 <DownloadView
                   uploadQueue={this.state.uploadQueue}
                 />

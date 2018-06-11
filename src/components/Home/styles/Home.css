@@ -49,6 +49,49 @@
   width: 50px;
   height: 100px;
 }
+.mainPaper .links {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.mainPaper .links * {
+  position: relative;
+  outline: none;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.mainPaper .links *:after,
+.mainPaper .links *:before {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.mainPaper .links .pricing-link {
+  margin-top: 10vh;
+  font-weight: bold;
+  font-size: 26px;
+  color: white;
+}
+.mainPaper .links .pricing-link:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: -3px;
+  left: 0;
+  background: aliceblue;
+  visibility: hidden;
+  border-radius: 5px;
+  transform: scaleX(0);
+  transition: .15s linear;
+}
+.mainPaper .links .pricing-link:hover {
+  transition: .5s linear;
+  color: inherit;
+}
+.mainPaper .links .pricing-link:hover:before {
+  visibility: visible;
+  transform: scaleX(1);
+}
 .footer {
   color: grey;
   font-size: 12px;

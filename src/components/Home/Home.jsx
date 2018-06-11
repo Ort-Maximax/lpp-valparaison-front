@@ -2,6 +2,8 @@ import React from 'react';
 import Paper from 'material-ui/Paper';
 import Grid from 'material-ui/Grid';
 
+import { Link } from 'react-router-dom';
+
 import './styles/stars.css';
 import './styles/Home.css';
 
@@ -84,7 +86,13 @@ const Home = () => (
 
             </Paper>
           </Grid>
-          <h1 style={{ marginTop: '10vh' }}> Découvrez nos offres et tarifs</h1>
+
+          <div className="links">
+            <Link to="/pricing" className="pricing-link">
+              Découvrez nos offres et tarifs
+            </Link>
+          </div>
+
 
         </Grid>
 

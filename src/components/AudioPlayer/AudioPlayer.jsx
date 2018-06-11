@@ -18,7 +18,7 @@ import './styles/AudioPlayer.css';
 class AudioPlayer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { authenticated: null, playlist: this.props.playlist, playerCollapsed: false };
+    this.state = { authenticated: null, playlist: this.props.playlist };
     this.shouldUpdate = false;
     this.audioComponent = undefined;
     this.checkAuthentication = this.checkAuthentication.bind(this);
@@ -49,7 +49,7 @@ class AudioPlayer extends React.Component {
   }
 
   togglePlayer = () => {
-    this.setState({ playerCollapsed: !this.state.playerCollapsed });
+    this.props.toggleAudioPlayer();
   }
   render() {
     // Only show player if authenticated
@@ -59,7 +59,7 @@ class AudioPlayer extends React.Component {
         <Grid container layout="row" alignItems="flex-end" justify="flex-end">
           <IconButton onClick={this.togglePlayer}>
             {
-            this.state.playerCollapsed ?
+            this.props.playerCollapsed ?
               <MusicNote />
               :
               <KeyboardArrowDown />
@@ -69,7 +69,7 @@ class AudioPlayer extends React.Component {
 
         </Grid>
         <Audio
-          style={{ display: this.state.playerCollapsed ? 'none' : 'block' }}
+          style={{ display: this.props.playerCollapsed ? 'none' : 'block' }}
           color="#2aa6ea"
           width={300}
           height={100}

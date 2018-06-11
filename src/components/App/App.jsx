@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react';
 import Home from '../Home/Home';
 import Topbar from '../Topbar/Topbar';
+import Pricing from '../Pricing/Pricing';
 import AudioPlayer from '../AudioPlayer/AudioPlayer';
 import Login from '../Login/Login';
 /* import Signup from '../Signup/Signup'; */
@@ -18,15 +19,19 @@ function onAuthRequired({ history }) {
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { musicPlaylist: [] };
+    this.state = { musicPlaylist: [], audioPlayer: false };
     this.apiUrl = 'https://valparaiso-mockup.herokuapp.com'; // Pour netlify
     // this.apiUrl = 'http://valparaiso.fr:3009'; // Pour dev
     // this.apiUrl = 'http://api.valparaiso.fr'; // Pour la prod
     this.onPlaylistChange = this.onPlaylistChange.bind(this);
   }
 
-  onPlaylistChange(sound) {
+  onPlaylistChange = (sound) => {
     this.setState({ musicPlaylist: [sound] });
+  }
+
+  onToggleAudioPlayer = () => {
+    this.setState({ audioPlayer: !this.state.audioPlayer });
   }
 
   render() {
@@ -41,10 +46,18 @@ class App extends Component {
           >
             <Route path="/" component={Topbar} />
             <Route path="/" exact component={Home} />
-            <SecureRoute path="/browse" exact render={() => <Explorer onPlaylistChange={this.onPlaylistChange} apiUrl={this.apiUrl} />} />
+            <Route path="/pricing" exact component={Pricing} />
+            <SecureRoute path="/browse" exact render={() => <Explorer audioPlayer={this.state.audioPlayer} onPlaylistChange={this.onPlaylistChange} apiUrl={this.apiUrl} />} />
             <Route path="/login" exact render={() => <Login baseUrl="https://dev-438691.oktapreview.com" />} />
             <Route path="/implicit/callback" component={ImplicitCallback} />
-            <Route path="/" render={() => <AudioPlayer playlist={this.state.musicPlaylist} />} />
+            <Route
+              path="/"
+              render={() => (<AudioPlayer
+                toggleAudioPlayer={this.onToggleAudioPlayer}
+                playerCollapsed={this.state.audioPlayer}
+                playlist={this.state.musicPlaylist}
+              />)}
+            />
           </Security>
         </Router>
       </Fragment>
