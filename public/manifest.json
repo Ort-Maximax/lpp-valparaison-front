@@ -1,6 +1,8 @@
 {
   "short_name": "Valparaiso",
   "name": "Valparaiso - Cloud & Streaming",
+  "start_url": ".",
+  "display": "standalone",
   "icons": [
     {
       "src": "favicon.ico",
@@ -15,9 +17,7 @@
       "src": "favicon-512x512.png",
       "sizes": "512x512"
     }
-  ],
-  "start_url": ".",
-  "display": "standalone",
+  ],  
   "theme_color": "#000000",
   "background_color": "#ffffff"
 }
