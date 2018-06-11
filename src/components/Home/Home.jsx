@@ -4,7 +4,7 @@ import Grid from 'material-ui/Grid';
 
 import { Link } from 'react-router-dom';
 
-import './styles/stars.css';
+import '../../libs/stars.css';
 import './styles/Home.css';
 
 import CrossPlatform from '../../img/components/CrossPlatform';
