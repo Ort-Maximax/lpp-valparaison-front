@@ -24,3 +24,9 @@
 .pricing-paper .pricing-body .pricing-component.description {
   color: blue;
 }
+@media all and (max-width: 500px) {
+  .pricing-paper {
+    width: 90vw;
+    height: 25%;
+  }
+}

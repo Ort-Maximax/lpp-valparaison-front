@@ -1,9 +1,6 @@
 import React from 'react';
 import Grid from 'material-ui/Grid';
 
-import PricingCard from '../PricingCard/PricingCard';
-
-import Logo from '../../img/components/Logo';
 import './styles/Pricings.css';
 import '../../libs/stars.css';
 
@@ -19,11 +16,7 @@ const Pricings = () => (
       alignItems="center"
       className="pricings-container"
     >
-      <PricingCard icon={<Logo />} price="3.00" description="Plutot Cool" />
-
-      <PricingCard icon={<Logo />} price="3.00" description="Plutot Cool" />
-
-      <PricingCard icon={<Logo />} price="3.00" description="Plutot Cool" />
+    TEST
     </Grid>
   </section>
 

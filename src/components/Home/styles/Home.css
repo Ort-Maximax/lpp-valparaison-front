@@ -116,7 +116,7 @@
     font-size: 10px;
   }
 }
-@media all and (max-width: 400px) {
+@media all and (max-width: 500px) {
   .mainPaper .cards .paper {
     margin: 10px;
     width: 100%;
