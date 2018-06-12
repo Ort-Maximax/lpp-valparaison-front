@@ -93,15 +93,15 @@ const Home = () => (
             </Link>
           </div>
 
-
+          <div className="footer" >
+            Made with <span role="img" aria-label="heart">❤️</span> by Clément S.
+          </div>
         </Grid>
-
-        <div className="footer" >
-          Made with <span role="img" aria-label="heart">❤️</span> by Clément S.
-        </div>
 
 
       </Grid>
+
+
     </div>
   </section>
 );

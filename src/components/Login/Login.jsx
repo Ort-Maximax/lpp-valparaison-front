@@ -56,7 +56,7 @@ export default withAuth(class Login extends Component {
     if (this.state.authenticated === null) return null;
     return this.state.authenticated ?
       <Redirect to={{ pathname: '/' }} /> :
-      <div>
+      <div className="forms-container">
         <AppBar position="static" className="tabsHeader">
           <Tabs value={value} onChange={this.handleChange}>
             <Tab label="Connexion" />

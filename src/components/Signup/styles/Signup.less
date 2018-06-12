@@ -14,7 +14,8 @@
   box-shadow: 0 2px 0 rgba(175, 175, 175, 0.12) !important;
   .header {
     .logoContainer {
-      padding : 30px 90px;
+      margin: 30px auto;
+      padding-bottom: 30px;
       position: relative;
       border-bottom: 1px solid #ddd;
       .logoIcon {
@@ -65,6 +66,12 @@
   }
 
 };
+
+@media all and (max-width: 480px){
+  .card {
+    width : 300px;
+  }  
+}
 
 @media all and (max-height: 760px){
   #okta-sign-in, .card {

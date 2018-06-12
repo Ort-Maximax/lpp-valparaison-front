@@ -14,7 +14,8 @@
   box-shadow: 0 2px 0 rgba(175, 175, 175, 0.12) !important;
 }
 .card .header .logoContainer {
-  padding: 30px 90px;
+  margin: 30px auto;
+  padding-bottom: 30px;
   position: relative;
   border-bottom: 1px solid #ddd;
 }
@@ -57,6 +58,11 @@
 }
 .card .cardContent .form-container .button:hover {
   background-color: #0087d0;
+}
+@media all and (max-width: 480px) {
+  .card {
+    width: 300px;
+  }
 }
 @media all and (max-height: 760px) {
   #okta-sign-in,

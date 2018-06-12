@@ -8,17 +8,19 @@
   margin: 0;
 }
 .pricing-paper .pricing-body .pricing-component {
-  height: 33%;
   margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+.pricing-paper .pricing-body .pricing-component.icon {
+  height: 33%;
+}
 .pricing-paper .pricing-body .pricing-component.icon svg {
   width: 100px;
 }
 .pricing-paper .pricing-body .pricing-component.price-tag {
-  font-size: 26px;
+  font-size: 52px;
   font-weight: bold;
 }
 .pricing-paper .pricing-body .pricing-component.description {

@@ -2,7 +2,7 @@
   font-family: 'Muli', sans-serif;
   overflow-y: auto;
   width: 100%;
-  height: 90%;
+  height: 100%;
   color: aliceblue;
   margin: 20px auto 10px auto;
 }
@@ -24,7 +24,7 @@
 }
 .mainPaper .cards .paper {
   background-color: aliceblue;
-  width: 28vw;
+  width: 28%;
   max-width: 350px;
   min-width: 100px;
   height: 200px;
@@ -70,6 +70,8 @@
   font-weight: bold;
   font-size: 26px;
   color: white;
+  margin-bottom: 100px;
+  text-align: center;
 }
 .mainPaper .links .pricing-link:before {
   content: "";
@@ -95,11 +97,19 @@
 .footer {
   color: grey;
   font-size: 12px;
-  position: fixed;
-  bottom: 40px;
-  left: 0;
-  width: 100%;
   text-align: center;
+  padding-bottom: 10px;
+  width: 100%;
+}
+@media all and (min-width: 1500px) {
+  .mainPaper {
+    width: 50%;
+  }
+}
+@media all and (min-width: 860px) and (max-width: 1500px) {
+  .mainPaper {
+    width: 70%;
+  }
 }
 @media all and (max-width: 760px) {
   .mainPaper {
