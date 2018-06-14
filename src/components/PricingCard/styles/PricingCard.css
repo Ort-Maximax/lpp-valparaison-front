@@ -4,6 +4,7 @@
   max-height: 50vh;
   height: 350px;
   min-height: 265px;
+  transition: linear .1s;
 }
 .pricing-paper .pricing-body {
   height: 100%;
@@ -45,7 +46,6 @@
 }
 .pricing-paper:hover {
   transform: scale(1.1);
-  transition: linear .1s;
 }
 @media all and (max-width: 500px) {
   .pricing-paper {
