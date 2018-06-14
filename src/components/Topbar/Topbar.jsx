@@ -27,6 +27,7 @@ import { MenuItem, MenuList } from 'material-ui/Menu';
 /* Icons */
 import MenuIcon from 'material-ui-icons/Menu';
 import ProtectedIcon from 'material-ui-icons/LockOutline';
+import MoneyIcon from 'material-ui-icons/AttachMoney';
 import LoginIcon from 'material-ui-icons/Person';
 import LogoutIcon from 'material-ui-icons/Close';
 
@@ -124,7 +125,8 @@ class Topbar extends Component {
                   */}
 
                 </Fragment>
-              }
+                }
+                <Link to="/pricing"> Nos offres </Link>
               </section>
 
               <IconButton onClick={this.toggleDrawer('left', true)} className="topBarMenuButton">
@@ -189,6 +191,15 @@ class Topbar extends Component {
                             <ProtectedIcon />
                           </ListItemIcon>
                           <ListItemText primary="Mon Valparaiso" />
+                        </ListItem>
+                      </Link>
+                      <Divider />
+                      <Link to="/pricing">
+                        <ListItem>
+                          <ListItemIcon>
+                            <MoneyIcon />
+                          </ListItemIcon>
+                          <ListItemText primary="Nos offres" />
                         </ListItem>
                       </Link>
                       <Divider />

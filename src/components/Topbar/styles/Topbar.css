@@ -39,6 +39,9 @@ a:hover {
   align-items: center;
   justify-content: flex-end;
 }
+.topBarContainer .clickable .topBarLinks {
+  padding-right: 10px;
+}
 .topBarContainer .clickable .topBarLinks * {
   position: relative;
   outline: none;
