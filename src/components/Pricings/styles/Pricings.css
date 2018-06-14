@@ -1,5 +1,10 @@
 .starsContainer .pricings-container {
-  height: 100%;
+  height: calc(100% - 56px);
   width: 100%;
   margin: 0;
+  overflow-y: scroll;
+}
+.starsContainer .pricings-container .pricing-desc svg {
+  width: 25px;
+  height: 25px;
 }

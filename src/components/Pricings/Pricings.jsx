@@ -2,11 +2,29 @@ import React from 'react';
 import Grid from 'material-ui/Grid';
 
 import PricingCard from '../PricingCard/PricingCard';
-
 import './styles/Pricings.css';
 import '../../libs/stars.css';
 
-import Logo from '../../img/components/Logo';
+import Vulture from '../../img/components/Vulture';
+import Eagle from '../../img/components/Eagle';
+import Pigeon from '../../img/components/Pigeon';
+
+const vautourDesc = (
+  <div className="pricing-desc">
+    <div> 500 Mo</div>
+    <div> 100 Mo / fichier</div>
+  </div>);
+
+const aigleDesc = (
+  <div className="pricing-desc">
+    <div> 5 Go</div>
+    <div> 1 Go / fichier</div>
+  </div>);
+
+const pigeonDesc = (
+  <div className="pricing-desc">
+    <div> Thème bling-bling</div>
+  </div>);
 
 const Pricings = () => (
   <section className="starsContainer">
@@ -20,11 +38,11 @@ const Pricings = () => (
       alignItems="center"
       className="pricings-container"
     >
-      <PricingCard icon={<Logo />} title="Vautour" price="0" description="Pour les plus pauvres" />
+      <PricingCard icon={<Vulture />} title="Vautour" price="0" description={vautourDesc} />
 
-      <PricingCard icon={<Logo />} title="Aigle" price="14.99" description="Le seul vrai plan, en vrai" />
+      <PricingCard icon={<Eagle />} title="Aigle" price="14.99" description={aigleDesc} />
 
-      <PricingCard icon={<Logo />} title="Pigeon" price="2000" description="Pour les  plus cons" />
+      <PricingCard icon={<Pigeon />} title="Pigeon" price="2000" description={pigeonDesc} />
     </Grid>
   </section>
 

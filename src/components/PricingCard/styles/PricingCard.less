@@ -1,6 +1,9 @@
 .pricing-paper {
   width: 30vw;
-  height: 50vh;
+  min-width: 165px;
+  max-height : 50vh;
+  height : 350px;
+  min-height : 265px;
   .pricing-body {
     height: 100%;
     width: 100%;
@@ -13,26 +16,55 @@
       &.icon {
         height : 33%;
         svg {
-          width: 100px
+          width: 100px;
+          height: 100px;
         }
       }
       &.title {
-
+        padding: 15px 0;
+        font-family: 'Lobster', cursive;
+        font-size : 2rem;
       }
       &.price-tag {
-        font-size: 52px;
+        font-size: 33px;
         font-weight: bold;
+        &:after {
+          content: "/ mois";
+          position: relative;
+          margin-top: 22px;
+          font-size : 8px;
+        }
       }
       &.description {
-        color: blue;
+        padding: 15px 5px;
+        color: #1c1c66;
+        font-weight : bold;
       }
     }
+  }
+  &:hover {
+    transform: scale(1.1);
+    transition: linear .1s;
   }
 }
 
 @media all and (max-width: 500px){
   .pricing-paper {
     width: 90vw;
-    height : 25%;
+    height : 27%;
+    min-height : 380px;
+    .pricing-body {
+      .pricing-component {
+        &.icon {
+          svg {
+            width: 70px;
+            height: 70px;
+          }        
+        }
+        &.price-tag {
+          font-size : 45px;
+        }
+      }
+    }
   }
 }

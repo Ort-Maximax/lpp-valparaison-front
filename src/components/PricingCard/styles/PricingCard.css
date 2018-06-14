@@ -1,6 +1,9 @@
 .pricing-paper {
   width: 30vw;
-  height: 50vh;
+  min-width: 165px;
+  max-height: 50vh;
+  height: 350px;
+  min-height: 265px;
 }
 .pricing-paper .pricing-body {
   height: 100%;
@@ -18,17 +21,43 @@
 }
 .pricing-paper .pricing-body .pricing-component.icon svg {
   width: 100px;
+  height: 100px;
+}
+.pricing-paper .pricing-body .pricing-component.title {
+  padding: 15px 0;
+  font-family: 'Lobster', cursive;
+  font-size: 2rem;
 }
 .pricing-paper .pricing-body .pricing-component.price-tag {
-  font-size: 52px;
+  font-size: 33px;
   font-weight: bold;
 }
+.pricing-paper .pricing-body .pricing-component.price-tag:after {
+  content: "/ mois";
+  position: relative;
+  margin-top: 22px;
+  font-size: 8px;
+}
 .pricing-paper .pricing-body .pricing-component.description {
-  color: blue;
+  padding: 15px 5px;
+  color: #1c1c66;
+  font-weight: bold;
+}
+.pricing-paper:hover {
+  transform: scale(1.1);
+  transition: linear .1s;
 }
 @media all and (max-width: 500px) {
   .pricing-paper {
     width: 90vw;
-    height: 25%;
+    height: 27%;
+    min-height: 380px;
+  }
+  .pricing-paper .pricing-body .pricing-component.icon svg {
+    width: 70px;
+    height: 70px;
+  }
+  .pricing-paper .pricing-body .pricing-component.price-tag {
+    font-size: 45px;
   }
 }
