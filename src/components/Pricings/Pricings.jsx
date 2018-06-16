@@ -1,13 +1,15 @@
 import React from 'react';
 import Grid from 'material-ui/Grid';
 
-import PricingCard from '../PricingCard/PricingCard';
-import './styles/Pricings.css';
-import '../../libs/stars.css';
+import Vulture from 'img/components/Vulture';
+import Eagle from 'img/components/Eagle';
+import Pigeon from 'img/components/Pigeon';
 
-import Vulture from '../../img/components/Vulture';
-import Eagle from '../../img/components/Eagle';
-import Pigeon from '../../img/components/Pigeon';
+import 'libs/stars.css';
+
+import PricingCard from './PricingCard/PricingCard';
+import './styles/Pricings.css';
+
 
 const vautourDesc = (
   <div className="pricing-desc">

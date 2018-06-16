@@ -18,11 +18,10 @@ import { MenuItem, MenuList } from 'material-ui/Menu';
 
 import Input from 'material-ui/Input';
 
+import Add from 'img/components/Add';
 
 import Breadcrumbs from './Breadcrumbs/Breadcrumbs';
 import './styles/Toolbar.css';
-
-import Add from '../../img/components/Add';
 
 
 class Toolbar extends React.Component {

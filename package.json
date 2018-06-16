@@ -35,8 +35,8 @@
     "video-react": "^0.10.5"
   },
   "scripts": {
-    "start": "PORT=80 react-scripts start",
-    "build": "react-scripts build",
+    "start": "NODE_PATH=./src PORT=80 react-scripts start",
+    "build": "NODE_PATH=./src react-scripts build",
     "build:svg": "svgr --single-quote --ext jsx ./src/img/svg/ -d ./src/img/components/",
     "serve:build": "sudo serve --port 80 -s build",
     "test": "react-scripts test --env=jsdom",

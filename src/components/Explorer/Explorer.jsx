@@ -24,10 +24,10 @@ import 'rodal/lib/rodal.css';
 
 import CloseIcon from '@material-ui/icons/Close';
 
-import Toolbar from '../Toolbar/Toolbar';
+import Toolbar from './Toolbar/Toolbar';
 
 // import TreeViewer from './TreeViewer/TreeViewer';
-import NodeViewer from '../NodeViewer/NodeViewer';
+import NodeViewer from './NodeViewer/NodeViewer';
 
 import './styles/Explorer.css';
 

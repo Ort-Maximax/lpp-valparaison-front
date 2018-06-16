@@ -5,8 +5,8 @@ import { withAuth } from '@okta/okta-react';
 import AppBar from 'material-ui/AppBar';
 import Tabs, { Tab } from 'material-ui/Tabs';
 
-import OktaSignInWidget from '../OktaSignInWidget/OktaSignInWidget';
-import Signup from '../Signup/Signup';
+import OktaSignInWidget from './OktaSignInWidget/OktaSignInWidget';
+import Signup from './Signup/Signup';
 
 import './styles/Login.css';
 

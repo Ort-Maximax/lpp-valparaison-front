@@ -9,14 +9,17 @@ import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
 
 import { ContextMenu, ContextMenuTrigger } from 'react-contextmenu';
-import NvContext from '../NvContext/NvContext';
+
+import CloudDown from 'img/components/CloudDown';
+
+
+import NvContext from './NvContext/NvContext';
 
 
 import './styles/NodeViewer.css';
-import Element from '../Element/Element';
-import VideoPlayer from '../VideoPlayer/VideoPlayer';
+import Element from './Element/Element';
+import VideoPlayer from './VideoPlayer/VideoPlayer';
 
-import CloudDown from '../../img/components/CloudDown';
 
 class NodeViewer extends React.Component {
   constructor(props) {
