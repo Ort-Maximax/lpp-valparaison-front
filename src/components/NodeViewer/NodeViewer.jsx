@@ -4,17 +4,13 @@ import React, { Fragment } from 'react';
 import Dropzone from 'react-dropzone';
 
 import Grid from 'material-ui/Grid';
-import Paper from 'material-ui/Paper';
 
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
 
-import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
-import CloudDownload from '@material-ui/icons/CloudDownload';
-import DeleteForever from '@material-ui/icons/DeleteForever';
-import Transform from '@material-ui/icons/Transform';
+import { ContextMenu, ContextMenuTrigger } from 'react-contextmenu';
+import NvContext from '../NvContext/NvContext';
 
-import Divider from 'material-ui/Divider';
 
 import './styles/NodeViewer.css';
 import Element from '../Element/Element';
@@ -297,11 +293,10 @@ class NodeViewer extends React.Component {
                       <CloudDown />
                       <h2>Drop your files here to upload</h2>
                     </Grid>
-
                   </Rodal>
+
                 </Grid>
               </Fragment>
-
               }
 
             </Dropzone>
@@ -315,59 +310,15 @@ class NodeViewer extends React.Component {
         </ContextMenuTrigger>
 
         <ContextMenu id="nv-context-menu">
-          <Paper className="noselect">
-            {/* TODO: Bind les actions */}
-            <MenuItem onClick={this.props.handleAddClick}>
-              <b>Nouveau fichier</b>
-            </MenuItem>
-            <Divider />
-
-            <MenuItem
-              onClick={this.props.handleNewFolderClick}
-              disabled={this.props.selectedElements.length !== 0}
-            >
-              <div>Nouveau Dossier</div>
-            </MenuItem>
-
-            <Divider />
-
-            <MenuItem
-              onClick={this.props.handleRenameClick}
-              disabled={this.props.selectedElements.length !== 1}
-            >
-              <div>Renommer</div>
-            </MenuItem>
-
-            <Divider />
-
-            <MenuItem
-              onClick={this.props.handleDeleteClick}
-              disabled={this.props.selectedElements.length === 0}
-            >
-              <DeleteForever />
-              <div>Supprimer</div>
-            </MenuItem>
-
-            <Divider />
-
-            <MenuItem
-              onClick={this.props.handleDownloadClick}
-              disabled={this.props.selectedElements.length === 0}
-            >
-              <CloudDownload />
-              <div>Telecharger</div>
-            </MenuItem>
-
-            <Divider />
-
-            <MenuItem
-              onClick={this.props.handleConvertClick}
-              disabled={this.props.selectedElements.length === 0}
-            >
-              <Transform />
-              <div>Convertir</div>
-            </MenuItem>
-          </Paper>
+          <NvContext
+            handleAddClick={this.props.handleAddClick}
+            handleNewFolderClick={this.props.handleNewFolderClick}
+            selectedElements={this.props.selectedElements}
+            handleRenameClick={this.props.handleRenameClick}
+            handleDeleteClick={this.props.handleDeleteClick}
+            handleDownloadClick={this.props.handleDownloadClick}
+            handleConvertClick={this.props.handleConvertClick}
+          />
         </ContextMenu>
 
 

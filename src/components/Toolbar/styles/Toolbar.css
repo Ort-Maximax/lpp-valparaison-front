@@ -16,7 +16,7 @@
   position: absolute;
   top: 33px;
   right: 5px;
-  z-index: 999;
+  z-index: 5;
   transition: linear 100ms;
 }
 .toolbar-container .action-menu ul {

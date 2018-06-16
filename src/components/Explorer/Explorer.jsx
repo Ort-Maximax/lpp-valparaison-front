@@ -11,13 +11,17 @@ import fileDownload from 'js-file-download';
 import axios from 'axios';
 import uuidv1 from 'uuid';
 
+import Input from 'material-ui/Input';
+import Snackbar from 'material-ui/Snackbar';
 import IconButton from 'material-ui/IconButton';
 import Button from 'material-ui/Button';
+import Radio from 'material-ui/Radio';
+
+
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
 
-import Input from 'material-ui/Input';
-import Snackbar from 'material-ui/Snackbar';
+
 import CloseIcon from '@material-ui/icons/Close';
 
 import Toolbar from '../Toolbar/Toolbar';
@@ -45,6 +49,25 @@ const processData = (data) => {
     } else {
       el.ext = el.name.substring(el.name.indexOf('.')).toLowerCase();
     }
+    switch (el.ext) {
+      case ('.avi'):
+      case ('.mkv'):
+      case ('.webm'):
+      case ('.mp4'):
+      case ('.ogv'):
+        el.type = 'video';
+        break;
+      case ('.mp3'):
+      case ('.oga'):
+      case ('.ogg'):
+      case ('.wav'):
+      case ('.flac'):
+        el.type = 'sound';
+        break;
+      default:
+        el.type = null;
+    }
+
     if (el.children) {
       el.children = sortBy(el.children, x => x.name);
       // call the data processing function for its children
@@ -76,6 +99,7 @@ class Explorer extends React.Component {
       toggleSelect: false,
       selectedElements: [],
       renameDialog: false,
+      convertDialog: false,
       deleteDialog: false,
       newFileName: '',
       snackOpen: false,
@@ -86,10 +110,6 @@ class Explorer extends React.Component {
   componentWillMount() {
     setBearer();
     this.getData();
-  }
-
-  componentWillUnmount() {
-    // this.unlisten();
   }
 
   onSearchbarUpdate = () => {
@@ -332,10 +352,13 @@ class Explorer extends React.Component {
       console.log('Download  : ');
       this.state.selectedElements.forEach((el) => {
         console.log(el.name);
-        axios.get(`${this.props.apiUrl}/downloadFile?path=${encodeURIComponent(el.path)}`)
+
+        axios.get(`${this.props.apiUrl}/downloadFile?path=${encodeURIComponent(el.path)}`, { responseType: 'blob' })
           .then((response) => {
+            console.log(response);
             fileDownload(response.data, el.name);
           });
+
 
         // window.open(`${this.props.apiUrl}/downloadFile?path=${encodeURIComponent(el.path)}`);
       });
@@ -343,13 +366,14 @@ class Explorer extends React.Component {
   }
 
   handleConvertClick = () => {
-    if (this.state.selectedElements.length > 0) {
-      console.log('Convert !');
-      // TODO: Ouvre un dialog de conversion,
-      // qui propose les  conversions possible pour chaque selectedElements
-      // Affiche ensuite la progression des conversions en bas a droite
-      // Et envoi une notification
+    if (this.state.selectedElements.length > 0 && !this.state.selectedElements[0].children) {
+      console.log(this.state.selectedElements[0]);
+      this.setState({ convertDialog: true });
     }
+  }
+
+  closeConvertDialog = () => {
+    this.setState({ convertDialog: false });
   }
 
   closeSnack = () => {
@@ -497,6 +521,68 @@ class Explorer extends React.Component {
             </Grid>
           </Grid>
         </Rodal>
+
+        {
+          this.state.selectedElements[0] &&
+          <Rodal
+            visible={this.state.convertDialog}
+            onClose={this.closeConvertDialog}
+            closeOnEsc
+            width={400}
+            height={350}
+            animation="slideUp"
+          >
+            <h3> Convertir {this.state.selectedElements[0].name}
+            </h3>
+            {
+            this.state.selectedElements[0].type === 'sound' &&
+            <Grid container direction="row">
+
+              <Grid container item direction="column" xs={6}>
+                <h5> Format </h5>
+                <div>
+                  <Radio value="mp3" />
+                  mp3
+                </div>
+                <div>
+                  <Radio value="oga" />
+                  oga
+                </div>
+                <div>
+                  <Radio value="flac" />
+                  flac
+                </div>
+                <div>
+                  <Radio value="wav" />
+                  wav
+                </div>
+              </Grid>
+
+              <Grid container item direction="column" xs={6}>
+                <h5> Codec </h5>
+                <div>
+                  <Radio value="vorbis" id="c-vorbis" />
+                  Vorbis
+                </div>
+              </Grid>
+              <Button id="convert-button">
+                Convertir !
+              </Button>
+            </Grid>
+            }
+
+            {
+            this.state.selectedElements[0].type === 'video' &&
+            <div> Une video </div>
+            }
+
+            {
+            this.state.selectedElements[0].type === null &&
+            <div> Aucune idée</div>
+            }
+          </Rodal>
+        }
+
 
         <Snackbar
           anchorOrigin={{
