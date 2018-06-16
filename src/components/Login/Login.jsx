@@ -13,8 +13,6 @@ import './styles/Login.css';
 export default withAuth(class Login extends Component {
   constructor(props) {
     super(props);
-    this.onSuccess = this.onSuccess.bind(this);
-    this.onError = this.onError.bind(this);
     this.state = {
       authenticated: null,
       value: 0,
@@ -26,17 +24,9 @@ export default withAuth(class Login extends Component {
     this.checkAuthentication();
   }
 
-  onSuccess(res) {
-    console.log(res);
-    return this.props.auth.redirect({
-      sessionToken: res.idToken,
-    });
-  }
-
-  onError(err) {
-    console.log('error logging in', err);
-    console.log(this);
-  }
+  onSuccess =res => this.props.auth.redirect({
+    sessionToken: res.idToken,
+  })
 
   async checkAuthentication() {
     const authenticated = await this.props.auth.isAuthenticated();
@@ -67,7 +57,7 @@ export default withAuth(class Login extends Component {
           <OktaSignInWidget
             baseUrl={this.props.baseUrl}
             onSuccess={this.onSuccess}
-            onError={this.onError}
+            onError={(err) => { console.log(err); }}
           />
         }
         {value === 1 && <Signup /> }

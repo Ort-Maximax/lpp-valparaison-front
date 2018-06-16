@@ -164,8 +164,6 @@ class Explorer extends React.Component {
   }
 
   onDrop = (files) => {
-    console.log(files);
-
     if (this.state.uploadQueue && this.state.uploadQueue.length > 0) {
       this.setState({ uploadQueue: [...this.state.uploadQueue, ...files] });
     } else {
@@ -177,14 +175,10 @@ class Explorer extends React.Component {
       data.append('path', `${this.state.cursor.path}/${file.name}`);
       data.append('data', file);
 
-      console.log(this.state.cursor);
-
       axios.put(`${this.props.apiUrl}/uploadFile`, data).then((res, index) => {
         file.uploaded = true;
         files[index] = file;
         this.getData();
-
-        console.log(res);
       }, (err) => {
         console.log(err);
         file.uploaded = true;
@@ -253,10 +247,8 @@ class Explorer extends React.Component {
   }
 
   handleAddClick = () => {
-    console.log('Add !');
     // TODO: Ouvre l'explorer
     if (this.state.dropzone) {
-      console.log(this.state.dropzone);
       this.state.dropzone.open();
     }
   }
@@ -267,7 +259,6 @@ class Explorer extends React.Component {
     };
     axios.post(`${this.props.apiUrl}/createDirectory`, postData)
       .then((res) => {
-        console.log(res);
         this.getData();
       }, (err) => {
         console.log(err);
@@ -319,7 +310,6 @@ class Explorer extends React.Component {
 
   handleDeleteClick = () => {
     if (this.state.selectedElements.length > 0) {
-      console.log('Delete !');
       // Ouvre la modal de confirmation de suppression
       this.setState({ deleteDialog: true });
     }
@@ -331,10 +321,7 @@ class Explorer extends React.Component {
 
   confirmDelete = () => {
     this.state.selectedElements.forEach((el) => {
-      console.log(el.path);
-      axios.get(`${this.props.apiUrl}/removeElement?path=${encodeURIComponent(el.path)}`).then(() => {
-        console.log(`Succes delete de ${el.path}`);
-      });
+      axios.get(`${this.props.apiUrl}/removeElement?path=${encodeURIComponent(el.path)}`);
     });
 
     this.setState({ snackOpen: true, snackText: 'Supression effectuée' });
@@ -349,13 +336,9 @@ class Explorer extends React.Component {
 
   handleDownloadClick = () => {
     if (this.state.selectedElements.length > 0) {
-      console.log('Download  : ');
       this.state.selectedElements.forEach((el) => {
-        console.log(el.name);
-
         axios.get(`${this.props.apiUrl}/downloadFile?path=${encodeURIComponent(el.path)}`, { responseType: 'blob' })
           .then((response) => {
-            console.log(response);
             fileDownload(response.data, el.name);
           });
 
@@ -367,7 +350,6 @@ class Explorer extends React.Component {
 
   handleConvertClick = () => {
     if (this.state.selectedElements.length > 0 && !this.state.selectedElements[0].children) {
-      console.log(this.state.selectedElements[0]);
       this.setState({ convertDialog: true });
     }
   }

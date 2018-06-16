@@ -1,3 +1,4 @@
+/* global window */
 import React, { Fragment, Component } from 'react';
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
 import Button from 'material-ui/Button';
@@ -35,7 +36,6 @@ class Signup extends Component {
       },
     };
 
-    /* TODO: Mettre le token et l'url de base dans le contexte */
     const apiToken = '00hrOoFyIT8AesDcuXxPpK6u_NtuWzb7yDKq5VQaz3';
     const baseUrl = 'https://dev-438691.oktapreview.com/';
 
@@ -47,14 +47,10 @@ class Signup extends Component {
       },
     };
 
-
-    // console.log(postData);
-
     axios.post(`${baseUrl}api/v1/users?activate=true`, postData, axiosConfig)
-      .then((res) => {
-        console.log(res);
-        // console.log(res.data);
+      .then(() => {
         // TODO: Redirect
+        window.location.pathname = '/';
       }, ((err) => {
           console.log(err);
         }));
