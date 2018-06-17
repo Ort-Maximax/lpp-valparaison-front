@@ -252,8 +252,7 @@ class Explorer extends React.Component {
   }
 
   subscribe = () => {
-    console.log(this.props.socketUrl);
-    const socket = openSocket(this.props.socketUrl);
+    const socket = openSocket(this.props.apiUrl);
     socket.on(`dataChange${clientId}`, () => {
       this.getData();
     });

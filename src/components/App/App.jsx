@@ -21,13 +21,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = { musicPlaylist: [], audioPlayer: false };
-    // this.apiUrl = 'https://valparaiso-mockup.herokuapp.com'; // Pour netlify
-    this.apiUrl = 'http://valparaiso.fr:3009'; // Pour dev
+    this.apiUrl = 'https://valparaiso-mockup.herokuapp.com'; // Pour netlify
+    // this.apiUrl = 'http://valparaiso.fr:3009'; // Pour dev
     // this.apiUrl = 'https://api.valparaiso.fr'; // Pour la prod
-
-    // this.socketUrl = 'https://valparaiso-mockup.herokuapp.com:3009'; // Pour netlify
-    this.socketUrl = 'http://valparaiso.fr:3009'; // Pour le dev
-    // this.socketUrl = 'https://socket.valparaiso.fr'; // Pour la prod
 
     this.onPlaylistChange = this.onPlaylistChange.bind(this);
   }
@@ -61,7 +57,6 @@ class App extends Component {
                   audioPlayer={this.state.audioPlayer}
                   onPlaylistChange={this.onPlaylistChange}
                   apiUrl={this.apiUrl}
-                  socketUrl={this.socketUrl}
                 />)}
             />
             <Route
