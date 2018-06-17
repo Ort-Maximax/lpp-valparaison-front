@@ -4,7 +4,7 @@
 
 # client
 
-> Web client for Valparaison project
+> Web client for Valparaiso project
 > https://valparaiso.netlify.com/
 
 ## Build Setup
@@ -13,14 +13,14 @@
 # install dependencies
 yarn install
 
-# serve with hot reload at localhost:3000
+# serve with hot reload
 yarn start
 
-# build for production with minification
+# build for production
 yarn build
 
-# serve build locally (localhost:3000)
-yarn serve-build
+# serve build locally
+yarn serve:build
 
 ```
 
@@ -33,6 +33,10 @@ Pour afficher le hostname dans le browser :
 ```
 - Ca va creer un fichier hostname.js et y ecrire un script qui stock le hostname de la machine, et l'inscrit dans le DOM
 
+
+## License 
+
+MIT.
 
 
 
