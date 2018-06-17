@@ -21,8 +21,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = { musicPlaylist: [], audioPlayer: false };
-    // this.apiUrl = 'https://valparaiso-mockup.herokuapp.com'; // Pour netlify
-    this.apiUrl = 'http://valparaiso.fr:3009'; // Pour dev
+    this.apiUrl = 'https://valparaiso-mockup.herokuapp.com'; // Pour netlify
+    // this.apiUrl = 'http://valparaiso.fr:3009'; // Pour dev
     // this.apiUrl = 'https://api.valparaiso.fr'; // Pour la prod
 
     this.onPlaylistChange = this.onPlaylistChange.bind(this);
