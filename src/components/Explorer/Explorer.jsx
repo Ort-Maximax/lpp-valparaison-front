@@ -22,18 +22,16 @@ import openSocket from 'socket.io-client';
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
 
-
 import CloseIcon from '@material-ui/icons/Close';
-
+import Spinner from 'img/components/Spinner';
 import Toolbar from './Toolbar/Toolbar';
 
 // import TreeViewer from './TreeViewer/TreeViewer';
 import NodeViewer from './NodeViewer/NodeViewer';
 
 import './styles/Explorer.css';
-
 import DownloadView from '../DownloadView/DownloadView';
-import Spinner from '../../img/components/Spinner';
+
 
 let clientId = null;
 const processData = (data) => {
@@ -113,7 +111,7 @@ class Explorer extends React.Component {
   componentWillMount() {
     setBearer();
     this.subscribe();
-    this.getData();
+    this.getData(true);
   }
 
   onSearchbarUpdate = () => {
@@ -182,11 +180,11 @@ class Explorer extends React.Component {
       axios.put(`${this.props.apiUrl}/uploadFile`, data).then((res, index) => {
         file.uploaded = true;
         files[index] = file;
-        this.getData();
+        this.getData(false);
       }, (err) => {
         console.log(err);
         file.uploaded = true;
-        this.getData();
+        this.getData(false);
       });
     });
   }
@@ -199,7 +197,7 @@ class Explorer extends React.Component {
   }
 
 
-  getData = () => {
+  getData = (loading) => {
     const axiosConfig = {
       headers: {
         Accept: 'application/json',
@@ -212,7 +210,7 @@ class Explorer extends React.Component {
       this.setState({ lastDir: this.state.cursor.name });
     }
     const retryTimer = 5000;
-    this.setState({ loading: true });
+    this.setState({ loading });
     const tryFetch = () => {
       axios.get(`${this.props.apiUrl}/getData`, axiosConfig)
         .then((res) => {
@@ -254,7 +252,7 @@ class Explorer extends React.Component {
   subscribe = () => {
     const socket = openSocket(this.props.apiUrl);
     socket.on(`dataChange${clientId}`, () => {
-      this.getData();
+      this.getData(false);
     });
   }
 
@@ -270,7 +268,7 @@ class Explorer extends React.Component {
     };
     axios.post(`${this.props.apiUrl}/createDirectory`, postData)
       .then(() => {
-        this.getData();
+        this.getData(false);
       }, (err) => {
         console.log(err);
       });
@@ -306,7 +304,7 @@ class Explorer extends React.Component {
 
       axios.post(`${this.props.apiUrl}/renameElement`, postData)
         .then(() => {
-          this.getData();
+          this.getData(false);
         }, (err) => {
           console.log(err);
         });
@@ -336,7 +334,7 @@ class Explorer extends React.Component {
     });
 
     this.setState({ snackOpen: true, snackText: 'Supression effectuée' });
-    this.getData();
+    this.getData(false);
 
     this.closeDeleteDialog();
   }

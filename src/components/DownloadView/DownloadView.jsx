@@ -37,7 +37,7 @@ class DownloadView extends React.Component {
           className="dl-header"
         >
           <div className="header-text">
-            Header
+            Uploads
           </div>
 
           <div className="header-icons">

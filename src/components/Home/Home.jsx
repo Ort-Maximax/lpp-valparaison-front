@@ -4,12 +4,12 @@ import Grid from 'material-ui/Grid';
 
 import { Link } from 'react-router-dom';
 
-import '../../libs/stars.css';
+import 'libs/stars.css';
+import CrossPlatform from 'img/components/CrossPlatform';
+import Cheap from 'img/components/Coins';
+import Fast from 'img/components/Rocket';
 import './styles/Home.css';
 
-import CrossPlatform from '../../img/components/CrossPlatform';
-import Cheap from '../../img/components/Coins';
-import Fast from '../../img/components/Rocket';
 
 const Home = () => (
   <section className="starsContainer">

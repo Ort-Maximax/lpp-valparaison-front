@@ -15,7 +15,6 @@
     "lodash.sortby": "^4.7.0",
     "lodash.uniqby": "^4.7.0",
     "material-ui": "^1.0.0-beta.38",
-    "material-ui-icons": "^1.0.0-beta.36",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-audio-player": "^0.10.0",
@@ -31,7 +30,6 @@
     "react-treebeard": "^2.1.0",
     "rodal": "^1.6.3",
     "socket.io-client": "^2.1.1",
-    "svgr": "^1.9.0",
     "uuid": "^3.2.1",
     "video-react": "^0.10.5"
   },
@@ -51,6 +49,7 @@
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
-    "serve": "^6.5.3"
+    "serve": "^6.5.3",
+    "svgr": "1"
   }
 }

@@ -37,7 +37,7 @@ class NodeViewer extends React.Component {
   }
 
   componentDidMount() {
-    document.addEventListener('keydown', this.escFunction, false);
+    document.addEventListener('keydown', this.keypressFunction, false);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -45,7 +45,7 @@ class NodeViewer extends React.Component {
   }
 
   componentWillUnmount() {
-    document.removeEventListener('keydown', this.escFunction, false);
+    document.removeEventListener('keydown', this.keypressFunction, false);
   }
 
   onClick = (e, node) => {
@@ -72,7 +72,7 @@ class NodeViewer extends React.Component {
   }
 
   onDoubleClick = (e, node) => {
-    if (this.state.dragging || this.state.contextMenu) {
+    if (this.state.dragging || this.state.contextMenu || e.ctrlKey || this.props.toggleSelect) {
       return;
     }
     // Quand on doubleclick sur un dossier,
@@ -153,8 +153,11 @@ class NodeViewer extends React.Component {
     this.setState({ dragging: true });
   }
 
-  escFunction = (e) => {
+  keypressFunction = (e) => {
+    // esc
     if (e.keyCode === 27) this.closeVideoDialog();
+    // delete
+    if (e.keyCode === 46) this.props.handleDeleteClick();
   }
 
   showDragDialog = () => {

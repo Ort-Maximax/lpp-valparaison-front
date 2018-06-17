@@ -25,15 +25,15 @@ import Paper from 'material-ui/Paper';
 import { MenuItem, MenuList } from 'material-ui/Menu';
 
 /* Icons */
-import MenuIcon from 'material-ui-icons/Menu';
-import ProtectedIcon from 'material-ui-icons/LockOutline';
-import MoneyIcon from 'material-ui-icons/AttachMoney';
-import LoginIcon from 'material-ui-icons/Person';
-import LogoutIcon from 'material-ui-icons/Close';
+import MenuIcon from '@material-ui/icons/Menu';
+import ProtectedIcon from '@material-ui/icons/LockOutline';
+import MoneyIcon from '@material-ui/icons/AttachMoney';
+import LoginIcon from '@material-ui/icons/Person';
+import LogoutIcon from '@material-ui/icons/Close';
 
-import Identicons from '../../libs/identicons-react/index';
+import Identicons from 'libs/identicons-react/index';
 
-import Logo from '../../img/components/Logo';
+import Logo from 'img/components/Logo';
 
 import './styles/Topbar.css';
 
