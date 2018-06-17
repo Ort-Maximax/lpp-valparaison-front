@@ -17,6 +17,7 @@ import IconButton from 'material-ui/IconButton';
 import Button from 'material-ui/Button';
 import Radio from 'material-ui/Radio';
 
+import openSocket from 'socket.io-client';
 
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
@@ -34,6 +35,7 @@ import './styles/Explorer.css';
 import DownloadView from '../DownloadView/DownloadView';
 import Spinner from '../../img/components/Spinner';
 
+let clientId = null;
 const processData = (data) => {
   // Iterate over all nodes
   data.children.forEach((el) => {
@@ -80,6 +82,7 @@ const processData = (data) => {
 const setBearer = () => {
   if (window.localStorage.getItem('okta-token-storage') && window.localStorage.getItem('okta-token-storage') !== '{}') {
     const jwt = JSON.parse(window.localStorage.getItem('okta-token-storage')).idToken.idToken;
+    clientId = jwt;
     axios.defaults.headers.common.Authorization = `Bearer ${jwt}`;
   } else {
     window.setTimeout(setBearer, 1000);
@@ -109,6 +112,7 @@ class Explorer extends React.Component {
 
   componentWillMount() {
     setBearer();
+    this.subscribe();
     this.getData();
   }
 
@@ -194,6 +198,7 @@ class Explorer extends React.Component {
     }
   }
 
+
   getData = () => {
     const axiosConfig = {
       headers: {
@@ -246,8 +251,15 @@ class Explorer extends React.Component {
     tryFetch();
   }
 
+  subscribe = () => {
+    console.log(this.props.socketUrl);
+    const socket = openSocket(this.props.socketUrl);
+    socket.on(`dataChange${clientId}`, () => {
+      this.getData();
+    });
+  }
+
   handleAddClick = () => {
-    // TODO: Ouvre l'explorer
     if (this.state.dropzone) {
       this.state.dropzone.open();
     }
@@ -258,7 +270,7 @@ class Explorer extends React.Component {
       path: this.state.cursor.path,
     };
     axios.post(`${this.props.apiUrl}/createDirectory`, postData)
-      .then((res) => {
+      .then(() => {
         this.getData();
       }, (err) => {
         console.log(err);

@@ -2,6 +2,7 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react';
+
 import Home from '../Home/Home';
 import Topbar from '../Topbar/Topbar';
 import Pricings from '../Pricings/Pricings';
@@ -22,7 +23,12 @@ class App extends Component {
     this.state = { musicPlaylist: [], audioPlayer: false };
     // this.apiUrl = 'https://valparaiso-mockup.herokuapp.com'; // Pour netlify
     this.apiUrl = 'http://valparaiso.fr:3009'; // Pour dev
-    // this.apiUrl = 'http://api.valparaiso.fr'; // Pour la prod
+    // this.apiUrl = 'https://api.valparaiso.fr'; // Pour la prod
+
+    // this.socketUrl = 'https://valparaiso-mockup.herokuapp.com:3009'; // Pour netlify
+    this.socketUrl = 'http://valparaiso.fr:3009'; // Pour le dev
+    // this.socketUrl = 'https://socket.valparaiso.fr'; // Pour la prod
+
     this.onPlaylistChange = this.onPlaylistChange.bind(this);
   }
 
@@ -47,16 +53,32 @@ class App extends Component {
             <Route path="/" component={Topbar} />
             <Route path="/" exact component={Home} />
             <Route path="/pricing" exact component={Pricings} />
-            <SecureRoute path="/browse" exact render={() => <Explorer audioPlayer={this.state.audioPlayer} onPlaylistChange={this.onPlaylistChange} apiUrl={this.apiUrl} />} />
-            <Route path="/login" exact render={() => <Login baseUrl="https://dev-438691.oktapreview.com" />} />
+            <SecureRoute
+              path="/browse"
+              exact
+              render={() =>
+                (<Explorer
+                  audioPlayer={this.state.audioPlayer}
+                  onPlaylistChange={this.onPlaylistChange}
+                  apiUrl={this.apiUrl}
+                  socketUrl={this.socketUrl}
+                />)}
+            />
+            <Route
+              path="/login"
+              exact
+              render={() =>
+                <Login baseUrl="https://dev-438691.oktapreview.com" />}
+            />
             <Route path="/implicit/callback" component={ImplicitCallback} />
             <Route
               path="/"
-              render={() => (<AudioPlayer
-                toggleAudioPlayer={this.onToggleAudioPlayer}
-                playerCollapsed={this.state.audioPlayer}
-                playlist={this.state.musicPlaylist}
-              />)}
+              render={() =>
+                (<AudioPlayer
+                  toggleAudioPlayer={this.onToggleAudioPlayer}
+                  playerCollapsed={this.state.audioPlayer}
+                  playlist={this.state.musicPlaylist}
+                />)}
             />
           </Security>
         </Router>
