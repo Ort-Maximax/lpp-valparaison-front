@@ -2,17 +2,14 @@
 /* eslint no-param-reassign: 0 */
 /* eslint no-plusplus: 0 */
 /* eslint func-names: 0 */
-import React, { Fragment } from 'react';
+import React from 'react';
 import Card, { CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 
 import Divider from 'material-ui/Divider';
 
 import Checkbox from 'material-ui/Checkbox';
-/*
-import IconButton from 'material-ui/IconButton';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-*/
+import Tooltip from 'material-ui/Tooltip';
 
 import File from 'img/components/File';
 import Folder from 'img/components/Folder';
@@ -71,7 +68,7 @@ const Element = ({
   // const width = window.innerWidth;
   /* TODO: voir comment recuperer un thumbnail du fichier */
   return (
-    <Fragment>
+    <Tooltip title={node.name}>
       {
         isFolder ?
           <Card raised={selected}>
@@ -137,7 +134,7 @@ const Element = ({
           </Card>
       }
 
-    </Fragment>
+    </Tooltip>
   );
 };
 
