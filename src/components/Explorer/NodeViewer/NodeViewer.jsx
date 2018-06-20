@@ -311,10 +311,10 @@ class NodeViewer extends React.Component {
                  && (folderChildren && folderChildren.length === 0) &&
                  <div className="nothing-here">
                    <h1 > {"Il n'y a rien ici"} </h1>
-                   <IconButton>
+                   <IconButton onClick={this.props.handleAddClick}>
                      <CloudDown />
                    </IconButton>
-                   <h3> {"Drag'n'Drop ou cliquez sur l'icon pour upload"} </h3>
+                   <h3> {"Drag'n'Drop, ou cliquez sur l'icone pour ajouter des fichiers"} </h3>
                  </div>
 
               }

@@ -2,7 +2,7 @@
 /* eslint no-param-reassign: 0 */
 /* eslint no-plusplus: 0 */
 /* eslint func-names: 0 */
-import React from 'react';
+import React, { Fragment } from 'react';
 import Card, { CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 
@@ -68,21 +68,22 @@ const Element = ({
   // const width = window.innerWidth;
   /* TODO: voir comment recuperer un thumbnail du fichier */
   return (
-    <Tooltip title={node.name}>
+    <Fragment>
       {
         isFolder ?
           <Card raised={selected}>
-            <CardContent className={`folderContentContainer ${toggleSelect ? 'larger' : ''} ${selected ? 'selected' : ''}`}>
+            <Tooltip enterDelay={1000} title={node.name}>
+              <CardContent className={`folderContentContainer ${toggleSelect ? 'larger' : ''} ${selected ? 'selected' : ''}`}>
 
-              <div className="folderContentIconContainer">
-                {icon}
-              </div>
+                <div className="folderContentIconContainer">
+                  {icon}
+                </div>
 
-              <Typography component="p" align="center" className="text">
-                {node.name}
-              </Typography>
+                <Typography component="p" align="center" className="text">
+                  {node.name}
+                </Typography>
 
-              {
+                {
                 toggleSelect &&
                 <Checkbox
                   style={{
@@ -94,9 +95,10 @@ const Element = ({
                   checked={selected}
                   color="primary"
                 />
-              }
+               }
 
-            </CardContent>
+              </CardContent>
+            </Tooltip>
           </Card>
       :
           <Card className={`fileElementContainer ${toggleSelect ? 'larger' : ''}`} raised={selected}>
@@ -120,21 +122,22 @@ const Element = ({
               {icon}
             </div>
             <Divider />
-            <CardContent className={`fileContentContainer ${selected ? 'selected' : ''}`}>
-              {/* width > 400 &&
+            <Tooltip enterDelay={1000} title={node.name}>
+              <CardContent className={`fileContentContainer ${selected ? 'selected' : ''}`}>
+                {/* width > 400 &&
                 <div className="fileContentIconContainer">
                   {icon}
                 </div> */
-              }
-              <Typography component="p" align="center" className="text">
-                {node.name}
-              </Typography>
+                }
 
-            </CardContent>
+                <Typography component="p" align="center" className="text">
+                  {node.name}
+                </Typography>
+              </CardContent>
+            </Tooltip>
           </Card>
       }
-
-    </Tooltip>
+    </Fragment>
   );
 };
 

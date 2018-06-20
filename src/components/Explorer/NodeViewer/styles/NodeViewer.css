@@ -24,8 +24,7 @@
   text-align: center;
 }
 .nv-container .dropzone .nothing-here svg {
-  width: 70px;
-  height: 70px;
+  height: 100%;
 }
 .disabled {
   background-color: #cbcbcb;

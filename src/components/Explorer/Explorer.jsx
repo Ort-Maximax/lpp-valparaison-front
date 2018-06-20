@@ -30,7 +30,7 @@ import Toolbar from './Toolbar/Toolbar';
 import NodeViewer from './NodeViewer/NodeViewer';
 
 import './styles/Explorer.css';
-import DownloadView from '../DownloadView/DownloadView';
+import UploadView from '../UploadView/UploadView';
 
 
 let clientId = null;
@@ -102,6 +102,7 @@ class Explorer extends React.Component {
       renameDialog: false,
       convertDialog: false,
       deleteDialog: false,
+      uploadView: false,
       newFileName: '',
       snackOpen: false,
       snackText: '',
@@ -171,6 +172,7 @@ class Explorer extends React.Component {
     } else {
       this.setState({ uploadQueue: [...files] });
     }
+    this.setState({ uploadView: true });
 
     files.forEach((file) => {
       const data = new FormData();
@@ -195,7 +197,6 @@ class Explorer extends React.Component {
       this.setState({ dropzone: node });
     }
   }
-
 
   getData = (loading) => {
     const axiosConfig = {
@@ -247,6 +248,16 @@ class Explorer extends React.Component {
           }));
     };
     tryFetch();
+  }
+
+  clearUploadQueue = () => {
+    if (this.state.uploadQueue) {
+      this.setState({ uploadQueue: this.state.uploadQueue.filter(el => !el.uploaded) });
+    }
+  };
+
+  hideUploadView = () => {
+    this.setState({ uploadView: false });
   }
 
   subscribe = () => {
@@ -450,7 +461,10 @@ class Explorer extends React.Component {
               </Grid>
 
               <section className="dl-view" style={{ bottom: this.props.audioPlayer ? 50 : 100 }} >
-                <DownloadView
+                <UploadView
+                  visible={this.state.uploadView}
+                  onClose={this.hideUploadView}
+                  clearUploadQueue={this.clearUploadQueue}
                   uploadQueue={this.state.uploadQueue}
                 />
               </section>

@@ -69,7 +69,6 @@ class Topbar extends Component {
   }
 
   handleCloseUserMenu = (event) => {
-    console.log(this.userMenu, this.userMenu.contains(event.target), event.target);
     if (this.userMenu.contains(event.target)) {
       return;
     }

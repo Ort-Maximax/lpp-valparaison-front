@@ -61,6 +61,7 @@
   flex-direction: row;
   align-content: center;
   transition: .1s linear;
+  cursor: pointer;
 }
 .folderContentContainer .folderContentIconContainer {
   background-color: white;

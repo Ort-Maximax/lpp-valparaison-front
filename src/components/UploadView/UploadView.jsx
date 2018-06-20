@@ -8,17 +8,17 @@ import Collapse from '@material-ui/icons/KeyboardArrowDown';
 import Expand from '@material-ui/icons/KeyboardArrowUp';
 import Done from '@material-ui/icons/Done';
 
-import './styles/DownloadView.css';
+import './styles/UploadView.css';
 
-class DownloadView extends React.Component {
+class UploadView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { collapsed: false, hidden: false };
+    this.state = { collapsed: false };
   }
 
   onCloseClick = () => {
-    // TODO: Clear les fichiers uploaded = true
-    this.setState({ hidden: true });
+    this.props.clearUploadQueue();
+    this.props.onClose();
   }
 
   toggleCollapse = () => {
@@ -27,7 +27,7 @@ class DownloadView extends React.Component {
 
   render() {
     return (
-      <Grid className={this.state.hidden || (this.props.uploadQueue && this.props.uploadQueue.length === 0) || !this.props.uploadQueue ? 'hidden' : ''}>
+      <Grid className={!this.props.visible || (this.props.uploadQueue && this.props.uploadQueue.length === 0) || !this.props.uploadQueue ? 'hidden' : ''}>
         <Grid
           container
           direction="row"
@@ -92,5 +92,5 @@ class DownloadView extends React.Component {
   }
 }
 
-export default DownloadView;
+export default UploadView;
 
