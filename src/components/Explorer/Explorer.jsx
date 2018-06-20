@@ -174,19 +174,21 @@ class Explorer extends React.Component {
     }
     this.setState({ uploadView: true });
 
+    const config = {
+      onUploadProgress: progressEvent => console.log(progressEvent.loaded),
+    };
+
     files.forEach((file) => {
       const data = new FormData();
       data.append('path', `${this.state.cursor.path}/${file.name}`);
       data.append('data', file);
 
-      axios.put(`${this.props.apiUrl}/uploadFile`, data).then((res, index) => {
+      axios.put(`${this.props.apiUrl}/uploadFile`, data, config).then((res, index) => {
         file.uploaded = true;
         files[index] = file;
-        this.getData(false);
       }, (err) => {
         console.log(err);
         file.uploaded = true;
-        this.getData(false);
       });
     });
   }
@@ -205,8 +207,6 @@ class Explorer extends React.Component {
         'Content-Type': 'application/json',
       },
     };
-    /* TODO: Get data from backend API */
-    // Pour l'instant on appelle l'API de  mockup
     if (this.state.cursor) {
       this.setState({ lastDir: this.state.cursor.name });
     }
@@ -278,9 +278,7 @@ class Explorer extends React.Component {
       path: this.state.cursor.path,
     };
     axios.post(`${this.props.apiUrl}/createDirectory`, postData)
-      .then(() => {
-        this.getData(false);
-      }, (err) => {
+      .error((err) => {
         console.log(err);
       });
   }
@@ -314,9 +312,7 @@ class Explorer extends React.Component {
       };
 
       axios.post(`${this.props.apiUrl}/renameElement`, postData)
-        .then(() => {
-          this.getData(false);
-        }, (err) => {
+        .error((err) => {
           console.log(err);
         });
 
@@ -340,12 +336,10 @@ class Explorer extends React.Component {
   }
 
   confirmDelete = () => {
-    this.state.selectedElements.forEach((el) => {
-      axios.get(`${this.props.apiUrl}/removeElement?path=${encodeURIComponent(el.path)}`);
+    const elements = this.state.selectedElements.map(el => el.path);
+    axios.post(`${this.props.apiUrl}/removeElement`, elements).then(() => {
+      this.setState({ snackOpen: true, snackText: 'Supression effectuée' });
     });
-
-    this.setState({ snackOpen: true, snackText: 'Supression effectuée' });
-    this.getData(false);
 
     this.closeDeleteDialog();
   }
@@ -480,16 +474,17 @@ class Explorer extends React.Component {
           showCloseButton={false}
           width={460}
           height={120}
+          className="delete-dialog"
           animatiton="slideUp"
         >
           <Grid container direction="column" justify="space-between" alignItems="center">
             <h3>Confimer la suppression ?</h3>
             <Grid container item direction="row" justify="flex-end" alignItems="center">
               <Button onClick={this.confirmDelete} color="primary">
-                Oui, supprimer
+                Supprimer
               </Button>
               <Button onClick={this.cancelDelete} color="primary" autoFocus>
-                Non, annuler
+                Annuler
               </Button>
             </Grid>
           </Grid>
@@ -501,8 +496,8 @@ class Explorer extends React.Component {
           closeOnEsc
           showCloseButton={false}
           width={350}
-          height={160}
-          customStyles={{ padding: 0 }}
+          height={250}
+          className="rename-dialog"
           animatiton="slideUp"
         >
           <Grid container direction="column" justify="space-between" alignItems="center" style={{ height: '100%' }}>

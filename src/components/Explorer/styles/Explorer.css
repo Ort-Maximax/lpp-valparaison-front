@@ -19,6 +19,10 @@
   width: 100%;
   overflow-y: auto;
 }
+.delete-dialog .rodal-dialog,
+.rename-dialog .rodal-dialog {
+  max-width: 90%;
+}
 .dl-view {
   width: 300px;
   max-width: 50%;
