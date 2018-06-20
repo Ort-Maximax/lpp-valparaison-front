@@ -23,7 +23,7 @@ class OktaSignInWidget extends Component {
         {type: 'FACEBOOK', id: '0oaefphiatHspHxEK0h7'},
         */
       ],
-      redirectUri: `${window.location.protocol}//${window.location.hostname}/implicit/callback`,
+      redirectUri: `${window.location.protocol}//${window.location.hostname}/redirect`,
     });
     this.widget.renderEl({ el }, this.props.onSuccess, this.props.onError);
   }
