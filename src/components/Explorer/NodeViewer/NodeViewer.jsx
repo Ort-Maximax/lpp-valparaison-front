@@ -11,6 +11,7 @@ import 'rodal/lib/rodal.css';
 import { ContextMenu, ContextMenuTrigger } from 'react-contextmenu';
 
 import CloudDown from 'img/components/CloudDown';
+import IconButton from 'material-ui/IconButton';
 
 
 import NvContext from './NvContext/NvContext';
@@ -303,6 +304,19 @@ class NodeViewer extends React.Component {
 
                 </Grid>
               </Fragment>
+              }
+
+              {
+                (filesElem && filesElem.length === 0)
+                 && (folderChildren && folderChildren.length === 0) &&
+                 <div className="nothing-here">
+                   <h1 > {"Il n'y a rien ici"} </h1>
+                   <IconButton>
+                     <CloudDown />
+                   </IconButton>
+                   <h3> {"Drag'n'Drop ou cliquez sur l'icon pour upload"} </h3>
+                 </div>
+
               }
 
             </Dropzone>
