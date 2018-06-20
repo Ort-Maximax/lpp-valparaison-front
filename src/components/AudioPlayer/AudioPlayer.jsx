@@ -60,16 +60,16 @@ class AudioPlayer extends React.Component {
           <IconButton onClick={this.togglePlayer}>
             {
             this.props.playerCollapsed ?
-              <MusicNote />
-              :
               <KeyboardArrowDown />
+              :
+              <MusicNote />
 
             }
           </IconButton>
 
         </Grid>
         <Audio
-          style={{ display: this.props.playerCollapsed ? 'none' : 'block' }}
+          style={{ display: this.props.playerCollapsed ? 'block' : 'none' }}
           color="#2aa6ea"
           width={300}
           height={100}

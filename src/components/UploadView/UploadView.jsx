@@ -64,7 +64,7 @@ class UploadView extends React.Component {
                     justify="space-between"
                     alignItems="center"
                     key={file.lastModified}
-                    style={{ width: '100%', margin: 0 }}
+                    style={{ width: '100%', margin: 0, flexWrap: 'nowrap' }}
                   >
                     <div className="dl-item" >
                       {file.name}
@@ -73,8 +73,6 @@ class UploadView extends React.Component {
                       <IconButton style={{
                           height: 'auto',
                           color: 'green',
-                          position: 'absolute',
-                          right: 10,
                         }}
                       >
                         <Done />

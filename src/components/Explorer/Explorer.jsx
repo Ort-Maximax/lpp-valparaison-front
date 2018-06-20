@@ -460,7 +460,7 @@ class Explorer extends React.Component {
                 />
               </Grid>
 
-              <section className="dl-view" style={{ bottom: this.props.audioPlayer ? 50 : 100 }} >
+              <section className="dl-view" style={{ bottom: this.props.audioPlayer ? 100 : 50 }} >
                 <UploadView
                   visible={this.state.uploadView}
                   onClose={this.hideUploadView}
