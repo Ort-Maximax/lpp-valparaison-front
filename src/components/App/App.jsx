@@ -21,15 +21,16 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = { musicPlaylist: [], audioPlayer: false };
-    this.apiUrl = 'https://valparaiso-mockup.herokuapp.com'; // Pour netlify
+    // this.apiUrl = 'https://valparaiso-mockup.herokuapp.com'; // Pour netlify
     // this.apiUrl = 'http://valparaiso.fr:3009'; // Pour dev
-    // this.apiUrl = 'https://api.valparaiso.fr'; // Pour la prod
+    this.apiUrl = 'https://api.valparaiso.fr'; // Pour la prod
 
     this.onPlaylistChange = this.onPlaylistChange.bind(this);
   }
 
   onPlaylistChange = (sound) => {
     this.setState({ musicPlaylist: [sound] });
+    this.setState({ audioPlayer: true });
   }
 
   onToggleAudioPlayer = () => {
@@ -37,13 +38,15 @@ class App extends Component {
   }
 
   render() {
+    console.log(`Redirect uri : ${window.location.origin}/redirect`);
+    console.log(`API Url : ${this.apiUrl}`);
     return (
       <Fragment>
         <Router>
           <Security
             issuer="https://dev-438691.oktapreview.com/oauth2/default"
             client_id="0oaee9k1e3g9di0nS0h7"
-            redirect_uri={`${window.location.origin}/implicit/callback`}
+            redirect_uri={`${window.location.origin}/redirect`}
             onAuthRequired={onAuthRequired}
           >
             <Route path="/" component={Topbar} />
@@ -65,7 +68,7 @@ class App extends Component {
               render={() =>
                 <Login baseUrl="https://dev-438691.oktapreview.com" />}
             />
-            <Route path="/implicit/callback" component={ImplicitCallback} />
+            <Route path="/redirect" component={ImplicitCallback} />
             <Route
               path="/"
               render={() =>
