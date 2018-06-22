@@ -10,9 +10,6 @@ import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import MusicNote from '@material-ui/icons/MusicNote';
 
 
-import { withAuth } from '@okta/okta-react';
-
-
 import './styles/AudioPlayer.css';
 
 class AudioPlayer extends React.Component {
@@ -21,8 +18,6 @@ class AudioPlayer extends React.Component {
     this.state = { authenticated: null, playlist: this.props.playlist };
     this.shouldUpdate = false;
     this.audioComponent = undefined;
-    this.checkAuthentication = this.checkAuthentication.bind(this);
-    this.checkAuthentication();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -36,15 +31,6 @@ class AudioPlayer extends React.Component {
     if (this.audioComponent && this.shouldUpdate) {
       this.shouldUpdate = false;
       ReactDOM.findDOMNode(this.audioComponent).dispatchEvent(new Event('audio-skip-to-next'));
-    }
-    this.checkAuthentication();
-  }
-
-
-  async checkAuthentication() {
-    const authenticated = await this.props.auth.isAuthenticated();
-    if (authenticated !== this.state.authenticated) {
-      this.setState({ authenticated });
     }
   }
 
@@ -82,4 +68,4 @@ class AudioPlayer extends React.Component {
   }
 }
 
-export default withAuth(AudioPlayer);
+export default AudioPlayer;

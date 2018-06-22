@@ -33,7 +33,7 @@ import './styles/Explorer.css';
 import UploadView from '../UploadView/UploadView';
 
 
-let clientId = null;
+const clientId = null;
 const processData = (data) => {
   // Iterate over all nodes
   data.children.forEach((el) => {
@@ -78,10 +78,9 @@ const processData = (data) => {
 };
 
 const setBearer = () => {
-  if (window.localStorage.getItem('okta-token-storage') && window.localStorage.getItem('okta-token-storage') !== '{}') {
-    const jwt = JSON.parse(window.localStorage.getItem('okta-token-storage')).idToken.idToken;
-    clientId = jwt;
-    axios.defaults.headers.common.Authorization = `Bearer ${jwt}`;
+  if (window.localStorage.getItem('auth')) {
+    const auth = JSON.parse(window.localStorage.getItem('auth'));
+    axios.defaults.headers.common.Authorization = `Bearer ${auth.token}`;
   } else {
     window.setTimeout(setBearer, 1000);
   }

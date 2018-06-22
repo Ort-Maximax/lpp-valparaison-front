@@ -4,7 +4,6 @@
 
 import React, { Fragment, Component } from 'react';
 import { Link } from 'react-router-dom';
-import { withAuth } from '@okta/okta-react';
 
 /* Appbar */
 import AppBar from 'material-ui/AppBar';
@@ -40,20 +39,7 @@ import './styles/Topbar.css';
 class Topbar extends Component {
   constructor(props) {
     super(props);
-    this.state = { authenticated: null };
-    this.checkAuthentication = this.checkAuthentication.bind(this);
-    this.checkAuthentication();
-  }
-
-  componentDidUpdate() {
-    this.checkAuthentication();
-  }
-
-  async checkAuthentication() {
-    const authenticated = await this.props.auth.isAuthenticated();
-    if (authenticated !== this.state.authenticated) {
-      this.setState({ authenticated });
-    }
+    this.state = { userMenuOpen: false };
   }
 
   toggleUserMenu = () => {
@@ -84,7 +70,7 @@ class Topbar extends Component {
 
 
   render() {
-    if (this.state.authenticated === null) return null;
+    if (this.props.isAuthenticated === null) return null;
 
     const { userMenuOpen } = this.state;
 
@@ -92,10 +78,11 @@ class Topbar extends Component {
     let clientFirstName;
     // let clientLastName;
 
-    if (localStorage.getItem('okta-token-storage') && localStorage.getItem('okta-token-storage') !== '{}') {
-      clientMail = JSON.parse(localStorage.getItem('okta-token-storage')).idToken.claims.email;
-      const clientName = JSON.parse(localStorage.getItem('okta-token-storage')).idToken.claims.name;
-      clientFirstName = clientName.substr(0, clientName.indexOf(' '));
+    if (this.props.isAuthenticated && localStorage.getItem('auth')) {
+      const auth = JSON.parse(localStorage.getItem('auth'));
+      clientMail = auth.user.email;
+      clientFirstName = auth.user.firstName;
+      // clientFirstName = clientName.substr(0, clientName.indexOf(' '));
     }
 
     return (
@@ -116,7 +103,7 @@ class Topbar extends Component {
 
             <section className="clickable">
               <section className="topBarLinks">
-                {this.state.authenticated &&
+                {this.props.isAuthenticated &&
                 <Fragment>
                   <Link to="/browse">Mon Valparaiso</Link>
                   {/*
@@ -159,17 +146,19 @@ class Topbar extends Component {
                     {/* TODO: mettre les links */}
                     <MenuItem onClick={this.handleCloseUserMenu}>Profile</MenuItem>
                     <MenuItem onClick={this.handleCloseUserMenu}>Mon compte</MenuItem>
-                    <a onClick={this.props.auth.logout} role="Link" style={{ padding: 0 }}>
+                    <a onClick={this.props.logout} role="Link" style={{ padding: 0 }}>
                       <MenuItem onClick={this.handleCloseUserMenu} style={{ color: 'red' }}>Déconnexion</MenuItem>
                     </a>
                   </MenuList>
                 </Paper>
               </ClickOutside>
-              {!this.state.authenticated &&
+              {!this.props.isAuthenticated &&
               <Fragment>
-                <Button variant="fab" onClick={this.props.auth.login} className="loginButton">
-                  <LoginIcon />
-                </Button>
+                <Link to="/login" >
+                  <Button variant="fab" className="loginButton">
+                    <LoginIcon />
+                  </Button>
+                </Link>
               </Fragment>
             }
 
@@ -182,7 +171,7 @@ class Topbar extends Component {
                   className="list"
                 >
                   <List>
-                    {this.state.authenticated &&
+                    {this.props.isAuthenticated &&
                     <Fragment>
                       <Link to="/browse">
                         <ListItem>
@@ -202,7 +191,7 @@ class Topbar extends Component {
                         </ListItem>
                       </Link>
                       <Divider />
-                      <a onClick={this.props.auth.logout} role="Link">
+                      <a onClick={this.props.logout} role="Link">
                         <ListItem>
                           <ListItemIcon>
                             <LogoutIcon style={{ color: 'red' }} />
@@ -223,4 +212,4 @@ class Topbar extends Component {
   }
 }
 
-export default withAuth(Topbar);
+export default Topbar;
