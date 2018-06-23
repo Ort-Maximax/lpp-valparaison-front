@@ -1,9 +1,9 @@
-/* global localStorage */
+/* global window, Blob, fetch */
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 /* eslint prefer-destructuring: 0 */
 
 import React, { Fragment, Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 /* Appbar */
 import AppBar from 'material-ui/AppBar';
@@ -22,6 +22,7 @@ import Divider from 'material-ui/Divider';
 import ClickOutside from 'react-click-outside';
 import Paper from 'material-ui/Paper';
 import { MenuItem, MenuList } from 'material-ui/Menu';
+import { GoogleLogin } from 'react-google-login';
 
 /* Icons */
 import MenuIcon from '@material-ui/icons/Menu';
@@ -33,6 +34,7 @@ import LogoutIcon from '@material-ui/icons/Close';
 import Identicons from 'libs/identicons-react/index';
 
 import Logo from 'img/components/Logo';
+import Google from 'img/components/Google';
 
 import './styles/Topbar.css';
 
@@ -41,6 +43,32 @@ class Topbar extends Component {
     super(props);
     this.state = { userMenuOpen: false };
   }
+
+  onFailure = (error) => {
+    console.log(error);
+  }
+
+  logout = () => {
+    this.props.logout();
+  };
+
+ googleResponse = (response) => {
+   const tokenBlob = new Blob([JSON.stringify({ access_token: response.accessToken }, null, 2)], { type: 'application/json' });
+   const options = {
+     method: 'POST',
+     body: tokenBlob,
+     mode: 'cors',
+     cache: 'default',
+   };
+   // TODO: Axios
+   fetch(`${this.props.apiUrl}/auth/google`, options).then((r) => {
+     r.json().then((auth) => {
+       window.localStorage.setItem('auth', JSON.stringify(auth));
+       this.props.authenticate();
+       this.props.history.push('/browse');
+     });
+   });
+ };
 
   toggleUserMenu = () => {
     this.setState({
@@ -78,8 +106,8 @@ class Topbar extends Component {
     let clientFirstName;
     // let clientLastName;
 
-    if (this.props.isAuthenticated && localStorage.getItem('auth')) {
-      const auth = JSON.parse(localStorage.getItem('auth'));
+    if (this.props.isAuthenticated && window.localStorage.getItem('auth')) {
+      const auth = JSON.parse(window.localStorage.getItem('auth'));
       clientMail = auth.user.email;
       clientFirstName = auth.user.firstName;
       // clientFirstName = clientName.substr(0, clientName.indexOf(' '));
@@ -125,42 +153,63 @@ class Topbar extends Component {
                     this.userMenu = node;
                   }}
                 >
-                  { clientMail &&
-                  <Button
-                    variant="fab"
-                    className="topbarLoggedUser"
-                    onClick={this.toggleUserMenu}
-                  >
-                    <Identicons id={clientMail} width={20} size={3} />
-                  </Button>
+                  { clientMail ?
+                    <Button
+                      variant="fab"
+                      className="topbarLoggedUser"
+                      onClick={this.toggleUserMenu}
+                    >
+                      <Identicons id={clientMail} width={20} size={3} />
+                    </Button>
+                  :
+
+                    <Button
+                      variant="fab"
+                      className="loginButton"
+                      onClick={this.toggleUserMenu}
+                    >
+                      <LoginIcon style={{ color: 'black' }} />
+                    </Button>
                   }
                 </div>
 
                 <Paper className={userMenuOpen ? 'user-menu visible' : 'user-menu hidden'}>
                   <div className="user-menu-header">
-                    <Typography variant="title" className="noselect">
-                    Bonjour {clientFirstName} !
-                    </Typography>
+                    {
+                      this.props.isAuthenticated ?
+                        <Typography variant="title" className="noselect">
+                          Bonjour {clientFirstName} !
+                        </Typography>
+                      :
+                        <GoogleLogin
+                          clientId="979187681926-as6gk94f9pfhl2ob739rjn8lhnk37oqv.apps.googleusercontent.com"
+                          onSuccess={this.googleResponse}
+                          onFailure={this.googleResponse}
+                          className="test"
+                          tag="div"
+                        >
+                          <Button variant="fab" className="loginButton">
+                            <Google style={{ width: 20 }} />
+                          </Button>
+
+                        </GoogleLogin>
+                    }
+
                   </div>
-                  <MenuList role="menu">
-                    {/* TODO: mettre les links */}
-                    <MenuItem onClick={this.handleCloseUserMenu}>Profile</MenuItem>
-                    <MenuItem onClick={this.handleCloseUserMenu}>Mon compte</MenuItem>
-                    <a onClick={this.props.logout} role="Link" style={{ padding: 0 }}>
-                      <MenuItem onClick={this.handleCloseUserMenu} style={{ color: 'red' }}>Déconnexion</MenuItem>
-                    </a>
-                  </MenuList>
+                  {
+                    this.props.isAuthenticated &&
+                    <MenuList role="menu">
+                      {/* TODO: mettre les links */}
+                      <MenuItem onClick={this.handleCloseUserMenu}>Profile</MenuItem>
+                      <MenuItem onClick={this.handleCloseUserMenu}>Mon compte</MenuItem>
+                      <a onClick={this.props.logout} role="Link" style={{ padding: 0 }}>
+                        <MenuItem onClick={this.handleCloseUserMenu} style={{ color: 'red' }}>Déconnexion</MenuItem>
+                      </a>
+                    </MenuList>
+                  }
+
                 </Paper>
               </ClickOutside>
-              {!this.props.isAuthenticated &&
-              <Fragment>
-                <Link to="/login" >
-                  <Button variant="fab" className="loginButton">
-                    <LoginIcon />
-                  </Button>
-                </Link>
-              </Fragment>
-            }
 
               <Drawer anchor="left" open={this.state.left} onClose={this.toggleDrawer('left', false)}>
                 <section
@@ -212,4 +261,4 @@ class Topbar extends Component {
   }
 }
 
-export default Topbar;
+export default withRouter(Topbar);
