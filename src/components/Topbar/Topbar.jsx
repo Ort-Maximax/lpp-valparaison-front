@@ -60,13 +60,14 @@ class Topbar extends Component {
      mode: 'cors',
      cache: 'default',
    };
-   // TODO: Axios
    fetch(`${this.props.apiUrl}/auth/google`, options).then((r) => {
-     r.json().then((auth) => {
-       window.localStorage.setItem('auth', JSON.stringify(auth));
-       this.props.authenticate();
-       this.props.history.push('/browse');
-     });
+     if (r.ok) {
+       r.json().then((auth) => {
+         window.localStorage.setItem('auth', JSON.stringify(auth));
+         this.props.authenticate();
+         this.props.history.push('/browse');
+       });
+     }
    });
  };
 
