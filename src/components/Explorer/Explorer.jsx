@@ -12,8 +12,6 @@ import axios from 'axios';
 import uuidv1 from 'uuid';
 
 import Input from 'material-ui/Input';
-import Snackbar from 'material-ui/Snackbar';
-import IconButton from 'material-ui/IconButton';
 import Button from 'material-ui/Button';
 import Radio from 'material-ui/Radio';
 
@@ -22,7 +20,6 @@ import openSocket from 'socket.io-client';
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
 
-import CloseIcon from '@material-ui/icons/Close';
 import Spinner from 'img/components/Spinner';
 import Toolbar from './Toolbar/Toolbar';
 
@@ -30,10 +27,9 @@ import Toolbar from './Toolbar/Toolbar';
 import NodeViewer from './NodeViewer/NodeViewer';
 
 import './styles/Explorer.css';
-import UploadView from '../UploadView/UploadView';
 
 
-const clientId = null;
+let clientId = null;
 const processData = (data) => {
   // Iterate over all nodes
   data.children.forEach((el) => {
@@ -81,6 +77,7 @@ const setBearer = () => {
   if (window.localStorage.getItem('auth')) {
     const auth = JSON.parse(window.localStorage.getItem('auth'));
     axios.defaults.headers.common.Authorization = `Bearer ${auth.token}`;
+    clientId = auth.user.id;
   } else {
     window.setTimeout(setBearer, 1000);
   }
@@ -101,10 +98,7 @@ class Explorer extends React.Component {
       renameDialog: false,
       convertDialog: false,
       deleteDialog: false,
-      uploadView: false,
       newFileName: '',
-      snackOpen: false,
-      snackText: '',
     };
   }
 
@@ -171,7 +165,6 @@ class Explorer extends React.Component {
     } else {
       this.setState({ uploadQueue: [...files] });
     }
-    this.setState({ uploadView: true });
 
     const config = {
       onUploadProgress: progressEvent => console.log(progressEvent.loaded),
@@ -255,10 +248,6 @@ class Explorer extends React.Component {
     }
   };
 
-  hideUploadView = () => {
-    this.setState({ uploadView: false });
-  }
-
   subscribe = () => {
     const socket = openSocket(this.props.apiUrl);
     socket.on(`dataChange${clientId}`, () => {
@@ -277,7 +266,7 @@ class Explorer extends React.Component {
       path: this.state.cursor.path,
     };
     axios.post(`${this.props.apiUrl}/createDirectory`, postData)
-      .error((err) => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -311,7 +300,7 @@ class Explorer extends React.Component {
       };
 
       axios.post(`${this.props.apiUrl}/renameElement`, postData)
-        .error((err) => {
+        .catch((err) => {
           console.log(err);
         });
 
@@ -336,10 +325,7 @@ class Explorer extends React.Component {
 
   confirmDelete = () => {
     const elements = this.state.selectedElements.map(el => el.path);
-    axios.post(`${this.props.apiUrl}/removeElement`, elements).then(() => {
-      this.setState({ snackOpen: true, snackText: 'Supression effectuée' });
-    });
-
+    axios.post(`${this.props.apiUrl}/removeElement`, elements);
     this.closeDeleteDialog();
   }
 
@@ -370,11 +356,6 @@ class Explorer extends React.Component {
   closeConvertDialog = () => {
     this.setState({ convertDialog: false });
   }
-
-  closeSnack = () => {
-    this.setState({ snackOpen: false });
-  }
-
 
   render() {
     return (
@@ -434,10 +415,11 @@ class Explorer extends React.Component {
                   apiUrl={this.props.apiUrl}
                   cursor={this.state.cursor}
                   selectedElements={this.state.selectedElements}
+                  uploadQueue={this.state.uploadQueue}
+                  clearUploadQueue={this.clearUploadQueue}
                   toggleSelect={this.state.toggleSelect}
 
                   onCursorChange={this.onCursorChange}
-                  onPlaylistChange={this.props.onPlaylistChange}
                   onSelectedElementsChange={this.onSelectedElementsChange}
 
                   handleAddClick={this.handleAddClick}
@@ -452,15 +434,6 @@ class Explorer extends React.Component {
                   flex="true"
                 />
               </Grid>
-
-              <section className="dl-view" style={{ bottom: this.props.audioPlayer ? 100 : 50 }} >
-                <UploadView
-                  visible={this.state.uploadView}
-                  onClose={this.hideUploadView}
-                  clearUploadQueue={this.clearUploadQueue}
-                  uploadQueue={this.state.uploadQueue}
-                />
-              </section>
             </Fragment>
       }
 
@@ -581,31 +554,6 @@ class Explorer extends React.Component {
             }
           </Rodal>
         }
-
-
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-          open={this.state.snackOpen}
-          autoHideDuration={1000}
-          onClose={this.closeSnack}
-          contentprops={{
-            'aria-describedby': 'message-id',
-          }}
-          message={<span id="message-id">{this.state.snackText}</span>}
-          action={
-            <IconButton
-              key="close"
-              aria-label="Close"
-              color="inherit"
-              onClick={this.closeSnack}
-            >
-              <CloseIcon />
-            </IconButton>
-          }
-        />
       </Fragment>
 
     );

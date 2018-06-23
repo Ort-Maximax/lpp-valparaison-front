@@ -13,13 +13,13 @@ import { ContextMenu, ContextMenuTrigger } from 'react-contextmenu';
 import CloudDown from 'img/components/CloudDown';
 import IconButton from 'material-ui/IconButton';
 
+import AudioPlayer from './AudioPlayer/AudioPlayer';
+import UploadView from './UploadView/UploadView';
 
 import NvContext from './NvContext/NvContext';
-
-
-import './styles/NodeViewer.css';
 import Element from './Element/Element';
 import VideoPlayer from './VideoPlayer/VideoPlayer';
+import './styles/NodeViewer.css';
 
 
 class NodeViewer extends React.Component {
@@ -31,6 +31,8 @@ class NodeViewer extends React.Component {
       contextMenu: false,
       dragDialogVisible: false,
       videoDialogVisible: false,
+      uploadView: false,
+      musicPlaylist: [],
       currentVideo: {},
     };
 
@@ -107,7 +109,7 @@ class NodeViewer extends React.Component {
         case ('.ogg'):
         case ('.wav'):
         case ('.flac'):
-          this.props.onPlaylistChange({ name: node.name, src: `${this.props.apiUrl}/streamFile?path=${node.path}` });
+          this.onPlaylistChange({ name: node.name, src: `${this.props.apiUrl}/streamFile?path=${node.path}` });
 
           break;
         case ('.jpg'):
@@ -146,12 +148,22 @@ class NodeViewer extends React.Component {
     // TODO:
     // Upload les fichiers
     // Affiche la boite de dialogue d'upload ala gdrive
+    this.setState({ uploadView: true });
     this.props.onDrop(files);
     // Disable jusqu'a ce que le fichier soit uploadé
   }
 
   onTouchmove = () => {
     this.setState({ dragging: true });
+  }
+
+  onPlaylistChange = (sound) => {
+    this.setState({ musicPlaylist: [sound] });
+    this.setState({ audioPlayer: true });
+  }
+
+  onToggleAudioPlayer = () => {
+    this.setState({ audioPlayer: !this.state.audioPlayer });
   }
 
   keypressFunction = (e) => {
@@ -167,6 +179,10 @@ class NodeViewer extends React.Component {
 
   hideDragDialog = () => {
     this.setState({ dragDialogVisible: false });
+  }
+
+  hideUploadView = () => {
+    this.setState({ uploadView: false });
   }
 
   closeVideoDialog = () => {
@@ -325,6 +341,21 @@ class NodeViewer extends React.Component {
               video={this.state.currentVideo}
               open={this.state.videoDialogVisible}
               closeDialog={this.closeVideoDialog}
+            />
+
+            <section className="dl-view" style={{ bottom: this.props.audioPlayer ? 100 : 50 }} >
+              <UploadView
+                visible={this.state.uploadView}
+                onClose={this.hideUploadView}
+                clearUploadQueue={this.props.clearUploadQueue}
+                uploadQueue={this.props.uploadQueue}
+              />
+            </section>
+
+            <AudioPlayer
+              toggleAudioPlayer={this.onToggleAudioPlayer}
+              playerCollapsed={this.state.audioPlayer}
+              playlist={this.state.musicPlaylist}
             />
           </div>
         </ContextMenuTrigger>

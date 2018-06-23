@@ -4,13 +4,11 @@ import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import decode from 'jwt-decode';
+import axios from 'axios';
 
 import Home from '../Home/Home';
 import Topbar from '../Topbar/Topbar';
 import Pricings from '../Pricings/Pricings';
-import AudioPlayer from '../AudioPlayer/AudioPlayer';
-/* import Login from '../Login/Login'; */
-/* import Signup from '../Signup/Signup'; */
 import Explorer from '../Explorer/Explorer';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
@@ -21,8 +19,6 @@ class App extends Component {
     super(props);
     this.state = {
       isAuthenticated: false,
-      musicPlaylist: [],
-      audioPlayer: false,
     };
     // this.apiUrl = 'https://valparaiso-mockup.herokuapp.com'; // Pour netlify
     this.apiUrl = 'http://valparaiso.fr:3009'; // Pour dev
@@ -34,22 +30,17 @@ class App extends Component {
     if (auth) {
       const decoded = decode(auth.token);
       if (decoded.exp) {
-        console.log(decoded);
-        // TODO: Recup l'heure du serveur, si l'expiration est passé, auth = false
-        if (true) {
-          this.authenticate();
-        }
+        // Recup l'heure du serveur, si l'expiration est passé, auth = false
+        axios.get(`${this.apiUrl}/time`).then((res) => {
+          console.log(`API Url : ${this.apiUrl}`);
+          if (res.data < (decoded.exp * 1000)) {
+            this.authenticate();
+          } else {
+            this.logout();
+          }
+        });
       }
     }
-  }
-
-  onPlaylistChange = (sound) => {
-    this.setState({ musicPlaylist: [sound] });
-    this.setState({ audioPlayer: true });
-  }
-
-  onToggleAudioPlayer = () => {
-    this.setState({ audioPlayer: !this.state.audioPlayer });
   }
 
   authenticate = () => {
@@ -62,7 +53,6 @@ class App extends Component {
   };
 
   render() {
-    console.log(`API Url : ${this.apiUrl}`);
     return (
       <Router>
         <Fragment>
@@ -83,32 +73,7 @@ class App extends Component {
             auth={this.state.isAuthenticated}
             component={() =>
                 (<Explorer
-                  audioPlayer={this.state.audioPlayer}
-                  onPlaylistChange={this.onPlaylistChange}
                   apiUrl={this.apiUrl}
-                />)}
-          />
-          {/*
-            <Route
-              path="/login"
-              exact
-              component={() =>
-                  (<Login
-                    authenticate={this.authenticate}
-                    logout={this.logout}
-                    apiUrl={this.apiUrl}
-                  />)}
-            />
-          */}
-
-          <Route
-            path="/"
-            component={() =>
-                (<AudioPlayer
-                  toggleAudioPlayer={this.onToggleAudioPlayer}
-                  playerCollapsed={this.state.audioPlayer}
-                  playlist={this.state.musicPlaylist}
-                  isAuthenticated={this.state.isAuthenticated}
                 />)}
           />
         </Fragment>
