@@ -84,9 +84,6 @@ a:hover {
   height: 35px;
   background-color: aliceblue;
 }
-.topBarContainer .loginButton svg {
-  color: black;
-}
 .topBarContainer .loginButton:hover {
   background-color: white;
 }

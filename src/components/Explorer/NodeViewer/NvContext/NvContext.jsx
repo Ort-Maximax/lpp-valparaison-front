@@ -5,10 +5,9 @@ import DeleteForever from '@material-ui/icons/DeleteForever';
 import Transform from '@material-ui/icons/Transform';
 
 import Paper from 'material-ui/Paper';
+import Divider from 'material-ui/Divider';
 
 import { MenuItem } from 'react-contextmenu';
-
-import Divider from 'material-ui/Divider';
 
 const NvContext = props => (
   <Paper className="noselect">
