@@ -22,7 +22,7 @@ import Divider from 'material-ui/Divider';
 import ClickOutside from 'react-click-outside';
 import Paper from 'material-ui/Paper';
 import { MenuItem, MenuList } from 'material-ui/Menu';
-import { GoogleLogin } from 'react-google-login';
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
 /* Icons */
 import MenuIcon from '@material-ui/icons/Menu';
@@ -203,9 +203,14 @@ class Topbar extends Component {
                       {/* TODO: mettre les links */}
                       <MenuItem onClick={this.handleCloseUserMenu}>Profile</MenuItem>
                       <MenuItem onClick={this.handleCloseUserMenu}>Mon compte</MenuItem>
-                      <a onClick={this.props.logout} role="Link" style={{ padding: 0 }}>
+                      <GoogleLogout
+                        onLogoutSuccess={this.props.logout}
+                        className="test"
+                        tag="a"
+                      >
                         <MenuItem onClick={this.handleCloseUserMenu} style={{ color: 'red' }}>Déconnexion</MenuItem>
-                      </a>
+
+                      </GoogleLogout>
                     </MenuList>
                   }
 
@@ -241,14 +246,18 @@ class Topbar extends Component {
                         </ListItem>
                       </Link>
                       <Divider />
-                      <a onClick={this.props.logout} role="Link">
+                      <GoogleLogout
+                        onLogoutSuccess={this.props.logout}
+                        className="test"
+                        tag="a"
+                      >
                         <ListItem>
                           <ListItemIcon>
                             <LogoutIcon style={{ color: 'red' }} />
                           </ListItemIcon>
                           <ListItemText primary="Déconnexion" />
                         </ListItem>
-                      </a>
+                      </GoogleLogout>
                     </Fragment>
                   }
                   </List>

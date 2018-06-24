@@ -343,7 +343,7 @@ class NodeViewer extends React.Component {
               closeDialog={this.closeVideoDialog}
             />
 
-            <section className="dl-view" style={{ bottom: this.props.audioPlayer ? 100 : 50 }} >
+            <section className="dl-view" style={{ bottom: this.state.audioPlayer ? 100 : 50 }} >
               <UploadView
                 visible={this.state.uploadView}
                 onClose={this.hideUploadView}
