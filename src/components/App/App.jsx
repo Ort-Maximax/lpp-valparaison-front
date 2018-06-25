@@ -20,12 +20,12 @@ class App extends Component {
     this.state = {
       isAuthenticated: false,
     };
-    this.apiUrl = 'https://valparaiso-mockup.herokuapp.com'; // Pour netlify
-    // this.apiUrl = 'http://valparaiso.fr:3009'; // Pour dev
-    // this.apiUrl = 'https://api.valparaiso.fr'; // Pour la prod
+    this.apiUrl = process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL : 'https://valparaiso-mockup.herokuapp.com';
   }
 
   componentWillMount = () => {
+    console.log(process.env.REACT_APP_API_URL);
+    console.log(this.apiUrl);
     const auth = JSON.parse(window.localStorage.getItem('auth'));
     if (auth) {
       const decoded = decode(auth.token);
@@ -53,6 +53,7 @@ class App extends Component {
   };
 
   render() {
+    console.log(process.env);
     return (
       <Router>
         <Fragment>

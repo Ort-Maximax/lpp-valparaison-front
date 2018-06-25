@@ -7,6 +7,7 @@
     "@material-ui/icons": "^1.0.0-beta.43",
     "axios": "^0.18.0",
     "classnames": "^2.2.5",
+    "dotenv": "^6.0.0",
     "font-awesome": "^4.7.0",
     "history": "^4.7.2",
     "js-file-download": "^0.4.1",
@@ -37,9 +38,14 @@
   },
   "scripts": {
     "analyze": "source-map-explorer build/static/js/main.*",
-    "start": "NODE_PATH=./src PORT=80 react-scripts start",
-    "build": "NODE_PATH=./src react-scripts build",
-    "build:svg": "svgr --single-quote --ext jsx ./src/img/svg/ -d ./src/img/components/",
+
+    "start:dev": "dotenv -e .env.development NODE_PATH=./src PORT=80 react-scripts start",
+
+    "build:dev": "dotenv -e .env.development NODE_PATH=./src react-scripts build",
+    "build:prod": "dotenv -e .env.production NODE_PATH=./src react-scripts build",
+    "build:netlify": "dotenv -e .env.netlify NODE_PATH=./src react-scripts build",
+
+    "svgr": "svgr --single-quote --ext jsx ./src/img/svg/ -d ./src/img/components/",
     "serve:build": "sudo serve --port 80 -s build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

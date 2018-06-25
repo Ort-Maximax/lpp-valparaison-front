@@ -189,7 +189,7 @@ class Topbar extends Component {
                           className="test"
                           tag="div"
                         >
-                          <Button variant="fab" className="loginButton">
+                          <Button variant="fab" className="loginButton" >
                             <Google style={{ width: 20 }} />
                           </Button>
 
