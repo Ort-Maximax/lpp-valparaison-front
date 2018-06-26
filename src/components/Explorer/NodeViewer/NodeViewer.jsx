@@ -145,12 +145,8 @@ class NodeViewer extends React.Component {
 
   onDrop = (files) => {
     this.hideDragDialog();
-    // TODO:
-    // Upload les fichiers
-    // Affiche la boite de dialogue d'upload ala gdrive
     this.setState({ uploadView: true });
     this.props.onDrop(files);
-    // Disable jusqu'a ce que le fichier soit uploadé
   }
 
   onTouchmove = () => {
@@ -324,14 +320,14 @@ class NodeViewer extends React.Component {
 
               {
                 (filesElem && filesElem.length === 0)
-                 && (folderChildren && folderChildren.length === 0) &&
-                 <div className="nothing-here">
-                   <h1 > {"Il n'y a rien ici"} </h1>
-                   <IconButton onClick={this.props.handleAddClick}>
-                     <CloudDown />
-                   </IconButton>
-                   <h3> {"Drag'n'Drop, ou cliquez sur l'icone pour ajouter des fichiers"} </h3>
-                 </div>
+                && (folderChildren && folderChildren.length === 0) &&
+                <div className="nothing-here">
+                  <h1 > {"Il n'y a rien ici"} </h1>
+                  <IconButton onClick={this.props.handleAddClick}>
+                    <CloudDown />
+                  </IconButton>
+                  <h3> {"Drag'n'Drop, ou cliquez sur l'icone pour ajouter des fichiers"} </h3>
+                </div>
 
               }
 

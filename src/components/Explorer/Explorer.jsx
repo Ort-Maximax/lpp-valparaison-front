@@ -187,7 +187,7 @@ class Explorer extends React.Component {
 
   setDropzoneRef = (node) => {
     if (node &&
-       (!this.state.dropzone || (this.state.dropzone && this.state.dropzone.node !== node.node))) {
+      (!this.state.dropzone || (this.state.dropzone && this.state.dropzone.node !== node.node))) {
       this.setState({ dropzone: node });
     }
   }
@@ -219,7 +219,7 @@ class Explorer extends React.Component {
           const newCursor = processData(apiData);
 
           if (this.state.lastDir) {
-          // TODO: a revoir
+          // TODO: a revoir, faire avec l'ID plutot
             const getLastDir = (cursor) => {
               if (cursor.name === this.state.lastDir) {
                 this.setState({ matchedLastDir: cursor });
@@ -230,7 +230,6 @@ class Explorer extends React.Component {
             };
             getLastDir(newCursor);
           }
-          // TODO: a revoir, ne pas muter l'objet
           this.setState({
             cursor: this.state.matchedLastDir ? this.state.matchedLastDir : newCursor,
           });

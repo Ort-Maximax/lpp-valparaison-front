@@ -95,7 +95,7 @@ const Element = ({
                   checked={selected}
                   color="primary"
                 />
-               }
+                }
 
               </CardContent>
             </Tooltip>

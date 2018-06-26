@@ -23,7 +23,6 @@ import ClickOutside from 'react-click-outside';
 import Paper from 'material-ui/Paper';
 import { MenuItem, MenuList } from 'material-ui/Menu';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
-
 /* Icons */
 import MenuIcon from '@material-ui/icons/Menu';
 import ProtectedIcon from '@material-ui/icons/LockOutline';
@@ -52,24 +51,24 @@ class Topbar extends Component {
     this.props.logout();
   };
 
- googleResponse = (response) => {
-   const tokenBlob = new Blob([JSON.stringify({ access_token: response.accessToken }, null, 2)], { type: 'application/json' });
-   const options = {
-     method: 'POST',
-     body: tokenBlob,
-     mode: 'cors',
-     cache: 'default',
-   };
-   fetch(`${this.props.apiUrl}/auth/google`, options).then((r) => {
-     if (r.ok) {
-       r.json().then((auth) => {
-         window.localStorage.setItem('auth', JSON.stringify(auth));
-         this.props.authenticate();
-         this.props.history.push('/browse');
-       });
-     }
-   });
- };
+  googleResponse = (response) => {
+    const tokenBlob = new Blob([JSON.stringify({ access_token: response.accessToken }, null, 2)], { type: 'application/json' });
+    const options = {
+      method: 'POST',
+      body: tokenBlob,
+      mode: 'cors',
+      cache: 'default',
+    };
+    fetch(`${this.props.apiUrl}/auth/google`, options).then((r) => {
+      if (r.ok) {
+        r.json().then((auth) => {
+          window.localStorage.setItem('auth', JSON.stringify(auth));
+          this.props.authenticate();
+          this.props.history.push('/browse');
+        });
+      }
+    });
+  };
 
   toggleUserMenu = () => {
     this.setState({
@@ -182,18 +181,20 @@ class Topbar extends Component {
                           Bonjour {clientFirstName} !
                         </Typography>
                       :
-                        <GoogleLogin
-                          clientId="979187681926-as6gk94f9pfhl2ob739rjn8lhnk37oqv.apps.googleusercontent.com"
-                          onSuccess={this.googleResponse}
-                          onFailure={this.googleResponse}
-                          className="test"
-                          tag="div"
-                        >
-                          <Button variant="fab" className="loginButton" >
-                            <Google style={{ width: 20 }} />
-                          </Button>
+                        <Fragment>
+                          <GoogleLogin
+                            clientId="979187681926-as6gk94f9pfhl2ob739rjn8lhnk37oqv.apps.googleusercontent.com"
+                            onSuccess={this.googleResponse}
+                            onFailure={this.googleResponse}
+                            className="test"
+                            tag="div"
+                          >
+                            <Button variant="fab" className="loginButton" >
+                              <Google style={{ width: 20 }} />
+                            </Button>
 
-                        </GoogleLogin>
+                          </GoogleLogin>
+                        </Fragment>
                     }
 
                   </div>
