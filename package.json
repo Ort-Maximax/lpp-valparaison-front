@@ -38,10 +38,14 @@
   },
   "scripts": {
     "analyze": "source-map-explorer build/static/js/main.*",
+
     "start:dev": "dotenv -e .env.development react-scripts start",
+    "start:net": "dotenv -e .env.netlify react-scripts start",
+
     "build:dev": "dotenv -e .env.development react-scripts build",
     "build:prod": "dotenv -e .env.production react-scripts build",
     "build:netlify": "dotenv -e .env.netlify react-scripts build",
+
     "svgr": "svgr --single-quote --ext jsx ./src/img/svg/ -d ./src/img/components/",
     "serve:build": "sudo serve --port 80 -s build",
     "test": "react-scripts test --env=jsdom",

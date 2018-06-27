@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import Home from '@material-ui/icons/Home';
 import Grid from 'material-ui/Grid';
 import './styles/Crumb.css';
@@ -24,4 +26,14 @@ const Crumb = props => (
   </div>
 );
 
-export default(Crumb);
+Crumb.propTypes = {
+  cursor: PropTypes.object.isRequired,
+  onCursorChange: PropTypes.func.isRequired,
+  selected: PropTypes.bool,
+};
+
+Crumb.defaultProps = {
+  selected: false,
+};
+
+export default Crumb;

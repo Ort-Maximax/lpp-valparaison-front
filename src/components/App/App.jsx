@@ -24,7 +24,6 @@ class App extends Component {
   }
 
   componentWillMount = () => {
-    console.log(process.env.REACT_APP_API_URL);
     console.log(this.apiUrl);
     const auth = JSON.parse(window.localStorage.getItem('auth'));
     if (auth) {

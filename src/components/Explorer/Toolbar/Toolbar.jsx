@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
@@ -95,8 +96,8 @@ class Toolbar extends React.Component {
             >
               <Grid item id="breadcrumbs-container" style={{ width: 'calc(100% - 125px)', padding: 0 }}>
                 <Breadcrumbs
-                  onCursorChange={this.props.onCursorChange}
                   cursor={this.props.cursor}
+                  onCursorChange={this.props.onCursorChange}
                 />
               </Grid>
 
@@ -208,4 +209,26 @@ class Toolbar extends React.Component {
   }
 }
 
+Toolbar.propTypes = {
+  cursor: PropTypes.object.isRequired,
+
+  searchbar: PropTypes.bool.isRequired,
+  toggleSelect: PropTypes.bool.isRequired,
+
+  selectedElements: PropTypes.array.isRequired,
+
+  onSearchbarUpdate: PropTypes.func.isRequired,
+  onSearchQueryChange: PropTypes.func.isRequired,
+  onToggleSelect: PropTypes.func.isRequired,
+  onCursorChange: PropTypes.func.isRequired,
+
+  handleAddClick: PropTypes.func.isRequired,
+  handleNewFolderClick: PropTypes.func.isRequired,
+  handleRenameClick: PropTypes.func.isRequired,
+  handleDeleteClick: PropTypes.func.isRequired,
+  handleDownloadClick: PropTypes.func.isRequired,
+  handleConvertClick: PropTypes.func.isRequired,
+
+
+};
 export default (Toolbar);

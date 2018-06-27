@@ -3,6 +3,7 @@
 /* eslint prefer-destructuring: 0 */
 
 import React, { Fragment, Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 
 /* Appbar */
@@ -271,5 +272,12 @@ class Topbar extends Component {
     );
   }
 }
+
+Topbar.propTypes = {
+  logout: PropTypes.func.isRequired,
+  authenticate: PropTypes.func.isRequired,
+  apiUrl: PropTypes.string.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+};
 
 export default withRouter(Topbar);

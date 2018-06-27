@@ -1,6 +1,8 @@
 /* global FormData, window */
 /* eslint no-param-reassign: 0 */
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
+
 import Grid from 'material-ui/Grid';
 
 import sortBy from 'lodash.sortby';
@@ -94,6 +96,7 @@ class Explorer extends React.Component {
       storedCursor: undefined,
       searchbar: false,
       toggleSelect: false,
+      uploadQueue: [],
       selectedElements: [],
       renameDialog: false,
       convertDialog: false,
@@ -382,8 +385,12 @@ class Explorer extends React.Component {
               >
                 <Toolbar
                   cursor={this.state.cursor}
+
                   searchbar={this.state.searchbar}
+                  toggleSelect={this.state.toggleSelect}
+
                   selectedElements={this.state.selectedElements}
+
                   onSearchbarUpdate={this.onSearchbarUpdate}
                   onSearchQueryChange={this.onSearchQueryChange}
                   onToggleSelect={this.onToggleSelect}
@@ -395,7 +402,7 @@ class Explorer extends React.Component {
                   handleDeleteClick={this.handleDeleteClick}
                   handleDownloadClick={this.handleDownloadClick}
                   handleConvertClick={this.handleConvertClick}
-                  toggleSelect={this.state.toggleSelect}
+
                 />
               </Grid>
               <Grid
@@ -411,15 +418,21 @@ class Explorer extends React.Component {
                 direction="row"
               >
                 <NodeViewer
-                  apiUrl={this.props.apiUrl}
                   cursor={this.state.cursor}
+                  apiUrl={this.props.apiUrl}
+
+                  toggleSelect={this.state.toggleSelect}
+
                   selectedElements={this.state.selectedElements}
                   uploadQueue={this.state.uploadQueue}
+
                   clearUploadQueue={this.clearUploadQueue}
-                  toggleSelect={this.state.toggleSelect}
+                  setDropzoneRef={this.setDropzoneRef}
+
 
                   onCursorChange={this.onCursorChange}
                   onSelectedElementsChange={this.onSelectedElementsChange}
+                  onDrop={this.onDrop}
 
                   handleAddClick={this.handleAddClick}
                   handleNewFolderClick={this.handleNewFolderClick}
@@ -428,8 +441,6 @@ class Explorer extends React.Component {
                   handleDownloadClick={this.handleDownloadClick}
                   handleConvertClick={this.handleConvertClick}
 
-                  setDropzoneRef={this.setDropzoneRef}
-                  onDrop={this.onDrop}
                   flex="true"
                 />
               </Grid>
@@ -558,4 +569,7 @@ class Explorer extends React.Component {
     );
   }
 }
+Explorer.propTypes = {
+  apiUrl: PropTypes.string.isRequired,
+};
 export default Explorer;

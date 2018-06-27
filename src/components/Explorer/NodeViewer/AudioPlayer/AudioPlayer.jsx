@@ -1,6 +1,8 @@
 /* global Event */
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+
 import Audio from 'react-audioplayer';
 
 import Grid from 'material-ui/Grid';
@@ -67,5 +69,17 @@ class AudioPlayer extends React.Component {
     );
   }
 }
+
+AudioPlayer.propTypes = {
+  toggleAudioPlayer: PropTypes.func.isRequired,
+  playerCollapsed: PropTypes.bool,
+  playlist: PropTypes.array,
+};
+
+AudioPlayer.defaultProps = {
+  playerCollapsed: true,
+  playlist: [],
+
+};
 
 export default AudioPlayer;

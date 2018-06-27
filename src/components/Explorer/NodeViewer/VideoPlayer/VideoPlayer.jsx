@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import Dialog from 'material-ui/Dialog';
 import Grid from 'material-ui/Grid';
 
@@ -33,5 +35,16 @@ const VideoPlayer = props => (
     </Grid>
   </Dialog>
 );
+
+VideoPlayer.propTypes = {
+  video: PropTypes.object,
+  open: PropTypes.bool,
+  closeDialog: PropTypes.func.isRequired,
+};
+
+VideoPlayer.defaultProps = {
+  video: {},
+  open: false,
+};
 
 export default VideoPlayer;

@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import Paper from 'material-ui/Paper';
 import Grid from 'material-ui/Grid';
 
@@ -89,6 +91,16 @@ class UploadView extends React.Component {
     );
   }
 }
+UploadView.propTypes = {
+  visible: PropTypes.bool,
+  uploadQueue: PropTypes.array,
+  onClose: PropTypes.func.isRequired,
+  clearUploadQueue: PropTypes.func.isRequired,
+};
+
+UploadView.defaultProps = {
+  visible: false,
+  uploadQueue: [],
+};
 
 export default UploadView;
-

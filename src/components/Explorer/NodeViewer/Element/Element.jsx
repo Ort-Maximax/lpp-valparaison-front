@@ -3,6 +3,8 @@
 /* eslint no-plusplus: 0 */
 /* eslint func-names: 0 */
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
+
 import Card, { CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 
@@ -139,6 +141,18 @@ const Element = ({
       }
     </Fragment>
   );
+};
+
+Element.propTypes = {
+  node: PropTypes.object.isRequired,
+  isFolder: PropTypes.bool.isRequired,
+  selected: PropTypes.bool,
+  toggleSelect: PropTypes.bool,
+};
+
+Element.defaultProps = {
+  selected: false,
+  toggleSelect: false,
 };
 
 export default (Element);

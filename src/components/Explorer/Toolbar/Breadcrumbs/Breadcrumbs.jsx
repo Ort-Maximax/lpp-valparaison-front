@@ -1,5 +1,7 @@
 /* eslint no-param-reassign: 0 */
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import Grid from 'material-ui/Grid';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
@@ -92,5 +94,10 @@ class Breadcrumbs extends React.Component {
     );
   }
 }
+
+Breadcrumbs.propTypes = {
+  cursor: PropTypes.object.isRequired,
+  onCursorChange: PropTypes.func.isRequired,
+};
 
 export default(Breadcrumbs);

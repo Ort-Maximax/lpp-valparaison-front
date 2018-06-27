@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import CloudDownload from '@material-ui/icons/CloudDownload';
 import DeleteForever from '@material-ui/icons/DeleteForever';
@@ -63,5 +64,20 @@ const NvContext = props => (
       <div>Convertir</div>
     </MenuItem>
   </Paper>);
+
+NvContext.propTypes = {
+  selectedElements: PropTypes.array,
+
+  handleAddClick: PropTypes.func.isRequired,
+  handleNewFolderClick: PropTypes.func.isRequired,
+  handleRenameClick: PropTypes.func.isRequired,
+  handleDeleteClick: PropTypes.func.isRequired,
+  handleDownloadClick: PropTypes.func.isRequired,
+  handleConvertClick: PropTypes.func.isRequired,
+};
+
+NvContext.defaultProps = {
+  selectedElements: [],
+};
 
 export default NvContext;

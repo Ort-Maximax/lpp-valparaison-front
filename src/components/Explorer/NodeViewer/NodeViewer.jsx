@@ -1,5 +1,6 @@
 /* global document */
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 import Dropzone from 'react-dropzone';
 
@@ -342,9 +343,9 @@ class NodeViewer extends React.Component {
             <section className="dl-view" style={{ bottom: this.state.audioPlayer ? 100 : 50 }} >
               <UploadView
                 visible={this.state.uploadView}
+                uploadQueue={this.props.uploadQueue}
                 onClose={this.hideUploadView}
                 clearUploadQueue={this.props.clearUploadQueue}
-                uploadQueue={this.props.uploadQueue}
               />
             </section>
 
@@ -358,9 +359,10 @@ class NodeViewer extends React.Component {
 
         <ContextMenu id="nv-context-menu">
           <NvContext
+            selectedElements={this.props.selectedElements}
+
             handleAddClick={this.props.handleAddClick}
             handleNewFolderClick={this.props.handleNewFolderClick}
-            selectedElements={this.props.selectedElements}
             handleRenameClick={this.props.handleRenameClick}
             handleDeleteClick={this.props.handleDeleteClick}
             handleDownloadClick={this.props.handleDownloadClick}
@@ -373,5 +375,35 @@ class NodeViewer extends React.Component {
     );
   }
 }
+NodeViewer.propTypes = {
+  cursor: PropTypes.object.isRequired,
+  apiUrl: PropTypes.string.isRequired,
+
+  toggleSelect: PropTypes.bool,
+
+  selectedElements: PropTypes.array,
+  uploadQueue: PropTypes.array,
+
+  clearUploadQueue: PropTypes.func.isRequired,
+  setDropzoneRef: PropTypes.func.isRequired,
+
+  onCursorChange: PropTypes.func.isRequired,
+  onSelectedElementsChange: PropTypes.func.isRequired,
+  onDrop: PropTypes.func.isRequired,
+
+  handleAddClick: PropTypes.func.isRequired,
+  handleNewFolderClick: PropTypes.func.isRequired,
+  handleRenameClick: PropTypes.func.isRequired,
+  handleDeleteClick: PropTypes.func.isRequired,
+  handleDownloadClick: PropTypes.func.isRequired,
+  handleConvertClick: PropTypes.func.isRequired,
+};
+
+NodeViewer.defaultProps = {
+  toggleSelect: false,
+
+  selectedElements: [],
+  uploadQueue: [],
+};
 
 export default(NodeViewer);
