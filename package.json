@@ -25,12 +25,12 @@
     "react-dropzone": "^4.2.11",
     "react-google-login": "^3.2.1",
     "react-material-ui-form-validator": "^2.0.0-beta.4",
+    "react-motion": "^0.5.2",
     "react-player": "^1.6.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1",
     "react-social-login-buttons": "^2.0.1",
     "react-treebeard": "^2.1.0",
-    "react-twitter-auth": "^0.0.12",
     "rodal": "^1.6.3",
     "socket.io-client": "^2.1.1",
     "uuid": "^3.2.1",
@@ -38,14 +38,11 @@
   },
   "scripts": {
     "analyze": "source-map-explorer build/static/js/main.*",
-
     "start:dev": "dotenv -e .env.development react-scripts start",
     "start:net": "dotenv -e .env.netlify react-scripts start",
-
     "build:dev": "dotenv -e .env.development react-scripts build",
     "build:prod": "dotenv -e .env.production react-scripts build",
     "build:netlify": "dotenv -e .env.netlify react-scripts build",
-
     "svgr": "svgr --single-quote --ext jsx ./src/img/svg/ -d ./src/img/components/",
     "serve:build": "sudo serve --port 80 -s build",
     "test": "react-scripts test --env=jsdom",
