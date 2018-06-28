@@ -1,11 +1,12 @@
 import React from 'react';
+import Particles from 'react-particles-js';
+import particleConfig from 'libs/particleConfig';
+
 import Grid from 'material-ui/Grid';
 
 import Vulture from 'img/components/Vulture';
 import Eagle from 'img/components/Eagle';
 import Pigeon from 'img/components/Pigeon';
-
-import 'libs/stars.css';
 
 import PricingCard from './PricingCard/PricingCard';
 import './styles/Pricings.css';
@@ -30,9 +31,7 @@ const pigeonDesc = (
 
 const Pricings = () => (
   <section className="starsContainer">
-    <div id="stars" />
-    <div id="stars2" />
-    <div id="stars3" />
+    <Particles params={particleConfig} style={{ position: 'absolute' }} />
     <Grid
       container
       direction="row"

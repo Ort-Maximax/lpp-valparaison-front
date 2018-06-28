@@ -1,21 +1,23 @@
 import React from 'react';
+import Particles from 'react-particles-js';
+import particleConfig from 'libs/particleConfig';
+
 import Paper from 'material-ui/Paper';
 import Grid from 'material-ui/Grid';
 
 import { Link } from 'react-router-dom';
 
-import 'libs/stars.css';
 import CrossPlatform from 'img/components/CrossPlatform';
-import Cheap from 'img/components/Coins';
+import Piggy from 'img/components/PiggyBank';
 import Fast from 'img/components/Rocket';
+
+
 import './styles/Home.css';
 
 
 const Home = () => (
   <section className="starsContainer">
-    <div id="stars" />
-    <div id="stars2" />
-    <div id="stars3" />
+    <Particles params={particleConfig} style={{ position: 'absolute' }} />
     <div className="mainPaper">
       <Grid
         container
@@ -64,7 +66,7 @@ const Home = () => (
                 alignItems="center"
                 style={{ width: '100%', margin: 0 }}
               >
-                <Cheap id="cheap" />
+                <Piggy id="cheap" />
                 <h3> Pas cher</h3>
                 <h5>Payez pour ce que vous utilisez, 5Go gratuit</h5>
               </Grid>

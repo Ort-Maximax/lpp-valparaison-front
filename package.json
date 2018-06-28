@@ -26,6 +26,7 @@
     "react-google-login": "^3.2.1",
     "react-material-ui-form-validator": "^2.0.0-beta.4",
     "react-motion": "^0.5.2",
+    "react-particles-js": "^2.2.0",
     "react-player": "^1.6.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1",
@@ -45,7 +46,7 @@
     "build:netlify": "dotenv -e .env.netlify react-scripts build",
     "svgr": "svgr --single-quote --ext jsx ./src/img/svg/ -d ./src/img/components/",
     "serve:build": "sudo serve --port 80 -s build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "jest --env=jsdom --forceExit",
     "eject": "react-scripts eject"
   },
   "devDependencies": {

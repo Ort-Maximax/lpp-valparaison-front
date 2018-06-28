@@ -2,3 +2,4 @@ libs/**
 img/**
 node_modules/**
 build/**
+*.test*
