@@ -67,6 +67,8 @@ class Topbar extends Component {
           this.props.authenticate();
           this.props.history.push('/browse');
         });
+      } else {
+        console.log(r);
       }
     });
   };
